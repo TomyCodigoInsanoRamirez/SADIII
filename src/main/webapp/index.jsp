@@ -6,45 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login SADI</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <style>
+    /* Estilo personalizado para la imagen */
+    .custom-small-image {
+      max-width: 300px; /* Define el ancho máximo de la imagen */
+      height: auto; /* Mantiene la relación de aspecto original */
+    }
+  </style>
 </head>
-<body>
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="row w-100">
-    <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center bg-brown text-white text-center p-4">
-      <img src="path_to_your_logo_image.png" alt="SADI Logo" class="img-fluid mb-3" style="max-width: 100px;">
-      <h1>SADI</h1>
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+<div  class="align-items-center text-center justify-content-center d-flex ">
+
+
+  <!--**************************************************************-->
+  <div  class="text-center rounded-3  shadow-lg text-black d-flex">
+    <div class=" rounded-start  d-flex align-items-center" >
+      <img src="img/login.png" alt="" class="img-fluid rounded d-flex align-items-right rounded-start" width="70%">
     </div>
-    <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center p-4">
-      <form class="w-100" style="max-width: 400px;" method="post" action="inicioSesion">
-        <div class="form-group">
-          <label for="email">Correo:</label>
-          <div class="input-group">
+    <!-- *************************************************************-->
+    <div  class="align-items-center mx-auto text-center justify-content-center d-flex ">
+
+      <form method="post" action="inicioSesion">
+
+        <div class="row">
+          <div class=" mb-3">
+            <label  class="form-label">Correo Electronico: </label>
             <input type="email" id="email" class="form-control" placeholder="ejemplo: cinestomisl@gmail.com" name="correo" required>
-            <div class="input-group-append">
-              <span class="input-group-text">@</span>
-            </div>
+            <div id="emailHelp" class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="password">Contraseña:</label>
-          <div class="input-group">
+
+
+
+
+          <div class=" mb-3">
+            <label  class="form-label">Contraseña: </label>
             <input type="password" id="password" class="form-control" placeholder="XXXXXXXXXXX" required name="contra">
-            <div class="input-group-append">
-              <span class="input-group-text">🔒</span>
-            </div>
           </div>
+
+          <br>
+          <div class="justify-content-center align-items-center d-flex">
+            <button type="submit" class="btn btn-primary" >Enviar</button>
+          </div>
+
+
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
-        <a href="#" class="d-block text-center mt-3">Olvidé mi contraseña</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
       </form>
-      <div class="text-center mt-3">
-        Versión 1.0
-      </div>
     </div>
+
   </div>
 </div>
 
+<script src="js/bootstrap.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
