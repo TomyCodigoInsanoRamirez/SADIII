@@ -35,13 +35,24 @@ public class InicioSesionServlet extends HttpServlet {
         Usuario usuario = dao.getOne(user,contra);
         //System.out.println(usuario.getCorreo());
         //---------------------------------------------------------------------------
-        if (usuario.getCorreo() == null){
+        /*if (usuario.getCorreo() == null){
             System.out.println("TODO BIEN ");
             sesion.setAttribute("mensaje","El usuario no existe en la Base de datoa");
         }else{
             ruta = "bienvenido.jsp";
             sesion.removeAttribute("mensaje");
             sesion.setAttribute("usuario",usuario);
+            System.out.println("No");
+        }
+        resp.sendRedirect(ruta);*/
+        if (usuario.getCorreo() == null) {
+            System.out.println("TODO BIEN ");
+            sesion.setAttribute("mensaje", "El usuario no existe en la Base de datos");
+            ruta = "index.jsp?error=true";
+        } else {
+            ruta = "bienvenido.jsp";
+            sesion.removeAttribute("mensaje");
+            sesion.setAttribute("usuario", usuario);
             System.out.println("No");
         }
         resp.sendRedirect(ruta);
