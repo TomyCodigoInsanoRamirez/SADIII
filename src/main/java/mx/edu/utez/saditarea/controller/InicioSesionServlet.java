@@ -50,7 +50,7 @@ public class InicioSesionServlet extends HttpServlet {
             sesion.setAttribute("mensaje", "El usuario no existe en la Base de datos");
             ruta = "index.jsp?error=true";
         } else {
-            ruta = "bienvenido.jsp";
+            ruta = "home.jsp";
             sesion.removeAttribute("mensaje");
             sesion.setAttribute("usuario", usuario);
             System.out.println("No");
