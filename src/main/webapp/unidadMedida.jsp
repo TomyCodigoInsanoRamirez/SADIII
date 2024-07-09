@@ -58,26 +58,25 @@
             <div class="espacioBlancoTabla">
                 <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
+
             <table>
                 <thead>
                 <tr>
-                    <th>Clave</th>
+
                     <th>Nombre</th>
-                    <th>Descripción</th>
+                    <th>Abreviatura</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>P-0001</td>
-                    <td>Boligrafo Azul</td>
-                    <td><p>Bolígrafo azul de punta fina, de tinta azul, con una punta de 0.5 mm de grosor.</p></td>
+                    <td>lt</td>
+                    <td>Litros</td>
                     <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
                 </tr>
                 <tr>
-                    <td>P-0002</td>
-                    <td>Lápiz A2</td>
-                    <td><p>Lorem es simplemente el texto de relleno de las imprentas y archivos de texto. </p></td>
+                    <td>Kilogramos</td>
+                    <td>Kg</td>
                     <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
                 </tr>
                 </tbody>
@@ -88,21 +87,17 @@
 <!-- -->
 <div id="popup-container" class="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Areas</h2>
         <button id="close" class="close-btn" >✖</button>
     </div>
     <form>
         <div class="form-group">
-            <label for="product-key">CLAVE:</label>
+            <label for="product-key">Abreviatura:</label>
             <input type="text" id="product-key" name="product-key" placeholder="EJEMPLO:">
         </div>
         <div class="form-group">
-            <label for="product-name">NOMBRE:</label>
+            <label for="product-name">Nombre:</label>
             <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
-        </div>
-        <div class="form-group">
-            <label for="description">DESCRIPCIÓN:</label>
-            <textarea id="description" name="description" placeholder="EJEMPLO:"></textarea>
         </div>
         <button type="submit" class="add-btn">Agregar</button>
     </form>
@@ -148,4 +143,3 @@
 
 </body>
 </html>
-

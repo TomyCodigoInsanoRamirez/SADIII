@@ -1,13 +1,14 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>SADI</title>
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
-    <meta charset="UTF-8">
     <link rel='stylesheet' type='text/css' media='screen' href='css/home.css'>
 </head>
 <body>
-
+<div id="capa-obscurecer"></div>
 <div class="container">
 
     <div class="sidebar">
@@ -17,21 +18,21 @@
         <div class="menu">
             <div class="menu-item" onclick="toggleDropdown('catalogos')">Catálogos<i class="fas fa-chevron-down"></i></div>
             <div id="catalogos" class="dropdown-content">
+                <a href="home.jsp">Usuarios</a>
                 <a href="productos.jsp">Productos</a>
                 <a href="provedores.jsp">Proveedores</a>
                 <a href="areas.jsp">Áreas</a>
+                <a href="unidadMedida.jsp">Unidades de medida</a>
             </div>
             <div class="menu-item" onclick="toggleDropdown('acciones')">Acciones<i class="fas fa-chevron-down"></i></div>
             <div id="acciones" class="dropdown-content">
-                <a href="#">Registrar producto</a>
-                <a href="#">Editar producto</a>
-                <a href="#">Cambiar estado del producto</a>
-                <a href="#">Visualizar producto</a>
+                <a href="registrarEntrada.jsp">Registrar Entrada</a>
+                <a href="registrarSalidas.jsp">Registrar Salida</a>
             </div>
             <div class="menu-item" onclick="toggleDropdown('reportes')">Reportes<i class="fas fa-chevron-down"></i></div>
             <div id="reportes" class="dropdown-content">
-                <a href="#">Entrada</a>
-                <a href="#">Salida</a>
+                <a href="entradas.jsp">Entrada</a>
+                <a href="salidas.jsp">Salida</a>
             </div>
         </div>
     </div>
@@ -55,8 +56,9 @@
         </div>
         <div class="table-container">
             <div class="espacioBlancoTabla">
-                <div class="add"><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
+                <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
+
             <table>
                 <thead>
                 <tr>
@@ -69,24 +71,71 @@
                 <tbody>
                 <tr>
                     <td>DATID</td>
-                    <td>División Académica de Tecnologías de la información y diseño</td>
-                    <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas. </td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
+                    <td>División Académica de Tecnologías <br>de la información y diseño</td>
+                    <td>Lorem Ipsum es simplemente el texto <br>de relleno de las imprentas. </td>
+                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
                 </tr>
                 <tr>
                     <td>DATEFI</td>
                     <td>División Académica de Terapia Física</td>
-                    <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas. </td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
+                    <td>Lorem Ipsum es simplemente el texto<br> de relleno de las imprentas. </td>
+                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<!-- -->
+<div id="popup-container" class="popup-container">
+    <div class="popup-header">
+        <h2>Registro de Areas</h2>
+        <button id="close" class="close-btn" >✖</button>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="product-key">Acrónimo:</label>
+            <input type="text" id="product-key" name="product-key" placeholder="EJEMPLO:">
+        </div>
+        <div class="form-group">
+            <label for="product-name">Nombre:</label>
+            <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description" placeholder="EJEMPLO:"></textarea>
+        </div>
+        <button type="submit" class="add-btn">Agregar</button>
+    </form>
+</div>
 
 <script>
+    document.getElementById("add").addEventListener("click",function (event){
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if(pop.style.display === "none"){
+            pop.style.display = "block";
+            capa.style.zIndex = 1;
+            pop.style.zIndex = 2;
+            capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+        }else{
+            pop.style.display = "none";
+        }
+        event.preventDefault();
+    })
+    document.getElementById("close").addEventListener("click",function (event){
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if(pop.style.display === "none"){
+            pop.style.display = "block";
+        }else{
+            capa.style.zIndex = -1;
+            pop.style.display = "none";
+        }
+        event.preventDefault();
+    })
     function toggleDropdown(id) {
+
         var dropdown = document.getElementById(id);
         if (dropdown.style.display === "block") {
             dropdown.style.display = "none";
@@ -94,8 +143,11 @@
             dropdown.style.display = "block";
         }
     }
+
+
 </script>
 
 </body>
 </html>
+
 

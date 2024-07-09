@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Tomy
+  Date: 06/07/2024
+  Time: 06:43 p. m.
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +29,6 @@
                 <a href="productos.jsp">Productos</a>
                 <a href="provedores.jsp">Proveedores</a>
                 <a href="areas.jsp">Áreas</a>
-                <a href="unidadMedida.jsp">Unidades de medida</a>
             </div>
             <div class="menu-item" onclick="toggleDropdown('acciones')">Acciones<i class="fas fa-chevron-down"></i></div>
             <div id="acciones" class="dropdown-content">
@@ -61,23 +67,23 @@
             <table>
                 <thead>
                 <tr>
-                    <th>RFC</th>
+                    <th>Folio</th>
                     <th>Razón Social</th>
-                    <th>Nombre</th>
+                    <th>Producto</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>PEGJ900415X8Z</td>
+                    <td>E-2024-0001</td>
                     <td>Oficinas y Suministros S.A. de C.V.</td>
-                    <td>Enrique Landa Hernandez</td>
+                    <td>Boligrafo</td>
                     <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
                 </tr>
                 <tr>
-                    <td>LTGJ930415X8Z</td>
+                    <td>E-2024-0002</td>
                     <td>Materiales de papelería S.A. de C.V.</td>
-                    <td>Tomas Bartolo Bartolo</td>
+                    <td>Papel</td>
                     <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
                 </tr>
                 </tbody>
@@ -85,77 +91,68 @@
         </div>
     </div>
 </div>
-
-<!--sdasdasdsa-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Entradas</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
     <form>
-       <!-- <button id="close" class="close-btn" >✖</button> -->
+        <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
+                    <label for="billing-number">Número de facturación:</label>
+                    <input type="text" id="billing-number" name="billing-number">
                 </div>
                 <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
+                    <label for="provider-name">Nombre del proveedor:</label>
+                    <select id="provider-name" name="provider-name">
+                        <option value="Proveedor 1" title="RFC123456">Proveedor 1</option>
+                        <option value="Proveedor 2" title="RFC654321">Proveedor 2</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                    <label for="entry-date">Fecha de entrada:</label>
+                    <input type="date" id="entry-date" name="entry-date">
                 </div>
                 <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
+                    <label for="receiver-name">Nombre completo (almacenista receptor):</label>
+                    <select id="receiver-name" name="receiver-name">
+                        <option value="Almacenista 1" title="RFC789012">Almacenista 1</option>
+                        <option value="Almacenista 2" title="RFC210987">Almacenista 2</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
-
-                <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
+                    <label for="product">Producto:</label>
+                    <select id="product" name="product">
+                        <option value="Producto 1">Producto 1</option>
+                        <option value="Producto 2">Producto 2</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
                 </div>
             </div>
             <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                    <label for="unit">Unidad de medida:</label>
+                    <select id="unit" name="unit">
+                        <option value="Unidad 1">Unidad 1</option>
+                        <option value="Unidad 2">Unidad 2</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
+                    <label for="quantity">Cantidad:</label>
+                    <input type="number" id="quantity" name="quantity">
                 </div>
                 <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
+                    <label for="unit-price">Precio unitario:</label>
+                    <input type="number" id="unit-price" name="unit-price">
                 </div>
                 <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
+                    <label for="total-price">Precio total de productos:</label>
+                    <input type="number" id="total-price" name="total-price" readonly>
                 </div>
             </div>
         </div>
@@ -201,4 +198,3 @@
 
 </body>
 </html>
-
