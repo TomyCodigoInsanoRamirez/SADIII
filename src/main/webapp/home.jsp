@@ -34,7 +34,7 @@
             <nav class="nav flex-column">
                 <div class="menu-item" id="toggleCatalogos"><i class="bi bi-collection-fill" style="font-size: 1.2rem; color: rgb(48, 35, 27);"></i> Catálogos<i class="fas fa-chevron-down ml-2"
                                                                                                                                                                  style="font-synthesis-style: auto"></i></div>
-                <div id="catalogos" class="dropdown-content pl-3" style="font-size: 2rm,  grid; place-items: center; height: auto; border-radius: 30px; border: 4px solid #623320;">
+                <div id="catalogos" class="dropdown-content pl-3" style="font-size: 2rem; place-items: center; height: auto; border-radius: 30px; border: 4px solid #623320;">
                     <a class="nav-link" href="home.jsp">Usuarios</a>
                     <a class="nav-link" href="productos.jsp">Productos</a>
                     <a class="nav-link" href="provedores.jsp">Proveedores</a>
