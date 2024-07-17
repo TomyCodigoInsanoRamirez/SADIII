@@ -139,7 +139,7 @@
 
                             <tr>
                                 <td>1</td>
-                                <td>Enrique Landa</td>
+                                <td>Enrique Land</td>
                                 <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
                                 <td class="acciones">
                                     <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill"
