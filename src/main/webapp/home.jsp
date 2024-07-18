@@ -10,174 +10,197 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .bg-coffee {
-            background-color: #60503e;
+            background-color: #765e42;
+            color: #ecf0f1;
         }
+
+
         #sidebar-accordion .list-group-item {
-            background-color: #60503e;
+            background-color: #765e42;
+            border-radius: 30px;
             color: #ecf0f1;
         }
 
         #sidebar-accordion .list-group-item:hover {
-            background-color: #7b6946;
+            background-color: #483717;
             color: #ecf0f1;
         }
 
         #sidebar-accordion .list-group-item:active,
         #sidebar-accordion .list-group-item.active {
-            background-color: #a2875f;
+            background-color: #7c6a50;
             color: white;
         }
+
+        #agregar-fila {}
     </style>
 </head>
 
 <body>
 <div class="d-flex">
-    <div id="sidebar">
-        <div id="sidebar-accordion" class="accordion" style="width: 200px;">
-            <div class="list-group">
-                <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
-                   class="list-group-item list-group-item-action text-light">
-                    <i class="bi bi-collection-fill mr-3"aria-hidden="true"></i>Catalogos
-                </a>
-                <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
-                    <a href="home.jsp" class="list-group-item list-group-item-action bg-coffe text-ligth e pl-5">
-                        <i class="bi bi-people-fill mr-3"aria-hidden="true"></i>
-                        Usuarios
-                    </a>
-                    <a href="productos.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-basket2-fill mr-3"aria-hidden="true"></i>
-                        Productos
-                    </a>
-                    <a href="provedores.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-people-fill mr-3"aria-hidden="true"></i>
-                        Proveedores
-                    </a>
-                    <a href="areas.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-layers-fill mr-3"aria-hidden="true"></i>
-                        Áreas
-                    </a>
-                    <a href="unidadMedida.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-thermometer-low mr-3"aria-hidden="true"></i>
-                        Unidades de Medida
-                    </a>
-                </div>
-                <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                   class="list-group-item list-group-item-action bg-coffee text-light">
-                    <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
-                </a>
-                <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
-                    <div class="bg-coffee text-light text-center bg-coffee">Registro</div>
-                    <div class="d-flex flex-row text-center">
-                        <a href="registrarEntrada.jsp" class="list-group-item list-group-item-action bg-coffee text-light">
-                            <i class="bi bi-arrow-left-square-fill mr-3"aria-hidden="true"></i>
-                            Entrada
-                        </a>
-                        <a href="registrarSalidas.jsp" class="list-group-item list-group-item-action bg-coffee text-light">
-                            <i class="bi bi-arrow-right-square-fill mr-3"aria-hidden="true"></i>
-                            Salida
-                        </a>
-                    </div>
-                </div>
-                <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
-                   class="list-group-item list-group-item-action bg-coffee text-light">
-                    <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
-                </a>
-                <div id="profile-items" class="collapse" data-parent="#sidebar-accordion">
-                    <a href="entradas.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-clipboard-data-fill mr-3"aria-hidden="true"></i>
-                        Entrada
-                    </a>
-                    <a href="salidas.jsp" class="list-group-item list-group-item-action bg-coffee text-light pl-5">
-                        <i class="bi bi-clipboard-check-fill mr-3"aria-hidden="true"></i>
-                        Salida
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="content w-100">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-coffee">
-            <div class="container-xl">
-                <a class="navbar-brand" href="home.jsp">
-                    <img src="img/logo3.png" alt="SADI" width="140" height="50">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarsExample07XL">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    <form class="form-inline my-2 my-md-0">
-                        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-                        <a href="Profile.jsp" style="margin:10px">
-                            <i class="bi bi-person-fill" style="font-size: 2rem; color: rgb(255, 255, 255);"></i>
-                        </a>
-                    </form>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="home.jsp">
+                <img src="img/logo1.png" alt="SADI" width="140" height="50">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarsExample07XL">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <form class="form-inline my-2 my-md-0">
+                    <a href="Profile.jsp" style="margin:10px">
+                        <i class="bi bi-person-circle" style="font-size: 2rem; color: rgb(110, 82, 45);"></i>
+                    </a>
+                </form>
             </div>
         </nav>
         <section class="p-3">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID_Usuario</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Acciones</th>
-                                <th>
-                                    <button id="agregar-fila" class="btn btn-primary btn-circular"><i
-                                            class="bi bi-person-fill-add"
-                                            style="font-size: 1.3rem; color: rgb(255, 255, 255);"></i></button>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody id="tabla-body">
-
-                            <tr>
-                                <td>1</td>
-                                <td>Enrique Land</td>
-                                <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                <td class="acciones">
-                                    <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill"
-                                                                                    style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                    <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-square"
-                                                                                style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-
-                                    <template>
-                                        <div>
-                                            <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                            </b-form-checkbox>
+                    <div class="col-md-3 p-0">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="sidebar" class="h-100">
+                            <div id="sidebar-accordion" class="accordion" style="width: 70%;">
+                                <div class="list-group" style="margin-top: 10px;">
+                                    <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action text-light mb-2" id="item">
+                                        <i class="bi bi-collection-fill mr-3" aria-hidden="true" ></i>Catálogos
+                                    </a>
+                                    <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <a href="home.jsp"
+                                           class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1">
+                                            <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                            Usuarios
+                                        </a>
+                                        <a href="productos.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
+                                            Productos
+                                        </a>
+                                        <a href="provedores.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                            Proveedores
+                                        </a>
+                                        <a href="areas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-layers-fill mr-3" aria-hidden="true"></i>
+                                            Áreas
+                                        </a>
+                                        <a href="unidadMedida.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-thermometer-low mr-3" aria-hidden="true"></i>
+                                            Unidades de Medida
+                                        </a>
+                                    </div>
+                                    <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
+                                        <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                                    </a>
+                                    <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <div class="bg-coffee text-light text-center">Registro</div>
+                                        <div class="d-flex flex-row text-center" >
+                                            <a href="registrarEntrada.jsp"
+                                               class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                                <i class="bi bi-arrow-left-square-fill mr-3" aria-hidden="true"></i>
+                                                Entrada
+                                            </a>
+                                            <a href="registrarSalidas.jsp"
+                                               class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                                <i class="bi bi-arrow-right-square-fill mr-3"
+                                                   aria-hidden="true"></i>
+                                                Salida
+                                            </a>
                                         </div>
-                                    </template>
+                                    </div>
+                                    <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
+                                        <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
+                                    </a>
+                                    <div id="profile-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <a href="entradas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-clipboard-data-fill mr-3" aria-hidden="true"></i>
+                                            Entrada
+                                        </a>
+                                        <a href="salidas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                            Salida
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Tomas Bartolo</td>
-                                <td><a href="mailto:20235tn172@utez.edu.mx">20235tn172@utez.edu.mx</a></td>
-                                <td class="acciones">
-                                    <img src="img/visibility_24dp.png" width="30px">
-                                    <img src="img/iconolapiz-removebg-preview.png" width="30px">
-                                    <label class="switch">
-                                        <input type="checkbox" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                        </div>
                     </div>
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between align-items-center" style="margin: 15px;">
+                            <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                                <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div style="position: relative;">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>ID_Usuario</th>
+                                    <th>Nombre</th>
+                                    <th style="padding-left: 65px;">Correo</th>
+                                    <th style="padding-left: 45px;">Acciones</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="tabla-body">
+                                <tr>
+                                    <td>1</td>
+                                    <td>Enrique Landa</td>
+                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Enrique Landa</td>
+                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </section>
+
     </div>
 </div>
 <!-- Modal -->
@@ -199,8 +222,7 @@
     </div>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 </script>
