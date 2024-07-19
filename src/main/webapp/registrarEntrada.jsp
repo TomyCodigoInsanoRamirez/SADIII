@@ -18,7 +18,12 @@
 <div id="capa-obscurecer"></div>
 <div class="form-container">
     <h2>Registro de Entradas</h2>
-    <form>
+
+    <form action="registroEntradas" method="post">
+        <div class="form-group">
+            <label for="folio-E">Folio:</label>
+            <input type="text" id="folio-E" name="folio-E">
+        </div>
         <div class="form-group">
             <label for="billing-number">Número de facturación:</label>
             <input type="text" id="billing-number" name="billing-number">
@@ -26,9 +31,8 @@
         <div class="form-group">
             <label for="provider-name">Nombre del proveedor:</label>
             <select id="provider-name" name="provider-name">
-                <option value="Proveedor 1" title="RFC123456">Proveedor 1</option>
-                <option value="Proveedor 2" title="RFC654321">Proveedor 2</option>
-                <!-- Agrega más opciones según sea necesario -->
+                <option value="RFC123456">Proveedor 1</option>
+                <option value="RFC654321">Proveedor 2</option>
             </select>
         </div>
         <div class="form-group">
@@ -38,9 +42,8 @@
         <div class="form-group">
             <label for="receiver-name">Nombre completo (almacenista receptor):</label>
             <select id="receiver-name" name="receiver-name">
-                <option value="Almacenista 1" title="RFC789012">Almacenista 1</option>
-                <option value="Almacenista 2" title="RFC210987">Almacenista 2</option>
-                <!-- Agrega más opciones según sea necesario -->
+                <option value="1">Almacenista 1</option>
+                <option value="2">Almacenista 2</option>
             </select>
         </div>
         <div class="form-group">
@@ -48,7 +51,6 @@
             <select id="product" name="product">
                 <option value="Producto 1">Producto 1</option>
                 <option value="Producto 2">Producto 2</option>
-                <!-- Agrega más opciones según sea necesario -->
             </select>
         </div>
         <div class="form-group">
@@ -56,7 +58,6 @@
             <select id="unit" name="unit">
                 <option value="Unidad 1">Unidad 1</option>
                 <option value="Unidad 2">Unidad 2</option>
-                <!-- Agrega más opciones según sea necesario -->
             </select>
         </div>
         <div class="form-group">

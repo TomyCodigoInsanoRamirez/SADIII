@@ -92,75 +92,71 @@
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
-       <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs">
-            <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
-                </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
-                </div>
-                <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
-
-                <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
-                </div>
+    <form action="registroProveedor" method="post">
+    <div class="contenedorInputs">
+        <div class="izquierda">
+            <div class="form-group">
+                <label for="rfc">RFC:</label>
+                <input type="text" id="rfc" name="rfc" required>
             </div>
-            <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
-                </div>
+            <div class="form-group">
+                <label for="nombre1">Nombre:</label>
+                <input type="text" id="nombre1" name="nombre1" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre2">Segundo nombre:</label>
+                <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+            </div>
+            <div class="form-group">
+                <label for="apellido1">Apellido Paterno:</label>
+                <input type="text" id="apellido1" name="apellido1" required>
+            </div>
+            <div class="form-group">
+                <label for="apellido2">Apellido Materno:</label>
+                <input type="text" id="apellido2" name="apellido2">
+            </div>
+            <div class="form-group">
+                <label for="telefono">Número de teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre1A">Nombre (Contacto Adicional):</label>
+                <input type="text" id="nombre1A" name="nombre1A">
             </div>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
-    </form>
+        <div class="derecha">
+            <div class="form-group">
+                <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
+                <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+            </div>
+            <div class="form-group">
+                <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
+                <input type="text" id="apellido1A" name="apellido1A">
+            </div>
+            <div class="form-group">
+                <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
+                <input type="text" id="apellido2A" name="apellido2A">
+            </div>
+            <div class="form-group">
+                <label for="telefonoA">Número de teléfono (Contacto Adicional):</label>
+                <input type="text" id="telefonoA" name="telefonoA">
+            </div>
+            <div class="form-group">
+                <label for="razonSocial">Razón Social:</label>
+                <input type="text" id="razonSocial" name="razonSocial" required>
+            </div>
+            <div class="form-group">
+                <label for="cp">Código postal:</label>
+                <input type="text" id="cp" name="cp" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+        </div>
+    </div>
+    <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
+</form>
 </div>
 <script>
     document.getElementById("add").addEventListener("click",function (event){

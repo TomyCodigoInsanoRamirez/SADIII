@@ -90,7 +90,7 @@
         <h2>Registro de Areas</h2>
         <button id="close" class="close-btn" >✖</button>
     </div>
-    <form>
+    <form action="registroUnidadMedida" method="post">
         <div class="form-group">
             <label for="product-key">Abreviatura:</label>
             <input type="text" id="product-key" name="product-key" placeholder="EJEMPLO:">

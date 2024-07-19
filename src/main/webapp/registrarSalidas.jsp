@@ -17,63 +17,38 @@
 <body>
 <div class="form-container">
     <h2>Registro de Salidas</h2>
-    <form>
+    <form action="registroSalidas" method="post">
         <div class="form-group">
-            <label for="area-name">Área:</label>
-            <select id="area-name" name="area-name">
-                <option value="Area 1" title="RFC123456">CDS</option>
-                <option value="Area 2" title="RFC654321">Docencia 2</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+            <label for="folio_S">Folio:</label>
+            <input type="text" id="folio_S" name="folio_S">
         </div>
         <div class="form-group">
-            <label for="almacenista-envia-name">Almacenista que envía:</label>
-            <select id="almacenista-envia-name" name="almacenista-envia-name">
-                <option value="Tomas " title="RFC123456">Tomas</option>
-                <option value="Kike" title="RFC654321">Kike</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+            <label for="empleado_S">Empleado que envía:</label>
+            <input type="number" id="empleado_S" name="empleado_S">
         </div>
         <div class="form-group">
-            <label for="almacenista-recibe-name">Almacenista que envía:</label>
-            <select id="almacenista-recibe-name" name="almacenista-recibe-name">
-                <option value="Proveedor 1" title="RFC123456">Tomas</option>
-                <option value="Proveedor 2" title="RFC654321">Kike</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+            <label for="empleado_E">Empleado que recibe:</label>
+            <input type="number" id="empleado_E" name="empleado_E">
         </div>
         <div class="form-group">
-            <label for="entry-date">Fecha de Salida:</label>
-            <input type="date" id="entry-date" name="entry-date">
-        </div>
-
-        <div class="form-group">
-            <label for="product">Producto:</label>
-            <select id="product" name="product">
-                <option value="Producto 1">Producto 1</option>
-                <option value="Producto 2">Producto 2</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+            <label for="area">Área:</label>
+            <input type="text" id="area" name="area">
         </div>
         <div class="form-group">
-            <label for="unit">Unidad de medida:</label>
-            <select id="unit" name="unit">
-                <option value="Unidad 1">Unidad 1</option>
-                <option value="Unidad 2">Unidad 2</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+            <label for="fecha">Fecha de Salida:</label>
+            <input type="date" id="fecha" name="fecha">
         </div>
         <div class="form-group">
-            <label for="quantity">Cantidad:</label>
-            <input type="number" id="quantity" name="quantity">
+            <label for="cantidad_S">Cantidad:</label>
+            <input type="number" id="cantidad_S" name="cantidad_S">
         </div>
         <div class="form-group">
-            <label for="unit-price">Precio unitario:</label>
-            <input type="number" id="unit-price" name="unit-price">
+            <label for="claveProducto">Clave del Producto:</label>
+            <input type="text" id="claveProducto" name="claveProducto">
         </div>
         <div class="form-group">
-            <label for="total-price">Precio total de productos:</label>
-            <input type="number" id="total-price" name="total-price" readonly>
+            <label for="unidadMedida">Unidad de Medida:</label>
+            <input type="text" id="unidadMedida" name="unidadMedida">
         </div>
         <button type="submit">Agregar</button>
         <a href="salidas.jsp">Volver</a>
