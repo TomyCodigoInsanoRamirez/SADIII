@@ -27,4 +27,5 @@ public class ProductoProveedores {
     public void setRFC(String RFC) {
         this.RFC = RFC;
     }
+
 }
