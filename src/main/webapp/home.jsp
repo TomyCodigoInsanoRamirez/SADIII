@@ -1,3 +1,7 @@
+<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
@@ -5,35 +9,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .bg-coffee {
-            background-color: #765e42;
-            color: #ecf0f1;
-        }
 
-
-        #sidebar-accordion .list-group-item {
-            background-color: #765e42;
-            border-radius: 30px;
-            color: #ecf0f1;
-        }
-
-        #sidebar-accordion .list-group-item:hover {
-            background-color: #483717;
-            color: #ecf0f1;
-        }
-
-        #sidebar-accordion .list-group-item:active,
-        #sidebar-accordion .list-group-item.active {
-            background-color: #7c6a50;
-            color: white;
-        }
-
-        #agregar-fila {}
-    </style>
 </head>
 
 <body>
@@ -41,26 +21,110 @@
     <div class="content w-100">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="home.jsp">
-                <img src="img/logo1.png" alt="SADI" width="140" height="50">
+                <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
+                <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
+                <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div id="sidebar-responsive" class="h-100">
+                    <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
+                    <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
+                        <div class="list-group " style="margin-top: 10px;">
+                            <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action text-light mb-2 item-list-res" id="item-responsive">
+                                <i class="bi bi-collection-fill mr-3 " aria-hidden="true" ></i>Catálogos
+                            </a>
+                            <div id="dashboard-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <a href="home.jsp"
+                                   class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1 item-list-res" >
+                                    <i class="bi bi-people-fill mr-3 " aria-hidden="true"></i>
+                                    Usuarios
+                                </a>
+                                <a href="productos.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
+                                    Productos
+                                </a>
+                                <a href="provedores.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                    Proveedores
+                                </a>
+                                <a href="areas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-layers-fill mr-3" aria-hidden="true"></i>
+                                    Áreas
+                                </a>
+                                <a href="unidadMedida.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-thermometer-low mr-3" aria-hidden="true"></i>
+                                    Unidades de Medida
+                                </a>
+                            </div>
+                            <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="acciones">
+                                <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                            </a>
+                            <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <div class="bg-coffee text-light text-center">Registro</div>
+                                <div class="d-flex flex-row text-center" >
+                                    <a href="registrarEntrada.jsp"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                        <i class="bi bi-arrow-left-square-fill mr-3" aria-hidden="true"></i>
+                                        Entrada
+                                    </a>
+                                    <a href="registrarSalidas.jsp"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                        <i class="bi bi-arrow-right-square-fill mr-3"
+                                           aria-hidden="true"></i>
+                                        Salida
+                                    </a>
+                                </div>
+                            </div>
+                            <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="reportess">
+                                <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
+                            </a>
+                            <div id="profile-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <a href="entradas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-clipboard-data-fill mr-3" aria-hidden="true"></i>
+                                    Entrada
+                                </a>
+                                <a href="salidas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                    Salida
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </a>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
                 </ul>
+                <div class="log">
+                    <a href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
+                </div>
+                <!--
                 <form class="form-inline my-2 my-md-0">
                     <a href="Profile.jsp" style="margin:10px">
                         <i class="bi bi-person-circle" style="font-size: 2rem; color: rgb(110, 82, 45);"></i>
                     </a>
                 </form>
+                -->
             </div>
         </nav>
         <section class="p-3">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 p-0">
+                    <div class="col-md-3 p-0 barraa">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
+
                         <div id="sidebar" class="h-100">
+                            <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                             <div id="sidebar-accordion" class="accordion" style="width: 70%;">
                                 <div class="list-group" style="margin-top: 10px;">
                                     <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
@@ -115,7 +179,7 @@
                                         </div>
                                     </div>
                                     <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
-                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2" >
                                         <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
                                     </a>
                                     <div id="profile-items" class="collapse" data-parent="#sidebar-accordion">
@@ -135,8 +199,8 @@
 
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <div class="d-flex justify-content-between align-items-center" style="margin: 15px;">
+                    <div class="col-md-9 contenedorPrc">
+                        <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
                             <form class="d-flex" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
@@ -145,21 +209,42 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-                            <table class="table table-hover">
+                            <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th>ID_Usuario</th>
+                                    <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
-                                    <th style="padding-left: 65px;">Correo</th>
-                                    <th style="padding-left: 45px;">Acciones</th>
+                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
+                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
+                                <%
+                                    UserDao dao = new UserDao();
+                                    ArrayList<Usuario> lista = dao.getAll();
+                                    for(Usuario u : lista){ %>
+                                <!---Se va a repetir --->
+                                <tr>
+                                    <td class="todisable2"><%=u.getId()%></td>
+                                    <td><%=u.getNombre1_U()%></td>
+                                    <td class="todisable"><%=u.getCorreo()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <%} %>
+                                <!--
                                 <tr>
                                     <td>1</td>
                                     <td>Enrique Landa</td>
-                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
                                     <td class="acciones">
                                         <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
                                         <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
@@ -175,7 +260,7 @@
                                 <tr>
                                     <td>2</td>
                                     <td>Enrique Landa</td>
-                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
                                     <td class="acciones">
                                         <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
                                         <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
@@ -188,10 +273,12 @@
                                         </template>
                                     </td>
                                 </tr>
+                                -->
                                 </tbody>
                             </table>
-                            <button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
-                                <i class="bi bi-plus-lg"></i>
+                            <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
+                                <i class="bi bi-plus-lg"></i>-->
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
                             </button>
                         </div>
                     </div>
@@ -221,7 +308,160 @@
         </div>
     </div>
 </div>
+<!--formulario de registro (add)-->
+<div class="popup-container" id="popup-container">
+    <div class="popup-header">
+        <h2>Registro de Productos</h2>
+        <button  class="close-btn" id="close">✖</button>
+    </div>
+    <form>
+        <!-- <button id="close" class="close-btn" >✖</button> -->
+        <div class="contenedorInputs">
+            <div class="izquierda">
+                <div class="form-group">
+                    <label for="rfc">RFC:</label>
+                    <input type="text" id="rfc" name="rfc">
+                </div>
+                <div class="form-group">
+                    <label for="nombre1">Nombre :</label>
+                    <input type="text" id="nombre1" name="nombre1">
+                </div>
+                <div class="form-group">
+                    <label for="nombre2">Segundo nombre :</label>
+                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                </div>
+                <div class="form-group">
+                    <label for="apellido1">Apellido Paterno :</label>
+                    <input type="text" id="apellido1" name="apellido1">
+                </div>
+                <div class="form-group">
+                    <label for="apellido2">Apellido Materno :</label>
+                    <input type="text" id="apellido2" name="apellido2">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número de telefono :</label>
+                    <input type="number" id="telefono" name="telefono">
+                </div>
 
+                <div class="form-group">
+                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
+                    <input type="text" id="nombre1A" name="nombre1A">
+                </div>
+            </div>
+            <div class="derecha">
+                <!--<button id="close" class="close-btn" >✖</button>-->
+                <div class="form-group">
+                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
+                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                </div>
+                <div class="form-group">
+                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
+                    <input type="text" id="apellido1A" name="apellido1A">
+                </div>
+                <div class="form-group">
+                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
+                    <input type="text" id="apellido2A" name="apellido2A">
+                </div>
+                <div class="form-group">
+                    <label for="telefonoA">Número de telefono :</label>
+                    <input type="number" id="telefonoA" name="telefonoA">
+                </div>
+                <div class="form-group">
+                    <label for="razonSocial">Razón Social :</label>
+                    <input type="text" id="razonSocial" name="razonSocial">
+                </div>
+                <div class="form-group">
+                    <label for="cp">Código postal :</label>
+                    <input type="number" id="cp" name="cp">
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección :</label>
+                    <input type="text" id="direccion" name="direccion">
+                </div>
+            </div>
+        </div>
+        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
+    </form>
+</div>
+<script>
+    const elemento = document.getElementById("item-responsive");
+    const desboardItems = document.getElementById("dashboard-items-responsive");
+    const accioness = document.getElementById("setting-items-responsive");
+    const acciones = document.getElementById("acciones");
+    const reportes = document.getElementById("reportess");
+    const reportess = document.getElementById("profile-items-responsive");
+    const hamburguesa = document.getElementById("hbsb");
+    const menu = document.getElementById("sidebar-accordion-responsive");
+    elemento.addEventListener("click", function () {
+        if(elemento.getAttribute("aria-expanded") === "true"){
+            elemento.removeAttribute("aria-expanded","false");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2");
+            desboardItems.removeAttribute("class","collapse");
+            desboardItems.setAttribute("class","collapse show")
+        }else{
+            elemento.removeAttribute("aria-expanded","true");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2 collapsed");
+            desboardItems.removeAttribute("class","collapse show");
+            desboardItems.setAttribute("class","collapse")
+        }
+
+    })
+    acciones.addEventListener("click", function (){
+        if(accioness.getAttribute("class") === "collapse"){
+            accioness.removeAttribute("class","collapse");
+            accioness.setAttribute("class","collapse show")
+        }else{
+            accioness.removeAttribute("class","collapse show");
+            accioness.setAttribute("class","collapse")
+        }
+    })
+    reportes.addEventListener("click", function (){
+        if(reportess.getAttribute("class") === "collapse"){
+            reportess.removeAttribute("class","collapse");
+            reportess.setAttribute("class","collapse show")
+        }else{
+            reportess.removeAttribute("class","collapse show");
+            reportess.setAttribute("class","collapse")
+        }
+    })
+    hamburguesa.addEventListener("click", function (event){
+        event.preventDefault();
+        if(menu.style.display === "none"){
+            menu.style.display = "block";
+        }else{
+            menu.style.display = "none"
+        }
+
+    })
+    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if(pop.style.display === "none"){
+            pop.style.display = "block";
+            capa.style.zIndex = 1;
+            pop.style.zIndex = 2;
+            capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+        }else{
+            pop.style.display = "none";
+        }
+
+    })
+    document.getElementById("close").addEventListener("click",function (){
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        pop.style.display = "none";
+        /*
+        if(pop.style.display === "none"){
+            pop.style.display = "block";
+        }else{
+            capa.style.zIndex = -1;
+            pop.style.display = "none";
+        }
+        */
+    })
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

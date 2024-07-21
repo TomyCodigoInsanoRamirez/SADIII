@@ -1,6 +1,7 @@
 package mx.edu.utez.saditarea.modelo;
 
 public class Usuario {
+    private String id;
     private String correo;
     private String nombre1_U;
     private String apellido1_U;
@@ -10,9 +11,10 @@ public class Usuario {
     private String contrasena;
     private boolean estado;
     private String codigo;
+    private String rol;
 
     public Usuario(){}
-    public Usuario( String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, boolean estado, String codigo){
+    public Usuario( String id,String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, boolean estado, String codigo,String rol){
         this.correo = correo;
         this.nombre1_U = nombre1_U;
         this.apellido1_U = apellido1_U;
@@ -62,6 +64,22 @@ public class Usuario {
 
     public void setApellido2_U(String apellido2_U) {
         this.apellido2_U = apellido2_U;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public String getTelefono() {
