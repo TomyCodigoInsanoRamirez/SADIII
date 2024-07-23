@@ -7,7 +7,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 @WebFilter(urlPatterns = {
-        "/home.jsp"
+        "/home.jsp",
+        "/areas.jsp",
+        "/proveedores.jsp",
+        "/productos.jsp",
+        "/unidadMedida.jsp",
+        "/entradas.jsp",
+        "/salidas"
 }) //Direcciones que va a proteger este filtro
 public class AdminSessionFilter implements Filter {
 

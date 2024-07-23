@@ -5,7 +5,22 @@ body{
     background-color: #765e42;
     color: #ecf0f1;
 }
-
+.navbar-brand{
+    position: relative;
+}
+/*
+.tituloSeccion{
+    position: absolute;
+    top: 110%;
+    left: 45%;
+    margin-left: -20px;
+}
+ */
+.tituloSeccion{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 #sidebar{
     margin-top: 27%;
     width: 300px;
@@ -56,7 +71,7 @@ tr{
 #agregar-fila {
     position: absolute;
     top: -4%;
-    left: 86%;
+    left: 82%;
 }
 #sidebar-responsive{
     display: none;
@@ -124,8 +139,8 @@ input:checked + .slider:before {
 }
 @media (max-width: 1250px){
     .popup-container{
-        left: 25%;
-        background-color: red;
+        /*left: 25%;
+        background-color: red;*/
     }
 
 }
@@ -161,6 +176,7 @@ input:checked + .slider:before {
         display: block;
         position: absolute;
         left: 5%;
+        top: 10%;
     }
     .barraa{
         display: none;
@@ -181,6 +197,9 @@ input:checked + .slider:before {
     .todisable2{
         display: none;
     }
+    #close{
+        background-color: #28a745;
+    }
 }
 
 /*popoup*/
@@ -191,11 +210,13 @@ input:checked + .slider:before {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    position: absolute;
-    top: 5%;
-    left: 30%;
+    position: relative;
     z-index: 2;
     display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -1100px;
+    max-width: 100%;
 }
 
 .popup-header {
@@ -270,7 +291,7 @@ textarea {
 
 #capa-obscurecer {
     width: 100%;
-    height: 100vh;
+    height: 110%;
     position: absolute;
     top: 0;
     z-index: -1;
@@ -298,6 +319,7 @@ textarea {
 
 .izquierda {
     width: 50%;
+    padding-right: 20px;
 }
 
 input {
@@ -314,3 +336,8 @@ input {
 .container-fluid{
     margin-top: 40px;
 }
+/*
+.contenedorGeneral{
+    position: relative;
+    z-index: -1;
+}*/

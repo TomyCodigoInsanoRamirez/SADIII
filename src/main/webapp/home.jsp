@@ -17,13 +17,19 @@
 </head>
 
 <body>
-<div class="d-flex">
+<div id="capa-obscurecer">
+
+</div>
+<div class="d-flex " >
     <div class="content w-100">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="home.jsp">
                 <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div class="tituloSeccion">
+                    <h1>USUARIOS</h1>
+                </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                     <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
@@ -106,13 +112,7 @@
                 <div class="log">
                     <a href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 </div>
-                <!--
-                <form class="form-inline my-2 my-md-0">
-                    <a href="Profile.jsp" style="margin:10px">
-                        <i class="bi bi-person-circle" style="font-size: 2rem; color: rgb(110, 82, 45);"></i>
-                    </a>
-                </form>
-                -->
+
             </div>
         </nav>
         <section class="p-3">
@@ -435,7 +435,7 @@
 
     })
     document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
-
+       // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
         if(pop.style.display === "none"){
@@ -443,24 +443,31 @@
             capa.style.zIndex = 1;
             pop.style.zIndex = 2;
             capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+            window.addEventListener('scroll', noScroll);
         }else{
             pop.style.display = "none";
+            todoLoQueEstorba.style.zIndex = 0;
         }
-
     })
     document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        pop.style.display = "none";
-        /*
+        //pop.style.display = "none";
+
         if(pop.style.display === "none"){
             pop.style.display = "block";
         }else{
             capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
             pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
         }
-        */
+
     })
+
+    function noScroll() {
+        window.scrollTo(0, 0);
+    }
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
