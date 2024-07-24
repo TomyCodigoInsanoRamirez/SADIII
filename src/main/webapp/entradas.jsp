@@ -1,99 +1,317 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Tomy
-  Date: 06/07/2024
-  Time: 06:43 p. m.
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
-    <meta charset="UTF-8">
-    <link rel='stylesheet' type='text/css' media='screen' href='css/home.css'>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
+
 <body>
-<div id="capa-obscurecer"></div>
-<div class="container">
+<div id="capa-obscurecer">
 
-    <div class="sidebar">
-        <div class="logo">
-            <img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="200px">
-        </div>
-        <div class="menu">
-            <div class="menu-item" onclick="toggleDropdown('catalogos')">Catálogos<i class="fas fa-chevron-down"></i></div>
-            <div id="catalogos" class="dropdown-content">
-                <a href="home.jsp">Usuarios</a>
-                <a href="productos.jsp">Productos</a>
-                <a href="provedores.jsp">Proveedores</a>
-                <a href="areas.jsp">Áreas</a>
+</div>
+<div class="d-flex " >
+    <div class="content w-100">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="home.jsp">
+                <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
+                <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
+                <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div id="sidebar-responsive" class="h-100">
+                    <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
+                    <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
+                        <div class="list-group " style="margin-top: 10px;">
+                            <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action text-light mb-2 item-list-res" id="item-responsive">
+                                <i class="bi bi-collection-fill mr-3 " aria-hidden="true" ></i>Catálogos
+                            </a>
+                            <div id="dashboard-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <a href="home.jsp"
+                                   class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1 item-list-res" >
+                                    <i class="bi bi-people-fill mr-3 " aria-hidden="true"></i>
+                                    Usuarios
+                                </a>
+                                <a href="productos.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
+                                    Productos
+                                </a>
+                                <a href="provedores.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                    Proveedores
+                                </a>
+                                <a href="areas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-layers-fill mr-3" aria-hidden="true"></i>
+                                    Áreas
+                                </a>
+                                <a href="unidadMedida.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-thermometer-low mr-3" aria-hidden="true"></i>
+                                    Unidades de Medida
+                                </a>
+                            </div>
+                            <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="acciones">
+                                <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                            </a>
+                            <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <div class="bg-coffee text-light text-center">Registro</div>
+                                <div class="d-flex flex-row text-center" >
+                                    <a href="registrarEntrada.jsp"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                        <i class="bi bi-arrow-left-square-fill mr-3" aria-hidden="true"></i>
+                                        Entrada
+                                    </a>
+                                    <a href="registrarSalidas.jsp"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                        <i class="bi bi-arrow-right-square-fill mr-3"
+                                           aria-hidden="true"></i>
+                                        Salida
+                                    </a>
+                                </div>
+                            </div>
+                            <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
+                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="reportess">
+                                <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
+                            </a>
+                            <div id="profile-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <a href="entradas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-clipboard-data-fill mr-3" aria-hidden="true"></i>
+                                    Entrada
+                                </a>
+                                <a href="salidas.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                    Salida
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+            <div class="tituloSeccion">
+                <h1>ENTRADAS</h1>
             </div>
-            <div class="menu-item" onclick="toggleDropdown('acciones')">Acciones<i class="fas fa-chevron-down"></i></div>
-            <div id="acciones" class="dropdown-content">
-                <a href="registrarEntrada.jsp">Registrar Entrada</a>
-                <a href="registrarSalidas.jsp">Registrar Salida</a>
+            <div class="collapse navbar-collapse" id="navbarsExample07XL">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <div class="log">
+                    <a href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
+                </div>
+
             </div>
-            <div class="menu-item" onclick="toggleDropdown('reportes')">Reportes<i class="fas fa-chevron-down"></i></div>
-            <div id="reportes" class="dropdown-content">
-                <a href="entradas.jsp">Entrada</a>
-                <a href="salidas.jsp">Salida</a>
+        </nav>
+        <section class="p-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3 p-0 barraa">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div id="sidebar" class="h-100">
+                            <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
+                            <div id="sidebar-accordion" class="accordion" style="width: 70%;">
+                                <div class="list-group" style="margin-top: 10px;">
+                                    <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action text-light mb-2" id="item">
+                                        <i class="bi bi-collection-fill mr-3" aria-hidden="true" ></i>Catálogos
+                                    </a>
+                                    <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <a href="home.jsp"
+                                           class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1">
+                                            <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                            Usuarios
+                                        </a>
+                                        <a href="productos.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
+                                            Productos
+                                        </a>
+                                        <a href="provedores.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
+                                            Proveedores
+                                        </a>
+                                        <a href="areas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-layers-fill mr-3" aria-hidden="true"></i>
+                                            Áreas
+                                        </a>
+                                        <a href="unidadMedida.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-thermometer-low mr-3" aria-hidden="true"></i>
+                                            Unidades de Medida
+                                        </a>
+                                    </div>
+                                    <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
+                                        <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                                    </a>
+                                    <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <div class="bg-coffee text-light text-center">Registro</div>
+                                        <div class="d-flex flex-row text-center" >
+                                            <a href="registrarEntrada.jsp"
+                                               class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                                <i class="bi bi-arrow-left-square-fill mr-3" aria-hidden="true"></i>
+                                                Entrada
+                                            </a>
+                                            <a href="registrarSalidas.jsp"
+                                               class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                                <i class="bi bi-arrow-right-square-fill mr-3"
+                                                   aria-hidden="true"></i>
+                                                Salida
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-2" >
+                                        <i class="bi bi-clipboard2 mr-3" aria-hidden="true"></i>Reportes
+                                    </a>
+                                    <div id="profile-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <a href="entradas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-clipboard-data-fill mr-3" aria-hidden="true"></i>
+                                            Entrada
+                                        </a>
+                                        <a href="salidas.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                            Salida
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-9 contenedorPrc">
+                        <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
+                            <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                                <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div style="position: relative;">
+                            <table class="table table-hover tab">
+                                <thead>
+                                <tr>
+                                    <th class="todisable2">ID_Usuario</th>
+                                    <th>Nombre</th>
+                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
+                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="tabla-body">
+                                <%
+                                    UserDao dao = new UserDao();
+                                    ArrayList<Usuario> lista = dao.getAll();
+                                    for(Usuario u : lista){ %>
+                                <!---Se va a repetir --->
+                                <tr>
+                                    <td class="todisable2"><%=u.getId()%></td>
+                                    <td><%=u.getNombre1_U()%></td>
+                                    <td class="todisable"><%=u.getCorreo()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <%} %>
+                                <!--
+                                <tr>
+                                    <td>1</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                -->
+                                </tbody>
+                            </table>
+                            <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
+                                <i class="bi bi-plus-lg"></i>-->
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-        </div>
+        </section>
+
     </div>
-
-    <div class="main-content">
-        <div class="header">
-            <div class="left">
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de Desactivación</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="right">
-                <a href=""><img src="img/LOGINsINfONDO-removebg-preview.png" alt="Perfil" width="80px"></a>
+            <div class="modal-body">
+                ¿Está seguro de que desea desactivar este usuario?
             </div>
-        </div>
-        <div class="barra-busqueda">
-            <div class="izquierda">
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-            <div class="derecha">
-                <input type="text" placeholder="Buscar" >
-                <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
-            </div>
-        </div>
-        <div class="table-container">
-            <div class="espacioBlancoTabla">
-                <div class="add" id="add"><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
-            </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Folio</th>
-                    <th>Razón Social</th>
-                    <th>Producto</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>E-2024-0001</td>
-                    <td>Oficinas y Suministros S.A. de C.V.</td>
-                    <td>Boligrafo</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
-                </tr>
-                <tr>
-                    <td>E-2024-0002</td>
-                    <td>Materiales de papelería S.A. de C.V.</td>
-                    <td>Papel</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
+<!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Entradas</h2>
+        <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
     <form>
@@ -101,58 +319,65 @@
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="billing-number">Número de facturación:</label>
-                    <input type="text" id="billing-number" name="billing-number">
+                    <label for="rfc">RFC:</label>
+                    <input type="text" id="rfc" name="rfc">
                 </div>
                 <div class="form-group">
-                    <label for="provider-name">Nombre del proveedor:</label>
-                    <select id="provider-name" name="provider-name">
-                        <option value="Proveedor 1" title="RFC123456">Proveedor 1</option>
-                        <option value="Proveedor 2" title="RFC654321">Proveedor 2</option>
-                        <!-- Agrega más opciones según sea necesario -->
-                    </select>
+                    <label for="nombre1">Nombre :</label>
+                    <input type="text" id="nombre1" name="nombre1">
                 </div>
                 <div class="form-group">
-                    <label for="entry-date">Fecha de entrada:</label>
-                    <input type="date" id="entry-date" name="entry-date">
+                    <label for="nombre2">Segundo nombre :</label>
+                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
                 </div>
                 <div class="form-group">
-                    <label for="receiver-name">Nombre completo (almacenista receptor):</label>
-                    <select id="receiver-name" name="receiver-name">
-                        <option value="Almacenista 1" title="RFC789012">Almacenista 1</option>
-                        <option value="Almacenista 2" title="RFC210987">Almacenista 2</option>
-                        <!-- Agrega más opciones según sea necesario -->
-                    </select>
+                    <label for="apellido1">Apellido Paterno :</label>
+                    <input type="text" id="apellido1" name="apellido1">
                 </div>
                 <div class="form-group">
-                    <label for="product">Producto:</label>
-                    <select id="product" name="product">
-                        <option value="Producto 1">Producto 1</option>
-                        <option value="Producto 2">Producto 2</option>
-                        <!-- Agrega más opciones según sea necesario -->
-                    </select>
+                    <label for="apellido2">Apellido Materno :</label>
+                    <input type="text" id="apellido2" name="apellido2">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número de telefono :</label>
+                    <input type="number" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
+                    <input type="text" id="nombre1A" name="nombre1A">
                 </div>
             </div>
             <div class="derecha">
+                <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
-                    <label for="unit">Unidad de medida:</label>
-                    <select id="unit" name="unit">
-                        <option value="Unidad 1">Unidad 1</option>
-                        <option value="Unidad 2">Unidad 2</option>
-                        <!-- Agrega más opciones según sea necesario -->
-                    </select>
+                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
+                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
                 </div>
                 <div class="form-group">
-                    <label for="quantity">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity">
+                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
+                    <input type="text" id="apellido1A" name="apellido1A">
                 </div>
                 <div class="form-group">
-                    <label for="unit-price">Precio unitario:</label>
-                    <input type="number" id="unit-price" name="unit-price">
+                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
+                    <input type="text" id="apellido2A" name="apellido2A">
                 </div>
                 <div class="form-group">
-                    <label for="total-price">Precio total de productos:</label>
-                    <input type="number" id="total-price" name="total-price" readonly>
+                    <label for="telefonoA">Número de telefono :</label>
+                    <input type="number" id="telefonoA" name="telefonoA">
+                </div>
+                <div class="form-group">
+                    <label for="razonSocial">Razón Social :</label>
+                    <input type="text" id="razonSocial" name="razonSocial">
+                </div>
+                <div class="form-group">
+                    <label for="cp">Código postal :</label>
+                    <input type="number" id="cp" name="cp">
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección :</label>
+                    <input type="text" id="direccion" name="direccion">
                 </div>
             </div>
         </div>
@@ -160,7 +385,57 @@
     </form>
 </div>
 <script>
-    document.getElementById("add").addEventListener("click",function (event){
+    const elemento = document.getElementById("item-responsive");
+    const desboardItems = document.getElementById("dashboard-items-responsive");
+    const accioness = document.getElementById("setting-items-responsive");
+    const acciones = document.getElementById("acciones");
+    const reportes = document.getElementById("reportess");
+    const reportess = document.getElementById("profile-items-responsive");
+    const hamburguesa = document.getElementById("hbsb");
+    const menu = document.getElementById("sidebar-accordion-responsive");
+    elemento.addEventListener("click", function () {
+        if(elemento.getAttribute("aria-expanded") === "true"){
+            elemento.removeAttribute("aria-expanded","false");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2");
+            desboardItems.removeAttribute("class","collapse");
+            desboardItems.setAttribute("class","collapse show")
+        }else{
+            elemento.removeAttribute("aria-expanded","true");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2 collapsed");
+            desboardItems.removeAttribute("class","collapse show");
+            desboardItems.setAttribute("class","collapse")
+        }
+
+    })
+    acciones.addEventListener("click", function (){
+        if(accioness.getAttribute("class") === "collapse"){
+            accioness.removeAttribute("class","collapse");
+            accioness.setAttribute("class","collapse show")
+        }else{
+            accioness.removeAttribute("class","collapse show");
+            accioness.setAttribute("class","collapse")
+        }
+    })
+    reportes.addEventListener("click", function (){
+        if(reportess.getAttribute("class") === "collapse"){
+            reportess.removeAttribute("class","collapse");
+            reportess.setAttribute("class","collapse show")
+        }else{
+            reportess.removeAttribute("class","collapse show");
+            reportess.setAttribute("class","collapse")
+        }
+    })
+    hamburguesa.addEventListener("click", function (event){
+        event.preventDefault();
+        if(menu.style.display === "none"){
+            menu.style.display = "block";
+        }else{
+            menu.style.display = "none"
+        }
+
+    })
+    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+        // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
         if(pop.style.display === "none"){
@@ -168,33 +443,42 @@
             capa.style.zIndex = 1;
             pop.style.zIndex = 2;
             capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+            window.addEventListener('scroll', noScroll);
         }else{
             pop.style.display = "none";
+            todoLoQueEstorba.style.zIndex = 0;
         }
-        event.preventDefault();
     })
-    document.getElementById("close").addEventListener("click",function (event){
+    document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
+        //pop.style.display = "none";
+
         if(pop.style.display === "none"){
             pop.style.display = "block";
         }else{
             capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
             pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
         }
-        event.preventDefault();
+
     })
-    function toggleDropdown(id) {
-        var dropdown = document.getElementById(id);
-        if (dropdown.style.display === "block") {
-            dropdown.style.display = "none";
-        } else {
-            dropdown.style.display = "block";
-        }
+
+    function noScroll() {
+        window.scrollTo(0, 0);
     }
-
-
 </script>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+</script>
 </body>
+
 </html>

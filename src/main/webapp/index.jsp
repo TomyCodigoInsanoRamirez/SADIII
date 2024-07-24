@@ -8,6 +8,13 @@
   <link rel='stylesheet' type='text/css' media='screen' href='css/index.css'>
 </head>
 <body>
+<% //borrar en caso de que no se ocupe lo de borrar la sesión siempte que se le da hacia atraas junt con el script de abajo
+  // Obtener la sesión sin crear una nueva
+  //HttpSession session = request.getSession(false);
+  if (session != null) {
+    session.invalidate(); // Invalida la sesión si existe
+  }
+%>
 <div class="container">
   <div class="login-box">
     <div class="left-panel">
@@ -50,6 +57,14 @@
     <p>Credenciales incorrectas.</p>
   </div>
 </div>
+<script>
+  // Forzar recarga completa cuando el usuario vuelve a la página
+  window.onpageshow = function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  };
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
