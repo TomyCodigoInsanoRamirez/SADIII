@@ -211,71 +211,49 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-                            <table class="table table-hover tab">
+                            <%
+                                String message = (String) request.getAttribute("message");
+                                if (message != null) {
+                            %>
+                            <p><%= message %></p>
+                            <%
+                                }
+                            %>
+                            <table>
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
-                                    <th></th>
+                                    <th>Abreviatura</th>
+                                    <th>Acciones</th> <!-- Nueva columna para acciones -->
                                 </tr>
                                 </thead>
-                                <tbody id="tabla-body">
+                                <tbody>
                                 <%
-                                    UserDao dao = new UserDao();
-                                    ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
+                                    List<UnidadMedida> unidadesMedida = (List<UnidadMedida>) request.getAttribute("unidadesMedida");
+                                    if (unidadesMedida != null) {
+                                        for (UnidadMedida unidad : unidadesMedida) {
+                                %>
                                 <tr>
-                                    <td class="todisable2"><%=u.getId()%></td>
-                                    <td><%=u.getNombre1_U()%></td>
-                                    <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                                    <td class="acc">
-                                        <label class="switch small">
+                                    <td><%= unidad.getNombreUnidadMedida() %></td>
+                                    <td><%= unidad.getAbreviacionUndidadMedida() %></td>
+                                    <td class="acciones">
+                                        <label class="switch">
                                             <input type="checkbox">
-                                            <span class="slider"></span>
+                                            <span class="slider round"></span>
                                         </label>
+                                        <a href="editarUnidadMedida?abreviacion=<%= unidad.getAbreviacionUndidadMedida() %>">
+                                            <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
+                                        </a>
                                     </td>
                                 </tr>
-                                <%} %>
-                                <!--
+                                <%
+                                    }
+                                } else {
+                                %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
+                                    <td colspan="3">No hay unidades de medida disponibles.</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
-                                </tr>
-                                -->
+                                <% } %>
                                 </tbody>
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
@@ -313,135 +291,8 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro Unidad de Medida.</h2>
         <button  class="close-btn" id="close">✖</button>
-    </div>
-    <form>
-        <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs">
-            <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
-                </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
-                </div>
-                <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
-
-                <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
-                </div>
-            </div>
-            <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
-                </div>
-            </div>
-        </div>
-<<<<<<< HEAD
-        <div class="table-container">
-            <div class="espacioBlancoTabla">
-                <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
-            </div>
-
-            <%
-                String message = (String) request.getAttribute("message");
-                if (message != null) {
-            %>
-            <p><%= message %></p>
-            <%
-                }
-            %>
-            <table>
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Abreviatura</th>
-                    <th>Acciones</th> <!-- Nueva columna para acciones -->
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    List<UnidadMedida> unidadesMedida = (List<UnidadMedida>) request.getAttribute("unidadesMedida");
-                    if (unidadesMedida != null) {
-                        for (UnidadMedida unidad : unidadesMedida) {
-                %>
-                <tr>
-                    <td><%= unidad.getNombreUnidadMedida() %></td>
-                    <td><%= unidad.getAbreviacionUndidadMedida() %></td>
-                    <td class="acciones">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                        <a href="editarUnidadMedida?abreviacion=<%= unidad.getAbreviacionUndidadMedida() %>">
-                            <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
-                        </a>
-                    </td>
-                </tr>
-                <%
-                    }
-                } else {
-                %>
-                <tr>
-                    <td colspan="3">No hay unidades de medida disponibles.</td>
-                </tr>
-                <% } %>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- -->
-<div id="popup-container" class="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Areas</h2>
-        <button id="close" class="close-btn" >✖</button>
     </div>
     <form action="registroUnidadMedida" method="post">
         <div class="form-group">
@@ -453,10 +304,9 @@
             <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
         </div>
         <button type="submit" class="add-btn">Agregar</button>
-=======
         <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
     </form>
+
 </div>
 <script>
     const elemento = document.getElementById("item-responsive");
