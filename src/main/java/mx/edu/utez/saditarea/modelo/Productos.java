@@ -1,14 +1,25 @@
 package mx.edu.utez.saditarea.modelo;
 
 public class Productos {
- private String nombreProducto;
- private String descripcionProducto;
+    private int id; // Añadido para identificar el producto en la base de datos
+    private String nombreProducto;
+    private String descripcionProducto;
 
- public Productos(){}
- public Productos(String nombreProducto,String descripcionProducto ){
-     this.nombreProducto= nombreProducto;
-     this.descripcionProducto= descripcionProducto;
- }
+    public Productos() {}
+
+    public Productos(int id, String nombreProducto, String descripcionProducto) {
+        this.id = id;
+        this.nombreProducto = nombreProducto;
+        this.descripcionProducto = descripcionProducto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombreProducto() {
         return nombreProducto;

@@ -10,13 +10,13 @@ import mx.edu.utez.saditarea.modelo.UnidadMedida;
 
 import java.io.IOException;
 
-@WebServlet(name = "RegistroUnidadMedidaServlet" , value = "/registroUnidadMedida")
+@WebServlet(name = "RegistroUnidadMedidaServlet", value = "/registroUnidadMedida")
 public class RegistroUnidadMedidaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String abreviacionUndidadMedida = request.getParameter("product-key");
-        String nombreUnidadMedida = request.getParameter("product-name");
+        String abreviacionUndidadMedida = request.getParameter("abreviacionUnidadMedida");
+        String nombreUnidadMedida = request.getParameter("nombreUnidadMedida");
 
         UnidadMedida unidadMedida = new UnidadMedida(abreviacionUndidadMedida, nombreUnidadMedida);
         UnidadMedidaDao unidadMedidaDao = new UnidadMedidaDao();
@@ -24,9 +24,10 @@ public class RegistroUnidadMedidaServlet extends HttpServlet {
         boolean isSaved = unidadMedidaDao.save(unidadMedida);
 
         if (isSaved) {
-            response.sendRedirect("unidadMedida.jsp"); // Redirige a una página de éxito
+            response.sendRedirect("unidadMedidaList"); // Redirige al servlet que muestra la lista
         } else {
-            response.sendRedirect("error.jsp"); // Redirige a una página de error
+            request.setAttribute("message", "Error al registrar la unidad de medida.");
+            request.getRequestDispatcher("unidadMedida.jsp").forward(request, response);
         }
     }
 }

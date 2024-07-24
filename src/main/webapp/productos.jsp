@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,19 +71,33 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <%
+                List<Productos> productos = (List<Productos>) request.getAttribute("productos");
+                if (productos != null && !productos.isEmpty()) {
+                    for (Productos producto : productos) {
+            %>
                 <tr>
-                    <td>P-0001</td>
-                    <td>Boligrafo Azul</td>
-                    <td><p>Bolígrafo azul de punta fina, de tinta azul, con una punta de 0.5 mm de grosor.</p></td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                    <td><%= producto.getId() %></td>
+                    <td><%= producto.getNombreProducto() %></td>
+                    <td><%= producto.getDescripcionProducto() %></td>
+                    <td class="acciones">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <img src="img/iconolapiz-removebg-preview.png" width="30px" onclick="editProduct(<%= producto.getId() %>)">
+                    </td>
                 </tr>
+                    <%
+                    }
+                } else {
+            %>
                 <tr>
-                    <td>P-0002</td>
-                    <td>Lápiz A2</td>
-                    <td><p>Lorem es simplemente el texto de relleno de las imprentas y archivos de texto. </p></td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                    <td colspan="4">No hay productos registrados.</td>
                 </tr>
-                </tbody>
+                    <%
+                }
+            %>
             </table>
         </div>
     </div>

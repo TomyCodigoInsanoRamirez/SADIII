@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>SADI</title>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
     <link rel='stylesheet' type='text/css' media='screen' href='css/home.css'>
 </head>
 <body>
@@ -62,41 +61,31 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Clave</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>DATID</td>
-                    <td>División Académica de Tecnologías <br>de la información y diseño</td>
-                    <td>Lorem Ipsum es simplemente el texto <br>de relleno de las imprentas. </td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
-                </tr>
-                <tr>
-                    <td>DATEFI</td>
-                    <td>División Académica de Terapia Física</td>
-                    <td>Lorem Ipsum es simplemente el texto<br> de relleno de las imprentas. </td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
-                </tr>
+                <c:forEach var="area" items="${areasList}">
+                    <tr>
+                        <td>${area.nombreArea}</td>
+                        <td>${area.descripcionArea}</td>
+                        <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<!-- -->
+
 <div id="popup-container" class="popup-container">
     <div class="popup-header">
         <h2>Registro de Areas</h2>
         <button id="close" class="close-btn" >✖</button>
     </div>
-    <form>
-        <div class="form-group">
-            <label for="product-key">Acrónimo:</label>
-            <input type="text" id="product-key" name="product-key" placeholder="EJEMPLO:">
-        </div>
+    <form action="registroArea" method="post">
         <div class="form-group">
             <label for="product-name">Nombre:</label>
             <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
@@ -134,6 +123,7 @@
         }
         event.preventDefault();
     })
+
     function toggleDropdown(id) {
 
         var dropdown = document.getElementById(id);
@@ -143,11 +133,7 @@
             dropdown.style.display = "block";
         }
     }
-
-
 </script>
 
 </body>
 </html>
-
-

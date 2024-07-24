@@ -1,15 +1,15 @@
 package mx.edu.utez.saditarea.modelo;
 
 public class UnidadMedida {
- private  String abreviacionUndidadMedida;
- private  String nombreUnidadMedida;
+    private String abreviacionUndidadMedida;
+    private String nombreUnidadMedida;
 
- public UnidadMedida(){}
- public UnidadMedida(String abreviacionUndidadMedida, String nombreUnidadMedida ){
-     this.abreviacionUndidadMedida= abreviacionUndidadMedida;
-     this.nombreUnidadMedida= nombreUnidadMedida;
+    public UnidadMedida() {}
 
- }
+    public UnidadMedida(String abreviacionUndidadMedida, String nombreUnidadMedida) {
+        this.abreviacionUndidadMedida = abreviacionUndidadMedida;
+        this.nombreUnidadMedida = nombreUnidadMedida;
+    }
 
     public String getAbreviacionUndidadMedida() {
         return abreviacionUndidadMedida;

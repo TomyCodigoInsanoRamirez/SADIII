@@ -1,3 +1,4 @@
+<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <!DOCTYPE html>
 <html>
 
@@ -156,38 +157,37 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
+                                <%
+                                    Usuario usuario = (Usuario) request.getAttribute("usuario");
+                                    if (usuario != null) {
+                                %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Enrique Landa</td>
-                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td><%= usuario.getIdUsuario() %></td>
+                                    <td><%= usuario.getNombre1_U() + " " + usuario.getApellido1_U() + " " + usuario.getNombre2_U() + " " + usuario.getApellido2_U() %></td>
+                                    <td><%= usuario.getCorreo() %></td>
                                     <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
+                                        <a href="visualizar.jsp?id=<%= usuario.getIdUsuario() %>" style="margin:10px">
+                                            <i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i>
+                                        </a>
+                                        <a href="editar.jsp?id=<%= usuario.getIdUsuario() %>" style="margin:10px">
+                                            <i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i>
+                                        </a>
+                                        <!-- Checkbox añadido -->
+                                        <form action="#" method="post" style="display:inline;">
+                                            <input type="checkbox" name="check-button" id="check-button" style="margin:10px;">
+                                            <label for="check-button">Switch Checkbox</label>
+                                        </form>
                                     </td>
                                 </tr>
+                                <%
+                                } else {
+                                %>
                                 <tr>
-                                    <td>2</td>
-                                    <td>Enrique Landa</td>
-                                    <td><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
+                                    <td colspan="4">No se encontraron datos.</td>
                                 </tr>
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
                             <button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">

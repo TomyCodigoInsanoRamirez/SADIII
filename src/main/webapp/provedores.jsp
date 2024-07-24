@@ -1,4 +1,7 @@
+<%@ page import="mx.edu.utez.saditarea.modelo.Proveedores" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,18 +71,37 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    List<Proveedores> proveedores = (List<Proveedores>) request.getAttribute("proveedores");
+                    if (proveedores != null && !proveedores.isEmpty()) {
+                        for (Proveedores proveedor : proveedores) {
+                            String nombreCompleto = String.format("%s %s %s %s", proveedor.getNombre1_P(), proveedor.getNombre2_P(), proveedor.getApellido1_P(), proveedor.getApellido2_P());
+                %>
                 <tr>
-                    <td>PEGJ900415X8Z</td>
-                    <td>Oficinas y Suministros S.A. de C.V.</td>
-                    <td>Enrique Landa Hernandez</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
+                    <td><%= proveedor.getRFC() %></td>
+                    <td><%= proveedor.getRazon_social() %></td>
+                    <td><%= nombreCompleto %></td>
+                    <td class="acciones">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="iconos">
+                        <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
+                        <img src="img/visibility_24dp.png" width="30px" alt="Ver">
+                    </span>
+                    </td>
                 </tr>
+                <%
+                    }
+                } else {
+                %>
                 <tr>
-                    <td>LTGJ930415X8Z</td>
-                    <td>Materiales de papelería S.A. de C.V.</td>
-                    <td>Tomas Bartolo Bartolo</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px"> <img src="img/visibility_24dp.png" width="30px"> </td>
+                    <td colspan="4">No se encontraron proveedores.</td>
                 </tr>
+                <%
+                    }
+                %>
                 </tbody>
             </table>
         </div>

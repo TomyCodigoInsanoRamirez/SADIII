@@ -9,24 +9,17 @@ import mx.edu.utez.saditarea.dao.AreasDao;
 import mx.edu.utez.saditarea.modelo.Areas;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name = "RegistroAreaServlet", value = "/registroArea")
+@WebServlet(name = "RegistroAreaServlet", value = "/mostrarAreas")
 public class RegistroAreaServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nombreArea = request.getParameter("product-name");
-        String descripcionArea = request.getParameter("description");
-
-        Areas area = new Areas(nombreArea, descripcionArea);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AreasDao areasDao = new AreasDao();
+        List<Areas> areasList = areasDao.getAll();
 
-        boolean isSaved = areasDao.save(area);
-
-        if (isSaved) {
-            response.sendRedirect("home.jsp"); // Redirige a una página de éxito
-        } else {
-            response.sendRedirect("error.jsp"); // Redirige a una página de error
-        }
+        request.setAttribute("areasList", areasList);
+        request.getRequestDispatcher("areas.jsp").forward(request, response);
     }
 }

@@ -20,7 +20,7 @@ public class RegistroProductoServlet extends HttpServlet {
         String descripcionProducto = req.getParameter("description");
 
         // Crear el objeto Productos
-        Productos producto = new Productos(nombreProducto, descripcionProducto);
+        Productos producto = new Productos(0, nombreProducto, descripcionProducto); // ID no se usa en el registro
 
         // Obtener el DAO
         ProductosDao dao = new ProductosDao();

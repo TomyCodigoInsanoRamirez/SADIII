@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,26 +61,49 @@
                 <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
 
+            <%
+                String message = (String) request.getAttribute("message");
+                if (message != null) {
+            %>
+            <p><%= message %></p>
+            <%
+                }
+            %>
             <table>
                 <thead>
                 <tr>
-
                     <th>Nombre</th>
                     <th>Abreviatura</th>
-                    <th>Acciones</th>
+                    <th>Acciones</th> <!-- Nueva columna para acciones -->
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    List<UnidadMedida> unidadesMedida = (List<UnidadMedida>) request.getAttribute("unidadesMedida");
+                    if (unidadesMedida != null) {
+                        for (UnidadMedida unidad : unidadesMedida) {
+                %>
                 <tr>
-                    <td>lt</td>
-                    <td>Litros</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                    <td><%= unidad.getNombreUnidadMedida() %></td>
+                    <td><%= unidad.getAbreviacionUndidadMedida() %></td>
+                    <td class="acciones">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <a href="editarUnidadMedida?abreviacion=<%= unidad.getAbreviacionUndidadMedida() %>">
+                            <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
+                        </a>
+                    </td>
                 </tr>
+                <%
+                    }
+                } else {
+                %>
                 <tr>
-                    <td>Kilogramos</td>
-                    <td>Kg</td>
-                    <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                    <td colspan="3">No hay unidades de medida disponibles.</td>
                 </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
