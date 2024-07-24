@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-<%@ page import="mx.edu.utez.saditarea.modelo.Proveedores" %>
+
 <%@ page import="java.util.List" %>
-=======
-<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
-<%@ page import="java.util.ArrayList" %>
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+<%@ page import="mx.edu.utez.saditarea.modelo.Proveedores" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -218,70 +213,55 @@
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">ID_Usuario</th>
+                                    <th>RFC</th>
+                                    <th>Razón Social</th>
                                     <th>Nombre</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
-                                    <th></th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
-                                    UserDao dao = new UserDao();
-                                    ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
+                                    List<Proveedores> proveedores = (List<Proveedores>) request.getAttribute("proveedores");
+                                    if (proveedores != null && !proveedores.isEmpty()) {
+                                        for (Proveedores proveedor : proveedores) {
+                                            String nombreCompleto = String.format("%s %s %s %s",
+                                                    proveedor.getNombre1_P(), proveedor.getNombre2_P(),
+                                                    proveedor.getApellido1_P(), proveedor.getApellido2_P());
+                                %>
                                 <tr>
-                                    <td class="todisable2"><%=u.getId()%></td>
-                                    <td><%=u.getNombre1_U()%></td>
-                                    <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                                    <td class="acc">
-                                        <label class="switch small">
+                                    <td><%= proveedor.getRFC() %></td>
+                                    <td><%= proveedor.getRazon_social() %></td>
+                                    <td><%= nombreCompleto %></td>
+                                    <td class="acciones">
+                                        <label class="switch">
                                             <input type="checkbox">
                                             <span class="slider"></span>
                                         </label>
+                                        <span class="iconos">
+                    <!-- Enlace para editar proveedor -->
+                    <a href="editarProveedor?RFC=<%= proveedor.getRFC() %>">
+                        <img class="act" src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
+                    </a>
+                                            <!-- Enlace para ver detalles del proveedor -->
+                    <a href="verProveedor?RFC=<%= proveedor.getRFC() %>">
+                        <img class="act" src="img/visibility_24dp.png" width="30px" alt="Ver">
+                    </a>
+                </span>
                                     </td>
                                 </tr>
-                                <%} %>
-                                <!--
+                                <%
+                                    }
+                                } else {
+                                %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
+                                    <td colspan="4">No se encontraron proveedores.</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
-                                </tr>
-                                -->
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
+
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
@@ -311,7 +291,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-<<<<<<< HEAD
+
             <div class="derecha">
                 <input type="text" placeholder="Buscar" >
                 <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
@@ -321,51 +301,8 @@
             <div class="espacioBlancoTabla">
                 <div class="add" id="add"><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>RFC</th>
-                    <th>Razón Social</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    List<Proveedores> proveedores = (List<Proveedores>) request.getAttribute("proveedores");
-                    if (proveedores != null && !proveedores.isEmpty()) {
-                        for (Proveedores proveedor : proveedores) {
-                            String nombreCompleto = String.format("%s %s %s %s", proveedor.getNombre1_P(), proveedor.getNombre2_P(), proveedor.getApellido1_P(), proveedor.getApellido2_P());
-                %>
-                <tr>
-                    <td><%= proveedor.getRFC() %></td>
-                    <td><%= proveedor.getRazon_social() %></td>
-                    <td><%= nombreCompleto %></td>
-                    <td class="acciones">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="iconos">
-                        <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
-                        <img src="img/visibility_24dp.png" width="30px" alt="Ver">
-                    </span>
-                    </td>
-                </tr>
-                <%
-                    }
-                } else {
-                %>
-                <tr>
-                    <td colspan="4">No se encontraron proveedores.</td>
-                </tr>
-                <%
-                    }
-                %>
-                </tbody>
-            </table>
-=======
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
+
         </div>
     </div>
 </div>
@@ -375,7 +312,7 @@
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form action="registroProveedor" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">

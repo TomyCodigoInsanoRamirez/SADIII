@@ -1,14 +1,28 @@
 package mx.edu.utez.saditarea.modelo;
 
 public class Areas {
-    private   String nombreArea;
-    private   String descripcionArea;
+    private String claveArea;
+    private String nombreArea;
+    private String descripcionArea;
 
-    public Areas(){}
-    public Areas(String nombreArea,  String descripcionArea){
-        this.nombreArea= nombreArea;
-        this.descripcionArea= descripcionArea;
+    // Constructor sin argumentos
+    public Areas() {
+    }
 
+    // Constructor con argumentos
+    public Areas(String claveArea, String nombreArea, String descripcionArea) {
+        this.claveArea = claveArea;
+        this.nombreArea = nombreArea;
+        this.descripcionArea = descripcionArea;
+    }
+
+    // Getters y Setters
+    public String getClaveArea() {
+        return claveArea;
+    }
+
+    public void setClaveArea(String claveArea) {
+        this.claveArea = claveArea;
     }
 
     public String getNombreArea() {

@@ -1,6 +1,6 @@
-<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
-<%@ page import="java.util.ArrayList" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
@@ -212,75 +212,43 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-                            <table class="table table-hover tab">
+                            <table class="table">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">ID_Usuario</th>
-                                    <th>Nombre</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
-                                    <th></th>
+                                    <th>Clave Producto</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Descripción del Producto</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
-                                    UserDao dao = new UserDao();
-                                    ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
+                                    List<Productos> productos = (List<Productos>) request.getAttribute("productos");
+                                    if (productos != null && !productos.isEmpty()) {
+                                        for (Productos producto : productos) {
+                                %>
                                 <tr>
-                                    <td class="todisable2"><%=u.getId()%></td>
-                                    <td><%=u.getNombre1_U()%></td>
-                                    <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                                    <td class="acc">
-                                        <label class="switch small">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
+                                    <td><%= producto.getClaveProducto() %></td>
+                                    <td><%= producto.getNombreProducto() %></td>
+                                    <td><%= producto.getDescripcionProducto() %></td>
+                                    <td class="actions">
+                                        <button class="edit" onclick="window.location.href='editarProducto?clave=<%= producto.getClaveProducto() %>'">✏️</button>
+                                        <button class="delete" onclick="if(confirm('¿Estás seguro de eliminar este producto?')) window.location.href='eliminarProducto?clave=<%= producto.getClaveProducto() %>'">🗑️</button>
                                     </td>
                                 </tr>
-                                <%} %>
-                                <!--
+                                <%
+                                    }
+                                } else {
+                                %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
+                                    <td colspan="4">No hay productos disponibles.</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
-                                </tr>
-                                -->
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
-                            <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
-                                <i class="bi bi-plus-lg"></i>-->
+
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
                             </button>
                         </div>
@@ -308,7 +276,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-<<<<<<< HEAD
+
             <div class="derecha">
                 <input type="text" placeholder="Buscar" >
                 <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
@@ -318,46 +286,7 @@
             <div class="espacioBlancoTabla">
                 <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Clave</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <%
-                List<Productos> productos = (List<Productos>) request.getAttribute("productos");
-                if (productos != null && !productos.isEmpty()) {
-                    for (Productos producto : productos) {
-            %>
-                <tr>
-                    <td><%= producto.getId() %></td>
-                    <td><%= producto.getNombreProducto() %></td>
-                    <td><%= producto.getDescripcionProducto() %></td>
-                    <td class="acciones">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                        <img src="img/iconolapiz-removebg-preview.png" width="30px" onclick="editProduct(<%= producto.getId() %>)">
-                    </td>
-                </tr>
-                    <%
-                    }
-                } else {
-            %>
-                <tr>
-                    <td colspan="4">No hay productos registrados.</td>
-                </tr>
-                    <%
-                }
-            %>
-            </table>
-=======
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
         </div>
     </div>
 </div>

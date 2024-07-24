@@ -1,11 +1,11 @@
 package mx.edu.utez.saditarea.modelo;
 
 public class Usuario {
-<<<<<<< HEAD
+
     private String idUsuario; // Añadir campo idUsuario
-=======
+
     private String id;
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
     private String correo;
     private String nombre1_U;
     private String apellido1_U;
@@ -17,15 +17,11 @@ public class Usuario {
     private String codigo;
     private String rol;
 
-<<<<<<< HEAD
+
     public Usuario() {}
 
     public Usuario(String idUsuario, String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, boolean estado, String codigo) {
         this.idUsuario = idUsuario;
-=======
-    public Usuario(){}
-    public Usuario( String id,String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, boolean estado, String codigo,String rol){
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
         this.correo = correo;
         this.nombre1_U = nombre1_U;
         this.apellido1_U = apellido1_U;

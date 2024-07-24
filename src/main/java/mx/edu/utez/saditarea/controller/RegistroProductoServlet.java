@@ -9,6 +9,7 @@ import mx.edu.utez.saditarea.dao.ProductosDao;
 import mx.edu.utez.saditarea.modelo.Productos;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "RegistroProductoServlet", value = "/registroProducto")
 public class RegistroProductoServlet extends HttpServlet {
@@ -16,11 +17,12 @@ public class RegistroProductoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener los parámetros del formulario
+        String claveProducto = UUID.randomUUID().toString().substring(0, 7); // Generar una clave única
         String nombreProducto = req.getParameter("product-name");
         String descripcionProducto = req.getParameter("description");
 
         // Crear el objeto Productos
-        Productos producto = new Productos(0, nombreProducto, descripcionProducto); // ID no se usa en el registro
+        Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto);
 
         // Obtener el DAO
         ProductosDao dao = new ProductosDao();

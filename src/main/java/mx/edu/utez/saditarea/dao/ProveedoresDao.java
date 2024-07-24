@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ProveedoresDao {
 
-    // Método para recuperar todos los proveedores
     public List<Proveedores> findAll() {
         List<Proveedores> proveedores = new ArrayList<>();
         String query = "SELECT * FROM Proveedores";
@@ -48,7 +47,36 @@ public class ProveedoresDao {
         return proveedores;
     }
 
-    // Método para guardar un proveedor
+    public Proveedores findByRFC(String rfc) {
+        String query = "SELECT * FROM Proveedores WHERE RFC = ?";
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, rfc);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Proveedores(
+                        rs.getString("RFC"),
+                        rs.getString("razon_social"),
+                        rs.getString("codigo_postal"),
+                        rs.getString("direccion"),
+                        rs.getString("nombre1_P"),
+                        rs.getString("nombre2_P"),
+                        rs.getString("apellido1_P"),
+                        rs.getString("apellido2_P"),
+                        rs.getString("telefono_P"),
+                        rs.getString("nombre1_adicional"),
+                        rs.getString("nombre2_adicional"),
+                        rs.getString("apellido1_adicional"),
+                        rs.getString("apellido2_adicional"),
+                        rs.getString("telefono_adicional")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean save(Proveedores proveedor) {
         String query = "INSERT INTO Proveedores (RFC, razon_social, codigo_postal, direccion, nombre1_P, nombre2_P, apellido1_P, apellido2_P, telefono_P, nombre1_adicional, nombre2_adicional, apellido1_adicional, apellido2_adicional, telefono_adicional) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

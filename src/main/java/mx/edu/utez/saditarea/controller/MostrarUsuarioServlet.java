@@ -5,37 +5,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saditarea.dao.UserDao;
 import mx.edu.utez.saditarea.modelo.Usuario;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "MostrarUsuarioServlet", value = "/usuario")
 public class MostrarUsuarioServlet extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
-        // Puedes inicializar recursos aquí si es necesario
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String correo = req.getParameter("correo");
-        String contrasena = req.getParameter("contrasena");
-
         UserDao userDao = new UserDao();
-        Usuario usuario = userDao.getOne(correo, contrasena);
+        List<Usuario> usuarios = userDao.getAll();
 
-        // Establece el usuario como atributo de solicitud
-        req.setAttribute("usuario", usuario);
+        req.setAttribute("usuarios", usuarios);
 
-        // Redirige a la vista JSP
-        String ruta = (usuario != null && usuario.getCorreo() != null) ? "usuario.jsp" : "index.jsp?error=true";
-        req.getRequestDispatcher(ruta).forward(req, resp);
-    }
-
-    @Override
-    public void destroy() {
-        // Limpia los recursos si es necesario
+        req.getRequestDispatcher("usuarios.jsp").forward(req, resp);
     }
 }

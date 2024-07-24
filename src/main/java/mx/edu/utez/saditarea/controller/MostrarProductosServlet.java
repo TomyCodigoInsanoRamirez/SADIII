@@ -20,6 +20,6 @@ public class MostrarProductosServlet extends HttpServlet {
         List<Productos> productosList = dao.getAll();
 
         req.setAttribute("productos", productosList);
-        req.getRequestDispatcher("/mostrarProductos.jsp").forward(req, resp);
+        req.getRequestDispatcher("/productos.jsp").forward(req, resp);
     }
 }

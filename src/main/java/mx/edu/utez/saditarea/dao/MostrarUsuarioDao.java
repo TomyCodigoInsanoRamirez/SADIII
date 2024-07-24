@@ -7,35 +7,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MostrarUsuarioDao {
 
-    public Usuario getOne(String correo, String contrasena){
-        Usuario u = null;
-        String query = "SELECT idUsuario, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena, estado, codigo FROM usuarios WHERE correo = ? AND contrasena = ?";
-        try {
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, correo);
-            ps.setString(2, contrasena);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                u = new Usuario(
-                        rs.getString("idUsuario"),
-                        rs.getString("correo"),
-                        rs.getString("nombre1_U"),
-                        rs.getString("apellido1_U"),
-                        rs.getString("nombre2_U"),
-                        rs.getString("apellido2_U"),
-                        rs.getString("telefono"),
-                        rs.getString("contrasena"),
-                        rs.getBoolean("estado"),
-                        rs.getString("codigo")
-                );
+    public List<Usuario> getAll() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String query = "SELECT idUsuario, correo, nombre1_U FROM usuarios";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getString("idUsuario"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setNombre1_U(rs.getString("nombre1_U"));
+
+                usuarios.add(usuario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return u;
+        return usuarios;
     }
 }

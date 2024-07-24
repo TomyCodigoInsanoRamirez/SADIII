@@ -9,15 +9,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
-<<<<<<< HEAD
+
     <link rel='stylesheet' type='text/css' media='screen' href='css/home.css'>
-=======
+
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
 </head>
 
 <body>
@@ -213,73 +212,25 @@
                             </form>
                         </div>
                         <div style="position: relative;">
+
                             <table class="table table-hover tab">
-                                <thead>
-                                <tr>
-                                    <th class="todisable2">ID_Usuario</th>
-                                    <th>Nombre</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="tabla-body">
-                                <%
-                                    UserDao dao = new UserDao();
-                                    ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
-                                <tr>
-                                    <td class="todisable2"><%=u.getId()%></td>
-                                    <td><%=u.getNombre1_U()%></td>
-                                    <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                                    <td class="acc">
-                                        <label class="switch small">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <%} %>
-                                <!--
-                                <tr>
-                                    <td>1</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Enrique Landa</td>
-                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
-                                    <td class="acciones">
-                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
-                                        <template>
-                                            <div>
-                                                <b-form-checkbox v-model="checked" name="check-button" switch>
-                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
-                                                </b-form-checkbox>
-                                            </div>
-                                        </template>
-                                    </td>
-                                </tr>
-                                -->
-                                </tbody>
-                            </table>
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="area" items="${areasList}">
+                                        <tr>
+                                            <td>${area.nombreArea}</td>
+                                            <td>${area.descripcionArea}</td>
+                                            <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
@@ -309,7 +260,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-<<<<<<< HEAD
+
             <div class="derecha">
                 <input type="text" placeholder="Buscar" >
                 <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
@@ -320,41 +271,22 @@
                 <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
             </div>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="area" items="${areasList}">
-                    <tr>
-                        <td>${area.nombreArea}</td>
-                        <td>${area.descripcionArea}</td>
-                        <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+
         </div>
     </div>
 </div>
 
-<div id="popup-container" class="popup-container">
-=======
-        </div>
+
     </div>
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
     <div class="popup-header">
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-<<<<<<< HEAD
+
     <form action="registroArea" method="post">
         <div class="form-group">
             <label for="product-name">Nombre:</label>
@@ -365,7 +297,7 @@
             <textarea id="description" name="description" placeholder="EJEMPLO:"></textarea>
         </div>
         <button type="submit" class="add-btn">Agregar</button>
-=======
+
     <form>
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
@@ -434,7 +366,7 @@
             </div>
         </div>
         <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
     </form>
 </div>
 <script>
@@ -517,11 +449,9 @@
         }
 
     })
-<<<<<<< HEAD
+
 
     function toggleDropdown(id) {
-=======
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
 
     function noScroll() {
         window.scrollTo(0, 0);
@@ -538,9 +468,8 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
 </body>
-<<<<<<< HEAD
-</html>
-=======
 
 </html>
->>>>>>> 9716197fd998cbc79282a00c7ffca90887678608
+
+
+</html>

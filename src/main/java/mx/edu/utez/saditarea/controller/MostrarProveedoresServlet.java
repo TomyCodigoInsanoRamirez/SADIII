@@ -25,6 +25,6 @@ public class MostrarProveedoresServlet extends HttpServlet {
         req.setAttribute("proveedores", proveedores);
 
         // Redirigir a la JSP para mostrar los proveedores
-        req.getRequestDispatcher("provedores.jsp").forward(req, resp);
+        req.getRequestDispatcher("proveedores.jsp").forward(req, resp);
     }
 }

@@ -16,6 +16,8 @@ public class Proveedores {
     private String apellido2_Adicional;
     private String telefono_Adicional;
 
+    public Proveedores() {}
+
     public Proveedores(String RFC, String razon_social, String codigo_postal, String direccion,
                        String nombre1_P, String nombre2_P, String apellido1_P, String apellido2_P,
                        String telefono_P, String nombre1_Adicional, String nombre2_Adicional,
