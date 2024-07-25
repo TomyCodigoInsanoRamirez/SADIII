@@ -57,6 +57,7 @@ public class InicioSesionServlet extends HttpServlet {
             System.out.println("No");
         }
         resp.sendRedirect(ruta);
+
     }
 
     @Override

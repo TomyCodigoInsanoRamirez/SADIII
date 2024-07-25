@@ -1,9 +1,10 @@
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
+<%@ page import="mx.edu.utez.saditarea.dao.UnidadMedidaDao" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
@@ -29,6 +30,9 @@
                 <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div class="tituloSeccion">
+                    <h1>UNIDAD DE MEDIDA</h1>
+                </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                     <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
@@ -105,9 +109,6 @@
 
                 </div>
             </a>
-            <div class="tituloSeccion">
-                <h1>UNIDAD DE MEDIDA</h1>
-            </div>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
                 </ul>
@@ -211,49 +212,25 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-                            <%
-                                String message = (String) request.getAttribute("message");
-                                if (message != null) {
-                            %>
-                            <p><%= message %></p>
-                            <%
-                                }
-                            %>
-                            <table>
+                            <table class="table table-hover tab">
                                 <thead>
                                 <tr>
+                                    <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th>Abreviatura</th>
-                                    <th>Acciones</th> <!-- Nueva columna para acciones -->
+                                    <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tabla-body">
                                 <%
-                                    List<UnidadMedida> unidadesMedida = (List<UnidadMedida>) request.getAttribute("unidadesMedida");
-                                    if (unidadesMedida != null) {
-                                        for (UnidadMedida unidad : unidadesMedida) {
-                                %>
+                                    UnidadMedidaDao dao = new UnidadMedidaDao();
+                                    List<UnidadMedida> lista = dao.getAll();
+                                    for(UnidadMedida u : lista){ %>
+                                <!---Se va a repetir --->
                                 <tr>
-                                    <td><%= unidad.getNombreUnidadMedida() %></td>
-                                    <td><%= unidad.getAbreviacionUndidadMedida() %></td>
-                                    <td class="acciones">
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <a href="editarUnidadMedida?abreviacion=<%= unidad.getAbreviacionUndidadMedida() %>">
-                                            <img src="img/iconolapiz-removebg-preview.png" width="30px" alt="Editar">
-                                        </a>
-                                    </td>
+                                    <td ><%=u.getAbreviacionUndidadMedida()%></td>
+                                    <td><%=u.getNombreUnidadMedida()%></td>
                                 </tr>
-                                <%
-                                    }
-                                } else {
-                                %>
-                                <tr>
-                                    <td colspan="3">No hay unidades de medida disponibles.</td>
-                                </tr>
-                                <% } %>
+                                <%} %>
                                 </tbody>
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
@@ -291,22 +268,78 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro Unidad de Medida.</h2>
+        <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form action="registroUnidadMedida" method="post">
-        <div class="form-group">
-            <label for="product-key">Abreviatura:</label>
-            <input type="text" id="product-key" name="product-key" placeholder="EJEMPLO:">
+    <form>
+        <!-- <button id="close" class="close-btn" >✖</button> -->
+        <div class="contenedorInputs">
+            <div class="izquierda">
+                <div class="form-group">
+                    <label for="rfc">RFC:</label>
+                    <input type="text" id="rfc" name="rfc">
+                </div>
+                <div class="form-group">
+                    <label for="nombre1">Nombre :</label>
+                    <input type="text" id="nombre1" name="nombre1">
+                </div>
+                <div class="form-group">
+                    <label for="nombre2">Segundo nombre :</label>
+                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                </div>
+                <div class="form-group">
+                    <label for="apellido1">Apellido Paterno :</label>
+                    <input type="text" id="apellido1" name="apellido1">
+                </div>
+                <div class="form-group">
+                    <label for="apellido2">Apellido Materno :</label>
+                    <input type="text" id="apellido2" name="apellido2">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número de telefono :</label>
+                    <input type="number" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
+                    <input type="text" id="nombre1A" name="nombre1A">
+                </div>
+            </div>
+            <div class="derecha">
+                <!--<button id="close" class="close-btn" >✖</button>-->
+                <div class="form-group">
+                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
+                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                </div>
+                <div class="form-group">
+                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
+                    <input type="text" id="apellido1A" name="apellido1A">
+                </div>
+                <div class="form-group">
+                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
+                    <input type="text" id="apellido2A" name="apellido2A">
+                </div>
+                <div class="form-group">
+                    <label for="telefonoA">Número de telefono :</label>
+                    <input type="number" id="telefonoA" name="telefonoA">
+                </div>
+                <div class="form-group">
+                    <label for="razonSocial">Razón Social :</label>
+                    <input type="text" id="razonSocial" name="razonSocial">
+                </div>
+                <div class="form-group">
+                    <label for="cp">Código postal :</label>
+                    <input type="number" id="cp" name="cp">
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección :</label>
+                    <input type="text" id="direccion" name="direccion">
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="product-name">Nombre:</label>
-            <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
-        </div>
-        <button type="submit" class="add-btn">Agregar</button>
         <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
     </form>
-
 </div>
 <script>
     const elemento = document.getElementById("item-responsive");

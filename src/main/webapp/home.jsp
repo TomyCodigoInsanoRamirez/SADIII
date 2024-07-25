@@ -285,7 +285,7 @@
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form action="" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">

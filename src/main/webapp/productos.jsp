@@ -1,9 +1,12 @@
+<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 
+<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
 
 <!DOCTYPE html>
 <html>
@@ -30,6 +33,9 @@
                 <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div class="tituloSeccion">
+                    <h1>PRODUCTOS</h1>
+                </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                     <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
@@ -106,9 +112,6 @@
 
                 </div>
             </a>
-            <div class="tituloSeccion">
-                <h1>PRODUCTOS</h1>
-            </div>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
                 </ul>
@@ -212,43 +215,42 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-                            <table class="table">
+                            <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th>Clave Producto</th>
-                                    <th>Nombre del Producto</th>
-                                    <th>Descripción del Producto</th>
-                                    <th>Acciones</th>
+                                    <th class="todisable2">Clave de producto</th>
+                                    <th>Nombre Producto</th>
+                                    <th  class="todisable">Descripción producto</th>  <!--style="padding-left: 65px;" -->
+                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
-                                    List<Productos> productos = (List<Productos>) request.getAttribute("productos");
-                                    if (productos != null && !productos.isEmpty()) {
-                                        for (Productos producto : productos) {
-                                %>
+                                    ProductosDao dao = new ProductosDao();
+                                    List<Productos> lista = dao.getAll();
+                                    for(Productos u : lista){ %>
+                                <!---Se va a repetir --->
                                 <tr>
-                                    <td><%= producto.getClaveProducto() %></td>
-                                    <td><%= producto.getNombreProducto() %></td>
-                                    <td><%= producto.getDescripcionProducto() %></td>
-                                    <td class="actions">
-                                        <button class="edit" onclick="window.location.href='editarProducto?clave=<%= producto.getClaveProducto() %>'">✏️</button>
-                                        <button class="delete" onclick="if(confirm('¿Estás seguro de eliminar este producto?')) window.location.href='eliminarProducto?clave=<%= producto.getClaveProducto() %>'">🗑️</button>
+                                    <td class="todisable2"><%=u.getClaveProducto()%></td>
+                                    <td><%=u.getNombreProducto()%></td>
+                                    <td class="todisable"><%=u.getDescripcionProducto()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                                    <td class="acc"><a href="login?id=<%=u.getNombreProducto()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
                                     </td>
                                 </tr>
-                                <%
-                                    }
-                                } else {
-                                %>
-                                <tr>
-                                    <td colspan="4">No hay productos disponibles.</td>
-                                </tr>
-                                <%
-                                    }
-                                %>
+                                <%} %>
+
                                 </tbody>
                             </table>
-
+                            <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
+                                <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
                             </button>
                         </div>
@@ -276,17 +278,6 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-
-            <div class="derecha">
-                <input type="text" placeholder="Buscar" >
-                <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
-            </div>
-        </div>
-        <div class="table-container">
-            <div class="espacioBlancoTabla">
-                <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -296,7 +287,7 @@
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form method="post" action="registroProveedor">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
@@ -464,4 +455,3 @@
 </body>
 
 </html>
-

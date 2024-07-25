@@ -24,7 +24,7 @@ public class ProveedoresDao {
                 Proveedores proveedor = new Proveedores(
                         rs.getString("RFC"),
                         rs.getString("razon_social"),
-                        rs.getString("codigo_postal"),
+                        rs.getString("codigo_postal_P"),
                         rs.getString("direccion"),
                         rs.getString("nombre1_P"),
                         rs.getString("nombre2_P"),
@@ -97,7 +97,7 @@ public class ProveedoresDao {
             ps.setString(12, proveedor.getApellido1_Adicional());
             ps.setString(13, proveedor.getApellido2_Adicional());
             ps.setString(14, proveedor.getTelefono_Adicional());
-
+            System.out.println("se hixzo el insert del proveedor");
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;
 

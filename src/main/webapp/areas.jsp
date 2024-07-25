@@ -1,6 +1,9 @@
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -9,9 +12,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
-
-    <link rel='stylesheet' type='text/css' media='screen' href='css/home.css'>
-
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,6 +30,9 @@
                 <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
+                <div class="tituloSeccion">
+                    <h1>ÁREAS</h1>
+                </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                     <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
@@ -106,9 +109,6 @@
 
                 </div>
             </a>
-            <div class="tituloSeccion">
-                <h1>ÁREAS</h1>
-            </div>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
                 </ul>
@@ -212,25 +212,30 @@
                             </form>
                         </div>
                         <div style="position: relative;">
-
                             <table class="table table-hover tab">
-                                    <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="area" items="${areasList}">
-                                        <tr>
-                                            <td>${area.nombreArea}</td>
-                                            <td>${area.descripcionArea}</td>
-                                            <td class="acciones"><label class="switch"> <input type="checkbox"> <span class="slider"></span> </label>  <img src="img/iconolapiz-removebg-preview.png" width="30px">  </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+                                <thead>
+                                <tr>
+                                    <th class="todisable2">Clave área</th>
+                                    <th>Nombre área</th>
+                                    <th  class="todisable">Descrión área</th>  <!--style="padding-left: 65px;" -->
+
+                                </tr>
+                                </thead>
+                                <tbody id="tabla-body">
+                                <%
+                                    AreasDao dao = new AreasDao();
+                                    List<Areas> lista = dao.getAll();
+                                    for(Areas u : lista){ %>
+                                <!---Se va a repetir --->
+                                <tr>
+                                    <td class="todisable2"><%=u.getClaveArea()%></td>
+                                    <td><%=u.getNombreArea()%></td>
+                                    <td class="todisable"><%=u.getDescripcionArea()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
+                                </tr>
+                                <%} %>
+                                </tbody>
+                            </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
@@ -260,44 +265,15 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Confirmar</button>
             </div>
-
-            <div class="derecha">
-                <input type="text" placeholder="Buscar" >
-                <span><img src="img/LUPAsINfONDO-removebg-preview.png" width="20px"></span>
-            </div>
         </div>
-        <div class="table-container">
-            <div class="espacioBlancoTabla">
-                <div class="add" id="add" ><a href=""><img src="img/add-removebg-preview.png" width="80px"></a></div>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-
-
     </div>
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-
     <div class="popup-header">
         <h2>Registro de Productos</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-
-    <form action="registroArea" method="post">
-        <div class="form-group">
-            <label for="product-name">Nombre:</label>
-            <input type="text" id="product-name" name="product-name" placeholder="EJEMPLO:">
-        </div>
-        <div class="form-group">
-            <label for="description">Descripción:</label>
-            <textarea id="description" name="description" placeholder="EJEMPLO:"></textarea>
-        </div>
-        <button type="submit" class="add-btn">Agregar</button>
-
     <form>
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
@@ -366,7 +342,6 @@
             </div>
         </div>
         <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
-
     </form>
 </div>
 <script>
@@ -450,9 +425,6 @@
 
     })
 
-
-    function toggleDropdown(id) {
-
     function noScroll() {
         window.scrollTo(0, 0);
     }
@@ -468,8 +440,5 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
 </body>
-
-</html>
-
 
 </html>

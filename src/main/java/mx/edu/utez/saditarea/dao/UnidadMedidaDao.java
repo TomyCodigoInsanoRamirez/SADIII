@@ -31,7 +31,7 @@ public class UnidadMedidaDao {
 
     public List<UnidadMedida> getAll() {
         List<UnidadMedida> unidadesMedida = new ArrayList<>();
-        String query = "SELECT abreviacionUnidadMedida, nombreUnidadMedida FROM Unidad_Medida";
+        String query = "SELECT * FROM Unidad_Medida";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
@@ -39,7 +39,7 @@ public class UnidadMedidaDao {
 
             while (rs.next()) {
                 String abreviacion = rs.getString("abreviacionUnidadMedida");
-                String nombre = rs.getString("nombreUnidadMedida");
+                String nombre = rs.getString("nombreUnidadMeidida");
                 UnidadMedida unidad = new UnidadMedida(abreviacion, nombre);
                 unidadesMedida.add(unidad);
             }

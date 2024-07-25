@@ -17,6 +17,7 @@ public class RegistroProveedorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener los parámetros del formulario
+        System.out.println("Si llegaron lo datos");
         String rfc = req.getParameter("rfc");
         String razonSocial = req.getParameter("razonSocial");
         String codigoPostal = req.getParameter("cp");
