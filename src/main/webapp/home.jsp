@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -212,7 +213,7 @@
                                 </button>
                             </form>
                         </div>
-                        <div style="position: relative;">
+                        <div style="position: relative; display: block" >
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
@@ -278,15 +279,13 @@
             </div>
         </div>
     </div>
-</div>
-<!--formulario de registro (add)-->
+</div><!-- formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
         <h2>Registro de Productos</h2>
-        <button  class="close-btn" id="close">✖</button>
+        <button class="close-btn" id="close">✖</button>
     </div>
-    <form action="" method="post">
-        <!-- <button id="close" class="close-btn" >✖</button> -->
+    <form action="usuario" method="post">
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
@@ -313,14 +312,12 @@
                     <label for="telefono">Número de telefono :</label>
                     <input type="number" id="telefono" name="telefono">
                 </div>
-
                 <div class="form-group">
                     <label for="nombre1A">Nombre (Contacto Adicional) :</label>
                     <input type="text" id="nombre1A" name="nombre1A">
                 </div>
             </div>
             <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
                     <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
                     <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
@@ -345,7 +342,6 @@
                     <label for="cp">Código postal :</label>
                     <input type="number" id="cp" name="cp">
                 </div>
-
                 <div class="form-group">
                     <label for="direccion">Dirección :</label>
                     <input type="text" id="direccion" name="direccion">
@@ -405,36 +401,22 @@
         }
 
     })
-    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
-       // alert("si se da clic");
+    // JavaScript para manejar el formulario emergente y el scroll
+    document.getElementById("agregar-fila").addEventListener("click", function () {
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        if(pop.style.display === "none"){
-            pop.style.display = "block";
-            capa.style.zIndex = 1;
-            pop.style.zIndex = 2;
-            capa.style.backgroundColor = "rgba(0,0,0,0.7)";
-            window.addEventListener('scroll', noScroll);
-        }else{
-            pop.style.display = "none";
-            todoLoQueEstorba.style.zIndex = 0;
-        }
-    })
-    document.getElementById("close").addEventListener("click",function (){
+        pop.style.display = "block";
+        capa.style.display = "block";
+        document.body.style.overflow = "hidden"; // Evita el scroll de la página principal
+    });
+
+    document.getElementById("close").addEventListener("click", function () {
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        //pop.style.display = "none";
-
-        if(pop.style.display === "none"){
-            pop.style.display = "block";
-        }else{
-            capa.style.zIndex = -1;
-            capa.style.backgroundColor = "rgba(255,255,255,0)";
-            pop.style.display = "none";
-            window.removeEventListener('scroll', noScroll);
-        }
-
-    })
+        pop.style.display = "none";
+        capa.style.display = "none";
+        document.body.style.overflow = "auto"; // Restaura el scroll de la página principal
+    });
 
     function noScroll() {
         window.scrollTo(0, 0);
