@@ -200,6 +200,9 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(19px);
 }
+.modal-body input {
+    margin-bottom: 15px;
+}
 
 .popup-container {
     width: 600px;
@@ -227,6 +230,20 @@ input:checked + .slider:before {
     color: #8B4513;
     margin: 0;
 }
+
+/* Responsividad para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .popup-container {
+        width: 90%;
+        padding: 15px;
+        transform: translate(-50%, 90%);
+    }
+
+    .popup-header h2 {
+        font-size: 18px;
+    }
+}
+
 
 .close-btn {
     background: none;
@@ -335,6 +352,7 @@ input {
 .container-fluid {
     margin-top: 40px;
 }
+
 .table-container {
     width: 100%;
     max-width: 800px;
@@ -357,19 +375,20 @@ input {
 }
 
 /* Responsabilidad para móvil */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .table-container {
         width: calc(100% - 20px); /* Ajusta el ancho para dispositivos móviles */
-        left: 10px; /* Ajusta el espaciado desde el borde izquierdo */
-        top: 20px; /* Ajusta el espaciado desde el borde superior */
-        overflow-x: auto; /* Habilita el scroll horizontal si es necesario */
-    }
+/*left: 10px; /* Ajusta el espaciado desde el borde izquierdo */
+/*        top: 20px; /* Ajusta el espaciado desde el borde superior */
+/*       overflow-x: auto; /* Habilita el scroll horizontal si es necesario */
+/*    }
 
     .table-container .btn-circular {
         width: 40px;
         height: 40px;
         right: 5px;
     }
+
     .sidebar {
         display: none;
     }
@@ -378,15 +397,13 @@ input {
         width: 100%;
     }
 
-    .popup-container {
-        width: 90%;
-    }
-
     .contenedorInputs {
         flex-direction: column;
         align-items: stretch;
     }
 }
+
+ */
 
 .navbar-brand {
     margin-right: auto !important;
@@ -395,3 +412,4 @@ input {
 .navbar .form-inline {
     margin-left: auto !important;
 }
+

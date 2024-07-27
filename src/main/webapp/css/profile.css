@@ -1,27 +1,51 @@
 body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand img {
+    max-width: 150px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff;
+}
+
+.container-fluid {
+    padding: 15px;
+}
+
+.profile-info {
     background-color: #f8f9fa;
-}
-.profile-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     padding: 20px;
-    margin: 20px;
-    position: relative;
+    border-radius: 5px;
 }
-.edit-form {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: none;
-    align-items: center;
-    justify-content: center;
+
+.profile-info h2 {
+    margin-bottom: 20px;
 }
-.edit-form form {
-    background-color: #ccc;
-    padding: 20px;
-    border-radius: 8px;
+
+.profile-info p {
+    margin: 10px 0;
+}
+
+.profile-info label {
+    font-weight: bold;
+}
+
+.profile-info .btn {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand img {
+        max-width: 120px;
+    }
+
+    .profile-info {
+        padding: 15px;
+    }
 }
