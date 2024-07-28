@@ -40,12 +40,45 @@ public class UnidadMedidaDao {
             while (rs.next()) {
                 String abreviacion = rs.getString("abreviacionUnidadMedida");
                 String nombre = rs.getString("nombreUnidadMeidida");
-                UnidadMedida unidad = new UnidadMedida(abreviacion, nombre);
+                int estado = rs.getInt("estado_um");
+                UnidadMedida unidad = new UnidadMedida(abreviacion, nombre,estado);
                 unidadesMedida.add(unidad);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return unidadesMedida;
+    }
+    public boolean updateOn(String id){
+        boolean flag = false;
+        String query = "update unidad_medida set estado_um = 1 where abreviacionUnidadMedida=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean updateOf(String id){
+        boolean flag = false;
+        String query = "update unidad_medida set estado_um = 0 where abreviacionUnidadMedida=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

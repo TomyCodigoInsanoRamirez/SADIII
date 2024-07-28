@@ -22,7 +22,7 @@ public class RegistroProductoServlet extends HttpServlet {
         String descripcionProducto = req.getParameter("description");
 
         // Crear el objeto Productos
-        Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto);
+        Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto,1);
 
         // Obtener el DAO
         ProductosDao dao = new ProductosDao();
@@ -38,7 +38,6 @@ public class RegistroProductoServlet extends HttpServlet {
             req.getSession().setAttribute("mensaje", "Error al registrar el producto");
             ruta = "index.jsp?error=true";
         }
-
         resp.sendRedirect(ruta);
     }
 }

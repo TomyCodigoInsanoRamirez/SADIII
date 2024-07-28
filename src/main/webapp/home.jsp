@@ -20,9 +20,89 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<script>
 
+    let apagados = 0;
+    clikis = 0  ;
+    function checar(input){
+
+        //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
+        clikis ++;
+        console.log(clikis);
+        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
+            let toStatusActive = document.getElementById("activar");
+            let toStatusInactive = document.getElementById("desactivar");
+            let mensaje = document.getElementById("contbasemsj");
+            let aceptar = document.getElementById("aceptar");
+            let cancelar = document.getElementById("cancelar");
+            let aceptarO = document.getElementById("aceptarO");
+            let cancelarO = document.getElementById("cancelarO");
+            let estado = input.getAttribute("data-estado");
+            if(estado == 1){
+                mensaje.style.display = "block";
+                toStatusInactive.style.display = "block"
+                aceptar.addEventListener("click",event =>{
+                    input.previousElementSibling.click();
+                    mensaje.style.display = "none";
+                })
+                cancelar.addEventListener("click",event =>{
+                    mensaje.style.display = "none";
+                    location.reload();
+                })
+            }else{
+                mensaje.style.display = "block";
+                toStatusActive.style.display = "block"
+                aceptarO.addEventListener("click",event =>{
+                    input.previousElementSibling.click();
+                    mensaje.style.display = "none";
+                })
+                cancelarO.addEventListener("click",event =>{
+                    mensaje.style.display = "none";
+                    location.reload();
+                })
+            }
+
+        }
+    }
+    /*  function triggerDelete(input) {
+          console.log(clikis);
+          if(clikis >= 2){
+              input.previousElementSibling.click();
+          }
+          clikis ++;
+      }*/
+</script>
 <body>
-
+<div id="contbasemsj">
+    <div class="basemsj" id="basemsj">
+        <div class="confirmar-cambio-estado-of" id="desactivar">
+            <h2>¿DESACTIVAR USUARIO? </h2>
+            <h5>(No aparecerá en las entradas ni salidas)</h5>
+            <h3>¿Desea continuar?</h3>
+            <div class="btn-ar">
+                <button id="aceptar">
+                    Aceptar
+                </button>
+                <button id="cancelar">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="confirmar-cambio-estado-of" id="activar">
+            <h2>¿ACTIVAR USUARIO? </h2>
+            <h5>(Aparecerá en las entradas ni salidas)</h5>
+            <h3>¿Desea continuar?</h3>
+            <div class="btn-ar">
+                <button id="aceptarO">
+                    Aceptar
+                </button>
+                <button id="cancelarO">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="capa-obscurecer">
 
 </div>
@@ -240,8 +320,26 @@
                                     <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
                                     <td class="acc">
                                         <label class="switch small">
-                                            <input type="checkbox">
+                                            <a href="updateUsuarioE?id=<%=u.getId()%>&estado=<%=u.isEstado()%>" class="delete-link" style="display: none;">Eliminar</a>
+                                            <input type="checkbox" class="inn"  data-estado="<%=u.isEstado()%>" onclick="checar(this);">
+                                            <!--<input type="checkbox">-->
                                             <span class="slider"></span>
+                                            <%
+                                                if(u.isEstado() == 1){
+                                            %>
+                                            <script>
+                                                console.log("Aun entra a la condición para activar el slider");
+                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
+                                            </script>
+                                            <%
+                                            }else{
+                                            %>
+                                            <script>
+                                                apagados ++;
+                                            </script>
+                                            <%
+                                                }
+                                            %>
                                         </label>
                                     </td>
                                 </tr>

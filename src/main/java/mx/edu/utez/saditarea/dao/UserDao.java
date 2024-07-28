@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class UserDao {
 
     // Obtener un usuario por correo y contraseña para el inicio de sesión
+    /*
     public Usuario getOne(String correo, String contrasena) {
         Usuario u = new Usuario();
         String query = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
@@ -29,7 +30,34 @@ public class UserDao {
         }
         return u;
     }
+*/
+    public Usuario getOne(String correo, String contrasena) {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection();// obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, correo);
+            ps.setString(2, contrasena);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setContrasena(rs.getString("contrasena"));
+                usuario.setRol(rs.getString("rol")); // Obtenemos el tipo de usuario
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
     // Obtener todos los usuarios
     public ArrayList<Usuario> getAll() {
         ArrayList<Usuario> lista = new ArrayList<>();
@@ -49,7 +77,7 @@ public class UserDao {
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setCodigo(rs.getString("codigo"));
-                u.setEstado(rs.getBoolean("estado"));
+                u.setEstado(rs.getInt("estado"));
 
                 lista.add(u);
             }
@@ -79,7 +107,7 @@ public class UserDao {
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setCodigo(rs.getString("codigo"));
-                u.setEstado(rs.getBoolean("estado"));
+                u.setEstado(rs.getInt("estado"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,5 +144,37 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public boolean updateOn(String id){
+        boolean flag = false;
+        String query = "update usuarios set estado = 1 where id_empleado=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean updateOf(String id){
+        boolean flag = false;
+        String query = "update usuarios set estado = 0 where id_empleado=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

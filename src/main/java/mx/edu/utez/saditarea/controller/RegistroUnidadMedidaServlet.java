@@ -18,7 +18,7 @@ public class RegistroUnidadMedidaServlet extends HttpServlet {
         String abreviacionUndidadMedida = request.getParameter("abreviacionUnidadMedida");
         String nombreUnidadMedida = request.getParameter("nombreUnidadMedida");
 
-        UnidadMedida unidadMedida = new UnidadMedida(abreviacionUndidadMedida, nombreUnidadMedida);
+        UnidadMedida unidadMedida = new UnidadMedida(abreviacionUndidadMedida, nombreUnidadMedida,1);
         UnidadMedidaDao unidadMedidaDao = new UnidadMedidaDao();
 
         boolean isSaved = unidadMedidaDao.save(unidadMedida);

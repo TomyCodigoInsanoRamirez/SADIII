@@ -341,3 +341,80 @@ input {
     position: relative;
     z-index: -1;
 }*/
+
+.confirmar-cambio-estado-of{
+    max-width: 500px;
+    min-width: 200px;
+    height: 300px;
+    display: grid;
+    place-items: center;
+    border-radius: 30px;
+    border: solid 2px black;
+    padding: 30px;
+    background-color: white;
+}
+.btn-ar{
+    display: flex;
+}
+#aceptar{
+    width: 80px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    border-radius: 30px;
+    margin: 5px;
+}
+#cancelar{
+    width: 80px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 30px;
+    margin: 5px;
+}
+#aceptarO{
+    width: 80px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    border-radius: 30px;
+    margin: 5px;
+}
+#cancelarO{
+    width: 80px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 30px;
+    margin: 5px;
+}
+#aceptar:hover{
+    background-color: #37f837;
+}
+#cancelar:hover{
+    background-color: #f46666;
+}
+#aceptarO:hover{
+    background-color: #37f837;
+}
+#cancelarO:hover{
+    background-color: #f46666;
+}
+.basemsj{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: grid;
+    place-items: center;
+    position: absolute;
+    z-index: 2;
+}
+#contbasemsj{
+    display: none;
+}
+#activar{
+    display: none;
+}
+#desactivar{
+    display: none;
+}

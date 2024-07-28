@@ -35,7 +35,8 @@ public class ProveedoresDao {
                         rs.getString("nombre2_adicional"),
                         rs.getString("apellido1_adicional"),
                         rs.getString("apellido2_adicional"),
-                        rs.getString("telefono_adicional")
+                        rs.getString("telefono_adicional"),
+                        rs.getInt("estado_usu")
                 );
                 proveedores.add(proveedor);
             }
@@ -68,7 +69,8 @@ public class ProveedoresDao {
                         rs.getString("nombre2_adicional"),
                         rs.getString("apellido1_adicional"),
                         rs.getString("apellido2_adicional"),
-                        rs.getString("telefono_adicional")
+                        rs.getString("telefono_adicional"),
+                        rs.getInt("estado_usu")
                 );
             }
         } catch (SQLException e) {
@@ -105,5 +107,38 @@ public class ProveedoresDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean updateOn(String id){
+        boolean flag = false;
+        String query = "update proveedores set estado_usu = 1 where RFC=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean updateOf(String id){
+        boolean flag = false;
+        String query = "update proveedores set estado_usu = 0 where RFC=?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,id);
+            if (ps.executeUpdate()>0){
+                //Que si se hizo la modificacion o modificaciones
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

@@ -4,16 +4,18 @@ public class Areas {
     private String claveArea;
     private String nombreArea;
     private String descripcionArea;
+    private int estadoA;
 
     // Constructor sin argumentos
     public Areas() {
     }
 
     // Constructor con argumentos
-    public Areas(String claveArea, String nombreArea, String descripcionArea) {
+    public Areas(String claveArea, String nombreArea, String descripcionArea,int estadoA) {
         this.claveArea = claveArea;
         this.nombreArea = nombreArea;
         this.descripcionArea = descripcionArea;
+        this.estadoA = estadoA;
     }
 
     // Getters y Setters
@@ -39,5 +41,13 @@ public class Areas {
 
     public void setDescripcionArea(String descripcionArea) {
         this.descripcionArea = descripcionArea;
+    }
+
+    public int getEstadoA() {
+        return estadoA;
+    }
+
+    public void setEstadoA(int estadoA) {
+        this.estadoA = estadoA;
     }
 }

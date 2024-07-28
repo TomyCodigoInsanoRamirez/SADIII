@@ -15,13 +15,14 @@ public class Proveedores {
     private String apellido1_Adicional;
     private String apellido2_Adicional;
     private String telefono_Adicional;
+    private int estado_usu;
 
     public Proveedores() {}
 
     public Proveedores(String RFC, String razon_social, String codigo_postal, String direccion,
                        String nombre1_P, String nombre2_P, String apellido1_P, String apellido2_P,
                        String telefono_P, String nombre1_Adicional, String nombre2_Adicional,
-                       String apellido1_Adicional, String apellido2_Adicional, String telefono_Adicional) {
+                       String apellido1_Adicional, String apellido2_Adicional, String telefono_Adicional,int estado_usu) {
         this.RFC = RFC;
         this.razon_social = razon_social;
         this.codigo_postal = codigo_postal;
@@ -36,6 +37,7 @@ public class Proveedores {
         this.apellido1_Adicional = apellido1_Adicional;
         this.apellido2_Adicional = apellido2_Adicional;
         this.telefono_Adicional = telefono_Adicional;
+        this.estado_usu = estado_usu;
     }
 
     // Getters and setters for all fields
@@ -81,4 +83,12 @@ public class Proveedores {
 
     public String getTelefono_Adicional() { return telefono_Adicional; }
     public void setTelefono_Adicional(String telefono_Adicional) { this.telefono_Adicional = telefono_Adicional; }
+
+    public int getEstado_usu() {
+        return estado_usu;
+    }
+
+    public void setEstado_usu(int estado_usu) {
+        this.estado_usu = estado_usu;
+    }
 }

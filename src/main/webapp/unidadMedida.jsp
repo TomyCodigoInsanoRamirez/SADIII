@@ -18,8 +18,89 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<script>
 
+    let apagados = 0;
+    clikis = 0  ;
+    function checar(input){
+
+        //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
+        clikis ++;
+        console.log(clikis);
+        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
+            let toStatusActive = document.getElementById("activar");
+            let toStatusInactive = document.getElementById("desactivar");
+            let mensaje = document.getElementById("contbasemsj");
+            let aceptar = document.getElementById("aceptar");
+            let cancelar = document.getElementById("cancelar");
+            let aceptarO = document.getElementById("aceptarO");
+            let cancelarO = document.getElementById("cancelarO");
+            let estado = input.getAttribute("data-estado");
+            if(estado == 1){
+                mensaje.style.display = "block";
+                toStatusInactive.style.display = "block"
+                aceptar.addEventListener("click",event =>{
+                    input.previousElementSibling.click();
+                    mensaje.style.display = "none";
+                })
+                cancelar.addEventListener("click",event =>{
+                    mensaje.style.display = "none";
+                    location.reload();
+                })
+            }else{
+                mensaje.style.display = "block";
+                toStatusActive.style.display = "block"
+                aceptarO.addEventListener("click",event =>{
+                    input.previousElementSibling.click();
+                    mensaje.style.display = "none";
+                })
+                cancelarO.addEventListener("click",event =>{
+                    mensaje.style.display = "none";
+                    location.reload();
+                })
+            }
+
+        }
+    }
+    /*  function triggerDelete(input) {
+          console.log(clikis);
+          if(clikis >= 2){
+              input.previousElementSibling.click();
+          }
+          clikis ++;
+      }*/
+</script>
 <body>
+<div id="contbasemsj">
+    <div class="basemsj" id="basemsj">
+        <div class="confirmar-cambio-estado-of" id="desactivar">
+            <h2>¿DESACTIVAR PRODUCTO? </h2>
+            <h5>(No aparecerá en las entradas ni salidas)</h5>
+            <h3>¿Desea continuar?</h3>
+            <div class="btn-ar">
+                <button id="aceptar">
+                    Aceptar
+                </button>
+                <button id="cancelar">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="confirmar-cambio-estado-of" id="activar">
+            <h2>¿ACTIVAR PRODUCTO? </h2>
+            <h5>(Aparecerá en las entradas ni salidas)</h5>
+            <h3>¿Desea continuar?</h3>
+            <div class="btn-ar">
+                <button id="aceptarO">
+                    Aceptar
+                </button>
+                <button id="cancelarO">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="capa-obscurecer">
 
 </div>
@@ -217,7 +298,7 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th></th>
+                                    <th >Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -229,6 +310,31 @@
                                 <tr>
                                     <td ><%=u.getAbreviacionUndidadMedida()%></td>
                                     <td><%=u.getNombreUnidadMedida()%></td>
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                                    <td class="acc"><a href="login?id=<%=u.getNombreUnidadMedida()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <a href="actualizarEstadoUM?id=<%=u.getAbreviacionUndidadMedida()%>&estado=<%=u.getEstadoUm()%>" class="delete-link" style="display: none;">Eliminar</a>
+                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoUm()%>" onclick="checar(this);">
+                                            <span class="slider" ></span>
+                                            <%
+                                                if(u.getEstadoUm() == 1){
+                                            %>
+                                            <script>
+                                                console.log("Aun entra a la condición para activar el slider");
+                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
+                                            </script>
+                                            <%
+                                            }else{
+                                            %>
+                                            <script>
+                                                apagados ++;
+                                            </script>
+                                            <%
+                                                }
+                                            %>
+                                        </label>
+                                    </td>
                                 </tr>
                                 <%} %>
                                 </tbody>

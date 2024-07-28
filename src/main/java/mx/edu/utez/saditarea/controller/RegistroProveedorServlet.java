@@ -34,7 +34,7 @@ public class RegistroProveedorServlet extends HttpServlet {
         String telefonoA = req.getParameter("telefonoA");
 
         // Crear el objeto Proveedores
-        Proveedores proveedor = new Proveedores(rfc, razonSocial, codigoPostal, direccion, nombre1, nombre2, apellido1, apellido2, telefono, nombre1A, nombre2A, apellido1A, apellido2A, telefonoA);
+        Proveedores proveedor = new Proveedores(rfc, razonSocial, codigoPostal, direccion, nombre1, nombre2, apellido1, apellido2, telefono, nombre1A, nombre2A, apellido1A, apellido2A, telefonoA,1);
 
         // Obtener la sesión y el DAO
         HttpSession sesion = req.getSession();

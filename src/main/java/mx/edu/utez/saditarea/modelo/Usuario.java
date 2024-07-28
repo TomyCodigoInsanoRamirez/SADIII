@@ -13,14 +13,14 @@ public class Usuario {
     private String apellido2_U;
     private String telefono;
     private String contrasena;
-    private boolean estado;
+    private int estado;
     private String codigo;
     private String rol;
 
 
     public Usuario() {}
 
-    public Usuario(String idUsuario, String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, boolean estado, String codigo) {
+    public Usuario(String idUsuario, String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, int estado, String codigo) {
         this.idUsuario = idUsuario;
         this.correo = correo;
         this.nombre1_U = nombre1_U;
@@ -113,11 +113,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public boolean isEstado() {
+    public int isEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 
