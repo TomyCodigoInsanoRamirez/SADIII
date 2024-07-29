@@ -328,15 +328,10 @@
                                             <img class="act" src="img/iconolapiz-removebg-preview.png">
                                         </a>
                                     </td>
+
                                     <td class="acc">
                                         <label class="switch small">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td class="acc">
-                                        <label class="switch small">
-                                            <a href="delete?id=<%=u.getClaveProducto()%>&estado=<%=u.getEstadoProducto()%>" class="delete-link" style="display: none;">Eliminar</a>
+                                            <a href="ActualizarEstadoProducto?id=<%=u.getClaveProducto()%>&estado=<%=u.getEstadoProducto()%>" class="delete-link" style="display: none;">Eliminar</a>
                                             <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoProducto()%>" onclick="checar(this);">
                                             <span class="slider" ></span>
                                             <%

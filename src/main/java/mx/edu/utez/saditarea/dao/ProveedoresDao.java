@@ -24,7 +24,7 @@ public class ProveedoresDao {
                 Proveedores proveedor = new Proveedores(
                         rs.getString("RFC"),
                         rs.getString("razon_social"),
-                        rs.getString("codigo_postal"),
+                        rs.getString("codigo_postal_P"),
                         rs.getString("direccion"),
                         rs.getString("nombre1_P"),
                         rs.getString("nombre2_P"),

@@ -325,12 +325,6 @@
                                     </td>
                                     <td class="acc">
                                         <label class="switch small">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                    <td class="acc">
-                                        <label class="switch small">
                                             <a href="actualizarProveedorE?id=<%=u.getRFC()%>&estado=<%=u.getEstado_usu()%>" class="delete-link" style="display: none;">Eliminar</a>
                                             <input type="checkbox" class="inn"  data-estado="<%=u.getEstado_usu()%>" onclick="checar(this);">
                                             <span class="slider"></span>

@@ -59,7 +59,7 @@ public class UnidadMedidaDao {
 
             while (rs.next()) {
                 String abreviacion = rs.getString("abreviacionUnidadMedida");
-                String nombre = rs.getString("nombreUnidadMedida");
+                String nombre = rs.getString("nombreUnidadMeidida");
                 int estado = rs.getInt("estado_um"); // Preservado de la primera versión
                 UnidadMedida unidad = new UnidadMedida(abreviacion, nombre, estado);
                 unidadesMedida.add(unidad);
