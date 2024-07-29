@@ -24,7 +24,7 @@ public class ProveedoresDao {
                 Proveedores proveedor = new Proveedores(
                         rs.getString("RFC"),
                         rs.getString("razon_social"),
-                        rs.getString("codigo_postal_P"),
+                        rs.getString("codigo_postal"),
                         rs.getString("direccion"),
                         rs.getString("nombre1_P"),
                         rs.getString("nombre2_P"),
@@ -80,7 +80,7 @@ public class ProveedoresDao {
     }
 
     public boolean save(Proveedores proveedor) {
-        String query = "INSERT INTO Proveedores (RFC, razon_social, codigo_postal, direccion, nombre1_P, nombre2_P, apellido1_P, apellido2_P, telefono_P, nombre1_adicional, nombre2_adicional, apellido1_adicional, apellido2_adicional, telefono_adicional) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Proveedores (RFC, razon_social, codigo_postal, direccion, nombre1_P, nombre2_P, apellido1_P, apellido2_P, telefono_P, nombre1_adicional, nombre2_adicional, apellido1_adicional, apellido2_adicional, telefono_adicional, estado_usu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -99,7 +99,8 @@ public class ProveedoresDao {
             ps.setString(12, proveedor.getApellido1_Adicional());
             ps.setString(13, proveedor.getApellido2_Adicional());
             ps.setString(14, proveedor.getTelefono_Adicional());
-            System.out.println("se hixzo el insert del proveedor");
+            ps.setInt(15, proveedor.getEstado_usu());
+
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;
 
@@ -109,34 +110,50 @@ public class ProveedoresDao {
         }
     }
 
+    public boolean update(Proveedores proveedor) {
+        String query = "UPDATE Proveedores SET nombre1_P = ?, telefono_P = ?, estado_usu = ? WHERE RFC = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, proveedor.getNombre1_P());
+            ps.setString(2, proveedor.getTelefono_P());
+            ps.setInt(3, proveedor.getEstado_usu());
+            ps.setString(4, proveedor.getRFC());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean updateOn(String id){
         boolean flag = false;
-        String query = "update proveedores set estado_usu = 1 where RFC=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+        String query = "UPDATE Proveedores SET estado_usu = 1 WHERE RFC=?";
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
+
     public boolean updateOf(String id){
         boolean flag = false;
-        String query = "update proveedores set estado_usu = 0 where RFC=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+        String query = "UPDATE Proveedores SET estado_usu = 0 WHERE RFC=?";
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;

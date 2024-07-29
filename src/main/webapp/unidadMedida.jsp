@@ -293,25 +293,35 @@
                             </form>
                         </div>
                         <div style="position: relative;">
+
+
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th >Acciones</th>
+                                    <th>Acciones</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
                                     UnidadMedidaDao dao = new UnidadMedidaDao();
                                     List<UnidadMedida> lista = dao.getAll();
-                                    for(UnidadMedida u : lista){ %>
-                                <!---Se va a repetir --->
+                                    for (UnidadMedida u : lista) { %>
                                 <tr>
-                                    <td ><%=u.getAbreviacionUndidadMedida()%></td>
-                                    <td><%=u.getNombreUnidadMedida()%></td>
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getNombreUnidadMedida()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td><%= u.getAbreviacionUndidadMedida() %></td>
+                                    <td><%= u.getNombreUnidadMedida() %></td>
+                                    <td>
+                                        <a href="visualizarUnidad.jsp" class="acc">
+                                            <img class="act" src="img/visibility_24dp.png" alt="Ver">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getAbreviacionUndidadMedida() %>">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar">
+                                        </a>
+                                    </td>
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="actualizarEstadoUM?id=<%=u.getAbreviacionUndidadMedida()%>&estado=<%=u.getEstadoUm()%>" class="delete-link" style="display: none;">Eliminar</a>
@@ -336,7 +346,34 @@
                                         </label>
                                     </td>
                                 </tr>
-                                <%} %>
+
+                                <!-- Modal para Editar Información -->
+                                <div class="modal fade" id="editModal<%= u.getAbreviacionUndidadMedida() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getAbreviacionUndidadMedida() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel<%= u.getAbreviacionUndidadMedida() %>">Editar Unidad de Medida</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editForm<%= u.getAbreviacionUndidadMedida() %>" action="actualizarUnidadMedida" method="post">
+                                                    <input type="hidden" name="abreviacionUnidadMedida" value="<%= u.getAbreviacionUndidadMedida() %>">
+                                                    <div class="form-group">
+                                                        <label for="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>">Nombre Unidad de Medida:</label>
+                                                        <input type="text" class="form-control" id="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>" name="nombreUnidadMedida" value="<%= u.getNombreUnidadMedida() %>" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getAbreviacionUndidadMedida() %>">Guardar Cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
                                 </tbody>
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">

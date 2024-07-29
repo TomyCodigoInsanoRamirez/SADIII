@@ -12,6 +12,7 @@ import java.util.List;
 
 public class UnidadMedidaDao {
 
+    // Método para guardar una nueva unidad de medida
     public boolean save(UnidadMedida unidadMedida) {
         boolean rowInserted = false;
         String query = "INSERT INTO Unidad_Medida (abreviacionUnidadMedida, nombreUnidadMedida) VALUES (?, ?)";
@@ -29,6 +30,25 @@ public class UnidadMedidaDao {
         return rowInserted;
     }
 
+    // Método para actualizar una unidad de medida
+    public boolean update(UnidadMedida unidadMedida) {
+        boolean rowUpdated = false;
+        String query = "UPDATE Unidad_Medida SET nombreUnidadMedida = ? WHERE abreviacionUnidadMedida = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, unidadMedida.getNombreUnidadMedida());
+            ps.setString(2, unidadMedida.getAbreviacionUndidadMedida());
+
+            rowUpdated = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
+    }
+
+    // Método para obtener todas las unidades de medida
     public List<UnidadMedida> getAll() {
         List<UnidadMedida> unidadesMedida = new ArrayList<>();
         String query = "SELECT * FROM Unidad_Medida";
@@ -39,9 +59,9 @@ public class UnidadMedidaDao {
 
             while (rs.next()) {
                 String abreviacion = rs.getString("abreviacionUnidadMedida");
-                String nombre = rs.getString("nombreUnidadMeidida");
-                int estado = rs.getInt("estado_um");
-                UnidadMedida unidad = new UnidadMedida(abreviacion, nombre,estado);
+                String nombre = rs.getString("nombreUnidadMedida");
+                int estado = rs.getInt("estado_um"); // Preservado de la primera versión
+                UnidadMedida unidad = new UnidadMedida(abreviacion, nombre, estado);
                 unidadesMedida.add(unidad);
             }
         } catch (SQLException e) {
@@ -49,34 +69,34 @@ public class UnidadMedidaDao {
         }
         return unidadesMedida;
     }
-    public boolean updateOn(String id){
+
+    // Método para activar una unidad de medida (cambiar estado a 1)
+    public boolean updateOn(String id) {
         boolean flag = false;
-        String query = "update unidad_medida set estado_um = 1 where abreviacionUnidadMedida=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
-                flag = true;
-            }
-        }catch (SQLException e){
+        String query = "UPDATE Unidad_Medida SET estado_um = 1 WHERE abreviacionUnidadMedida = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, id);
+            flag = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
-    public boolean updateOf(String id){
+
+    // Método para desactivar una unidad de medida (cambiar estado a 0)
+    public boolean updateOf(String id) {
         boolean flag = false;
-        String query = "update unidad_medida set estado_um = 0 where abreviacionUnidadMedida=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
-                flag = true;
-            }
-        }catch (SQLException e){
+        String query = "UPDATE Unidad_Medida SET estado_um = 0 WHERE abreviacionUnidadMedida = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, id);
+            flag = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;

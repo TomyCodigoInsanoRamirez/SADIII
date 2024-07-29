@@ -1,7 +1,6 @@
 package mx.edu.utez.saditarea.dao;
 
 import mx.edu.utez.saditarea.modelo.Productos;
-import mx.edu.utez.saditarea.modelo.Usuario;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.*;
@@ -12,13 +11,14 @@ public class ProductosDao {
 
     public boolean save(Productos producto) {
         boolean rowInserted = false;
-        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto, estadoProducto) VALUES (?, ?, ?, ?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, producto.getClaveProducto());
             ps.setString(2, producto.getNombreProducto());
             ps.setString(3, producto.getDescripcionProducto());
+            ps.setInt(4, producto.getEstadoProducto());
 
             rowInserted = ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -28,6 +28,28 @@ public class ProductosDao {
     }
 
     public List<Productos> getAll() {
+        List<Productos> productosList = new ArrayList<>();
+        String query = "SELECT claveProducto, nombreProducto, descripcionProducto FROM Productos";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String claveProducto = rs.getString("claveProducto");
+                String nombreProducto = rs.getString("nombreProducto");
+                String descripcionProducto = rs.getString("descripcionProducto");
+                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, 1); // Aquí el estado es 1 por defecto
+                productosList.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
+
+    public List<Productos> getAllWithEstado() {
         List<Productos> productosList = new ArrayList<>();
         String query = "SELECT * FROM Productos";
 
@@ -39,8 +61,8 @@ public class ProductosDao {
                 String claveProducto = rs.getString("claveProducto");
                 String nombreProducto = rs.getString("nombreProducto");
                 String descripcionProducto = rs.getString("descripcionProducto");
-                int estadoProducto = rs.getInt("estado");
-                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto,estadoProducto);
+                int estadoProducto = rs.getInt("estadoProducto");
+                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estadoProducto);
                 productosList.add(producto);
             }
         } catch (SQLException e) {
@@ -50,34 +72,51 @@ public class ProductosDao {
         return productosList;
     }
 
-    public boolean updateOn(String id){
+    public boolean update(Productos producto) {
+        boolean rowUpdated = false;
+        String query = "UPDATE Productos SET nombreProducto = ?, descripcionProducto = ?, estadoProducto = ? WHERE claveProducto = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, producto.getNombreProducto());
+            ps.setString(2, producto.getDescripcionProducto());
+            ps.setInt(3, producto.getEstadoProducto());
+            ps.setString(4, producto.getClaveProducto());
+
+            rowUpdated = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
+    }
+
+    public boolean updateOn(String id) {
         boolean flag = false;
-        String query = "update productos set estado = 1 where claveProducto=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+        String query = "UPDATE Productos SET estadoProducto = 1 WHERE claveProducto = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
-    public boolean updateOf(String id){
+
+    public boolean updateOf(String id) {
         boolean flag = false;
-        String query = "update productos set estado = 0 where claveProducto=?";
-        try{
-            Connection con = DatabaseConnectionManager.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+        String query = "UPDATE Productos SET estadoProducto = 0 WHERE claveProducto = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;

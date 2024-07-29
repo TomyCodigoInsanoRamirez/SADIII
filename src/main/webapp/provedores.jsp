@@ -293,13 +293,14 @@
                             </form>
                         </div>
                         <div style="position: relative;">
+
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">RFC</th>
-                                    <th>Nombre proveedors</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th>Nombre proveedor</th>
+                                    <th class="todisable">Teléfono</th>
+                                    <th>Acciones</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -308,14 +309,26 @@
                                     ProveedoresDao dao = new ProveedoresDao();
                                     List<Proveedores> lista = dao.findAll();
                                     for(Proveedores u : lista){ %>
-                                <!---Se va a repetir --->
                                 <tr>
-                                    <td class="todisable2"><%=u.getRFC()%></td>
-                                    <td><%=u.getNombre1_P()%></td>
-                                    <td class="todisable"><%=u.getTelefono_P()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getRFC()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="todisable2"><%= u.getRFC() %></td>
+                                    <td><%= u.getNombre1_P() %></td>
+                                    <td class="todisable"><%= u.getTelefono_P() %></td>
+                                    <td id="acc" class="acc">
+                                        <a href="visualizar.jsp" class="acc">
+                                            <img class="act" src="img/visibility_24dp.png">
+                                        </a>
+                                    </td>
+                                    <td class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getRFC() %>">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png">
+                                        </a>
+                                    </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="actualizarProveedorE?id=<%=u.getRFC()%>&estado=<%=u.getEstado_usu()%>" class="delete-link" style="display: none;">Eliminar</a>
@@ -340,7 +353,38 @@
                                         </label>
                                     </td>
                                 </tr>
-                                <%} %>
+
+                                <!-- Modal para Editar Información -->
+                                <div class="modal fade" id="editModal<%= u.getRFC() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getRFC() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel<%= u.getRFC() %>">Editar Información del Proveedor</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editForm<%= u.getRFC() %>" action="actualizarProveedor.jsp" method="post">
+                                                    <input type="hidden" name="RFC" value="<%= u.getRFC() %>">
+                                                    <div class="form-group">
+                                                        <label for="nombreProveedor<%= u.getRFC() %>">Nombre Proveedor:</label>
+                                                        <input type="text" class="form-control" id="nombreProveedor<%= u.getRFC() %>" name="nombreProveedor" value="<%= u.getNombre1_P() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="telefonoProveedor<%= u.getRFC() %>">Teléfono Proveedor:</label>
+                                                        <input type="text" class="form-control" id="telefonoProveedor<%= u.getRFC() %>" name="telefonoProveedor" value="<%= u.getTelefono_P() %>" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getRFC() %>">Guardar Cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
                                 </tbody>
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">

@@ -22,22 +22,25 @@ public class RegistroProductoServlet extends HttpServlet {
         String descripcionProducto = req.getParameter("description");
 
         // Crear el objeto Productos
-        Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto,1);
+        Productos producto1 = new Productos(claveProducto, nombreProducto, descripcionProducto, 0); // estadoProducto 0 por defecto
+        Productos producto2 = new Productos(claveProducto, nombreProducto, descripcionProducto, 1); // estadoProducto 1
 
         // Obtener el DAO
         ProductosDao dao = new ProductosDao();
 
         // Guardar el producto en la base de datos
-        boolean resultado = dao.save(producto);
+        boolean resultado1 = dao.save(producto1);
+        boolean resultado2 = dao.save(producto2);
 
         String ruta = "index.jsp";
-        if (resultado) {
+        if (resultado1 && resultado2) {
             req.getSession().setAttribute("mensaje", "Producto registrado correctamente");
             ruta = "home.jsp";
         } else {
             req.getSession().setAttribute("mensaje", "Error al registrar el producto");
             ruta = "index.jsp?error=true";
         }
+
         resp.sendRedirect(ruta);
     }
 }

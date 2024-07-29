@@ -298,31 +298,42 @@
                             </form>
                         </div>
                         <div style="position: relative;">
+
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Clave de producto</th>
                                     <th>Nombre Producto</th>
-                                    <th  class="todisable">Descripción producto</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th class="todisable">Descripción producto</th>
+                                    <th>Acciones</th>
                                     <th></th>
-
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
                                     ProductosDao dao = new ProductosDao();
                                     List<Productos> lista = dao.getAll();
-                                    for(Productos u : lista){
-                                %>
-                                <!---Se va a repetir --->
+                                    for(Productos u : lista){ %>
                                 <tr>
-                                    <td class="todisable2"><%=u.getClaveProducto()%></td>
-                                    <td><%=u.getNombreProducto()%></td>
-                                    <td class="todisable"><%=u.getDescripcionProducto()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getNombreProducto()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="todisable2"><%= u.getClaveProducto() %></td>
+                                    <td><%= u.getNombreProducto() %></td>
+                                    <td class="todisable"><%= u.getDescripcionProducto() %></td>
+                                    <td id="acc" class="acc">
+                                        <a href="visualizar.jsp" class="acc">
+                                            <img class="act" src="img/visibility_24dp.png">
+                                        </a>
+                                    </td>
+                                    <td class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getClaveProducto() %>">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png">
+                                        </a>
+                                    </td>
+                                    <td class="acc">
+                                        <label class="switch small">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="delete?id=<%=u.getClaveProducto()%>&estado=<%=u.getEstadoProducto()%>" class="delete-link" style="display: none;">Eliminar</a>
@@ -347,10 +358,43 @@
                                         </label>
                                     </td>
                                 </tr>
-                                <%} %>
 
+                                <!-- Modal para Editar Información -->
+                                <div class="modal fade" id="editModal<%= u.getClaveProducto() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getClaveProducto() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel<%= u.getClaveProducto() %>">Editar Información del Producto</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editForm<%= u.getClaveProducto() %>" action="actualizarProducto.jsp" method="post">
+                                                    <input type="hidden" name="claveProducto" value="<%= u.getClaveProducto() %>">
+                                                    <div class="form-group">
+                                                        <label for="nombreProducto<%= u.getClaveProducto() %>">Nombre Producto:</label>
+                                                        <input type="text" class="form-control" id="nombreProducto<%= u.getClaveProducto() %>" name="nombreProducto" value="<%= u.getNombreProducto() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="descripcionProducto<%= u.getClaveProducto() %>">Descripción Producto:</label>
+                                                        <input type="text" class="form-control" id="descripcionProducto<%= u.getClaveProducto() %>" name="descripcionProducto" value="<%= u.getDescripcionProducto() %>" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getClaveProducto() %>">Guardar Cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
                                 </tbody>
                             </table>
+
+
+                        </div>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
@@ -360,7 +404,7 @@
 
 
                 </div>
-            </div>
+
         </section>
 
     </div>
