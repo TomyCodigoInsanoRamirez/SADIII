@@ -358,8 +358,12 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="editForm<%= u.getAbreviacionUndidadMedida() %>" action="actualizarUnidadMedida" method="post">
-                                                    <input type="hidden" name="abreviacionUnidadMedida" value="<%= u.getAbreviacionUndidadMedida() %>">
+                                                <form id="editForm<%= u.getAbreviacionUndidadMedida() %>" action="ActualizarUnidadMedida" method="post">
+
+                                                    <div class="form-group">
+                                                        <label for="abrum<%= u.getAbreviacionUndidadMedida() %>">Abreviación Unidad de Medida:</label>
+                                                        <input type="text" class="form-control" id="abrum<%= u.getAbreviacionUndidadMedida() %>" name="abrum" value="<%= u.getAbreviacionUndidadMedida() %>" required>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>">Nombre Unidad de Medida:</label>
                                                         <input type="text" class="form-control" id="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>" name="nombreUnidadMedida" value="<%= u.getNombreUnidadMedida() %>" required>

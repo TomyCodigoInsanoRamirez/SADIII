@@ -312,6 +312,11 @@
                                     <td class="todisable2"><%= u.getClaveArea() %></td>
                                     <td><%= u.getNombreArea() %></td>
                                     <td class="todisable"><%= u.getDescripcionArea() %></td>
+                                    <td id="acc" class="acc">
+                                        <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getClaveArea() %>">
+                                            <img class="act" src="img/visibility_24dp.png"  width="70px">
+                                        </a>
+                                    </td>
                                     <td class="acc">
                                         <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getClaveArea() %>">
                                             <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" style="width: 24px; height: 24px;">

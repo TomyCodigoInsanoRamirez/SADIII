@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    System.out.println("SE RECIBEN LOS DATOS EN ACTUALIZAR PRODUCTO");
     String claveProducto = request.getParameter("claveProducto");
     String nombreProducto = request.getParameter("nombreProducto");
     String descripcionProducto = request.getParameter("descripcionProducto");

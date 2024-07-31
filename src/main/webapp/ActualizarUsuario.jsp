@@ -13,6 +13,14 @@
     String Telefono = request.getParameter("telefono_U");
     String Correo = request.getParameter("correo");
     String Rol = request.getParameter("rol");
+    System.out.println("El id es: "+Id);
+    System.out.println("El nombre es: "+Nombre1_U);
+    System.out.println("El nombre es: "+Nombre2_U);
+    System.out.println("El apellido es: "+Apellido1_U);
+    System.out.println("El apellido es: "+Apellido2_U);
+    System.out.println("El telefono es: "+Telefono);
+    System.out.println("El correo es: "+Correo);
+    System.out.println("El rol es: "+Rol);
 
     // Crear objeto Areas con los datos del formulario
     Usuario usuario = new Usuario();
@@ -28,10 +36,11 @@
 
     // Crear instancia del DAO para actualizar el área
     UserDao dao = new UserDao();
-    boolean actualizado = dao.update(usuario);
+    //dao.update(usuario);
+    //boolean actualizado = dao.update(usuario);
 
     // Redirigir a la lista de áreas después de la actualización
-    if (actualizado) {
+    if (dao.update(usuario)) {
         response.sendRedirect("home.jsp");
     } else {
         System.out.println("Error al actualizar el usuario.");

@@ -29,7 +29,7 @@ public class ProductosDao {
 
     public List<Productos> getAll() {
         List<Productos> productosList = new ArrayList<>();
-        String query = "SELECT claveProducto, nombreProducto, descripcionProducto FROM Productos";
+        String query = "SELECT * FROM Productos";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
@@ -39,7 +39,8 @@ public class ProductosDao {
                 String claveProducto = rs.getString("claveProducto");
                 String nombreProducto = rs.getString("nombreProducto");
                 String descripcionProducto = rs.getString("descripcionProducto");
-                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, 1); // Aquí el estado es 1 por defecto
+                int estado = rs.getInt("estado");
+                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estado); // Aquí el estado es 1 por defecto
                 productosList.add(producto);
             }
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class ProductosDao {
 
     public boolean update(Productos producto) {
         boolean rowUpdated = false;
-        String query = "UPDATE Productos SET nombreProducto = ?, descripcionProducto = ?, estadoProducto = ? WHERE claveProducto = ?";
+        String query = "UPDATE Productos SET nombreProducto = ?, descripcionProducto = ?, estado = ? WHERE claveProducto = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -92,7 +93,7 @@ public class ProductosDao {
 
     public boolean updateOn(String id) {
         boolean flag = false;
-        String query = "UPDATE Productos SET estadoProducto = 1 WHERE claveProducto = ?";
+        String query = "UPDATE Productos SET estado = 1 WHERE claveProducto = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -108,7 +109,7 @@ public class ProductosDao {
 
     public boolean updateOf(String id) {
         boolean flag = false;
-        String query = "UPDATE Productos SET estadoProducto = 0 WHERE claveProducto = ?";
+        String query = "UPDATE Productos SET estado = 0 WHERE claveProducto = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {

@@ -315,7 +315,9 @@
                                     <td><%=u.getNombre1_U()%></td>
                                     <td class="todisable"><%=u.getCorreo()%></td>
                                     <td id="acc" class="acc">
-                                        <a href="visualizar.jsp" class="acc"><img class="act" src="img/visibility_24dp.png"></a>
+                                           <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getId() %>">
+                                            <img class="act" src="img/visibility_24dp.png"  >
+                                        </a>
                                     </td>
                                     <td class="acc">
                                         <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getId() %>">
@@ -356,39 +358,39 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="editForm<%= u.getId() %>" action="home.jsp" method="post">
-                                                    <input type="hidden" name="claveArea" value="<%= u.getId() %>">
+                                                <form id="editForm<%= u.getId() %>" action="ActualizarUsuarioServlet" method="post">
+                                                    <input type="hidden" name="id" value="<%= u.getId() %>">
 
                                                     <div class="form-group">
                                                         <label for="nombreArea<%= u.getId() %>">Nombre 1:</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getNombre1_U() %>" required>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre1_U" value="<%= u.getNombre1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="nombreArea<%= u.getId() %>">Nombre 2:</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getNombre2_U() %>" required>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="nombreArea<%= u.getId() %>">Apellido 1:</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getApellido1_U() %>" required>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido1_U" value="<%= u.getApellido1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="nombreArea<%= u.getId() %>">Apellido 2:</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getApellido2_U() %>" required>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido2_U" value="<%= u.getApellido2_U() %>" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="descripcionArea<%= u.getId() %>">Correo:</label>
-                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getCorreo() %>" required>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="correo" value="<%= u.getCorreo() %>" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="descripcionArea<%= u.getId() %>">Telefono:</label>
-                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getTelefono() %>" required>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="telefono" value="<%= u.getTelefono() %>" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="descripcionArea<%= u.getId() %>">Rol:</label>
-                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getRol() %>" required>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                                                     </div>
                                                 </form>
                                             </div>
@@ -399,6 +401,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- modal solo para mostrar info-->
 
                                 <%} %>
                                 </tbody>
@@ -451,10 +455,14 @@
                                             <label for="editUserRol">Rol:</label>
                                             <input type="text" id="editUserRol" name="rol" required>
                                         </div>
-                                        <button type="submit">Guardar Cambios</button>
+                                        <!--<button type="submit">Guardar Cambios</button>-->
+                                        <input type="submit" value="enviar">
                                     </form>
                                 </div>
                             </div>
+
+
+
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">

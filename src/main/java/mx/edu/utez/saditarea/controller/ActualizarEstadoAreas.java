@@ -13,7 +13,7 @@ import mx.edu.utez.saditarea.modelo.Usuario;
 
 import java.io.IOException;
 
-@WebServlet(name = "ActualizarEstadoProducto",value = "/actualizarAreaE")
+@WebServlet(name = "ActualizarEstadoAreas",value = "/actualizarAreaE")
 public class ActualizarEstadoAreas extends HttpServlet {
     @Override
     public void init() throws ServletException {

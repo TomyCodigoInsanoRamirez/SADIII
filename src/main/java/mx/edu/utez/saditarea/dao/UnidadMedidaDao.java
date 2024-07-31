@@ -1,5 +1,6 @@
 package mx.edu.utez.saditarea.dao;
 
+import mx.edu.utez.saditarea.modelo.Productos;
 import mx.edu.utez.saditarea.modelo.UnidadMedida;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
@@ -34,6 +35,7 @@ public class UnidadMedidaDao {
     public boolean update(UnidadMedida unidadMedida) {
         boolean rowUpdated = false;
         String query = "UPDATE Unidad_Medida SET nombreUnidadMedida = ? WHERE abreviacionUnidadMedida = ?";
+
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -100,5 +102,21 @@ public class UnidadMedidaDao {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    public boolean updatee(UnidadMedida unidadMedidaa) {
+        boolean rowUpdated = false;
+        String query = "UPDATE unidad_medida SET abreviacionUnidadMedida = ?, nombreUnidadMeidida = ? WHERE abreviacionUnidadMedida = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, unidadMedidaa.getAbreviacionUndidadMedida());
+            ps.setString(2, unidadMedidaa.getNombreUnidadMedida());
+            ps.setString(3, unidadMedidaa.getAbreviacionUndidadMedida());
+            rowUpdated = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
     }
 }

@@ -111,17 +111,45 @@ public class ProveedoresDao {
     }
 
     public boolean update(Proveedores proveedor) {
-        String query = "UPDATE Proveedores SET nombre1_P = ?, telefono_P = ?, estado_usu = ? WHERE RFC = ?";
+        String query = "UPDATE Proveedores SET RFC = ?, razon_social = ? ,codigo_postal_P = ?,direccion =?, nombre1_P = ?, nombre2_P =?,apellido1_P=?,apellido2_P=?, telefono_P = ?,nombre1_adicional =?,nombre2_adicional=?,apellido1_adicional=?,apellido2_adicional =?,telefono_adicional=?, estado_usu = ? WHERE RFC = ?";
+
+        System.out.println("RFC:+" + proveedor.getRFC());
+        System.out.println("Razon_social:+" + proveedor.getRazon_social());
+        System.out.println("Codigo_postal:+" + proveedor.getCodigo_postal());
+        System.out.println("Direccion:+" + proveedor.getDireccion());
+        System.out.println("Nombre1_P:+" + proveedor.getNombre1_P());
+        System.out.println("Nombre2_P:+" + proveedor.getNombre2_P());
+        System.out.println("Apellido1_P:+" + proveedor.getApellido1_P());
+        System.out.println("Apellido2_P:+" + proveedor.getApellido2_P());
+        System.out.println("Telefono_P:+" + proveedor.getTelefono_P());
+        System.out.println("Nombre1_Adicional:+" + proveedor.getNombre1_Adicional());
+        System.out.println("Nombre2_Adicional:+" + proveedor.getNombre2_Adicional());
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
 
-            ps.setString(1, proveedor.getNombre1_P());
-            ps.setString(2, proveedor.getTelefono_P());
-            ps.setInt(3, proveedor.getEstado_usu());
-            ps.setString(4, proveedor.getRFC());
+            ps.setString(1, proveedor.getRFC());
+            ps.setString(2, proveedor.getRazon_social());
+            ps.setString(3, proveedor.getCodigo_postal());
+            ps.setString(4, proveedor.getDireccion());
+            ps.setString(5, proveedor.getNombre1_P());
+            ps.setString(6, proveedor.getNombre2_P());
+            ps.setString(7, proveedor.getApellido1_P());
+            ps.setString(8, proveedor.getApellido2_P());
+            ps.setString(9, proveedor.getTelefono_P());
+            ps.setString(10, proveedor.getNombre1_Adicional());
+            ps.setString(11, proveedor.getNombre2_Adicional());
+            ps.setString(12, proveedor.getApellido1_Adicional());
+            ps.setString(13, proveedor.getApellido2_Adicional());
+            ps.setString(14, proveedor.getTelefono_Adicional());
+            ps.setInt(15, proveedor.getEstado_usu());
+            ps.setString(16, proveedor.getRFC());
+            int filasAfectadas = ps.executeUpdate();
 
-            return ps.executeUpdate() > 0;
+
+
+
+            return filasAfectadas > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();

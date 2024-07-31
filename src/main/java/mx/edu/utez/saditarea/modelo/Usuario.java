@@ -125,6 +125,10 @@ public class Usuario {
         return codigo;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
