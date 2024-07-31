@@ -298,30 +298,32 @@
                                 <tr>
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
-                                    <th  class="todisable">Descrión área</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th>
+                                    <th class="todisable">Descripción área</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
                                     AreasDao dao = new AreasDao();
                                     List<Areas> lista = dao.getAll();
-                                    for(Areas u : lista){ %>
-                                <!---Se va a repetir --->
+                                    for(Areas u : lista){
+                                %>
                                 <tr>
-                                    <td class="todisable2"><%=u.getClaveArea()%></td>
-                                    <td><%=u.getNombreArea()%></td>
-                                    <td class="todisable"><%=u.getDescripcionArea()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getNombreArea()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td class="todisable2"><%= u.getClaveArea() %></td>
+                                    <td><%= u.getNombreArea() %></td>
+                                    <td class="todisable"><%= u.getDescripcionArea() %></td>
+                                    <td class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getClaveArea() %>">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" style="width: 24px; height: 24px;">
+                                        </a>
+                                    </td>
                                     <td class="acc">
                                         <label class="switch small">
-                                            <a href="actualizarAreaE?id=<%=u.getClaveArea()%>&estado=<%=u.getEstadoA()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoA()%>" onclick="checar(this);">
+                                            <a href="actualizarAreaE?id=<%=u.getClaveArea()%>&estado=<%=u.getEstadoAr()%>" class="delete-link" style="display: none;">Eliminar</a>
+                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoAr()%>" onclick="checar(this);">
                                             <span class="slider" ></span>
                                             <%
-                                                if(u.getEstadoA() == 1){
+                                                if(u.getEstadoAr() == 1){
                                             %>
                                             <script>
                                                 console.log("Aun entra a la condición para activar el slider");
@@ -339,7 +341,38 @@
                                         </label>
                                     </td>
                                 </tr>
-                                <%} %>
+
+                                <!-- Modal para Editar Información -->
+                                <div class="modal fade" id="editModal<%= u.getClaveArea() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getClaveArea() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel<%= u.getClaveArea() %>">Editar Información del Área</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editForm<%= u.getClaveArea() %>" action="actualizarArea.jsp" method="post">
+                                                    <input type="hidden" name="claveArea" value="<%= u.getClaveArea() %>">
+                                                    <div class="form-group">
+                                                        <label for="nombreArea<%= u.getClaveArea() %>">Nombre del Área:</label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getClaveArea() %>" name="nombreArea" value="<%= u.getNombreArea() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="descripcionArea<%= u.getClaveArea() %>">Descripción del Área:</label>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getClaveArea() %>" name="descripcionArea" value="<%= u.getDescripcionArea() %>" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getClaveArea() %>">Guardar Cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
                                 </tbody>
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
@@ -374,82 +407,47 @@
         </div>
     </div>
 </div>
-<!--formulario de registro (add)-->
+<!-- Formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
-        <button  class="close-btn" id="close">✖</button>
+        <h2>Registro de Áreas</h2>
+        <button class="close-btn" id="close">✖</button>
     </div>
-    <form>
-        <!-- <button id="close" class="close-btn" >✖</button> -->
+    <form action="AreaServlet" method="post">
+        <input type="hidden" name="action" value="agregar">
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
+                    <label for="claveArea">Clave del Área:</label>
+                    <input type="text" id="claveArea" name="claveArea" required>
                 </div>
                 <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
+                    <label for="nombreArea">Nombre del Área:</label>
+                    <input type="text" id="nombreArea" name="nombreArea" required>
                 </div>
                 <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                    <label for="descripcionArea">Descripción:</label>
+                    <input type="text" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
                 </div>
                 <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
-
-                <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
+                    <label for="estadoAr">Estado:</label>
+                    <select id="estadoAr" name="estadoAr" required>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
                 </div>
             </div>
             <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
-                </div>
+                <!-- Puedes añadir más campos aquí si es necesario -->
             </div>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
+        <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
     </form>
 </div>
+
+
+
+
 <script>
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");

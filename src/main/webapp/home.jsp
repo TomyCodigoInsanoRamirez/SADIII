@@ -294,13 +294,14 @@
                             </form>
                         </div>
                         <div style="position: relative; display: block" >
+
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
-                                    <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th class="todisable">Correo</th>
+                                    <th>Acciones</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -309,19 +310,22 @@
                                     UserDao dao = new UserDao();
                                     ArrayList<Usuario> lista = dao.getAll();
                                     for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
                                 <tr>
                                     <td class="todisable2"><%=u.getId()%></td>
                                     <td><%=u.getNombre1_U()%></td>
                                     <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
+                                    <td id="acc" class="acc">
+                                        <a href="visualizar.jsp" class="acc"><img class="act" src="img/visibility_24dp.png"></a>
+                                    </td>
+                                    <td class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getId() %>">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" style="width: 24px; height: 24px;">
+                                        </a>
+                                    </td>
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="updateUsuarioE?id=<%=u.getId()%>&estado=<%=u.isEstado()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.isEstado()%>" onclick="checar(this);">
-                                            <!--<input type="checkbox">-->
+                                            <input type="checkbox" class="inn" data-estado="<%=u.isEstado()%>" onclick="checar(this);">
                                             <span class="slider"></span>
                                             <%
                                                 if(u.isEstado() == 1){
@@ -342,10 +346,115 @@
                                         </label>
                                     </td>
                                 </tr>
-                                <%} %>
+                                <div class="modal fade" id="editModal<%= u.getId() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getId() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel<%= u.getId() %>">Editar Información del Área</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editForm<%= u.getId() %>" action="home.jsp" method="post">
+                                                    <input type="hidden" name="claveArea" value="<%= u.getId() %>">
 
+                                                    <div class="form-group">
+                                                        <label for="nombreArea<%= u.getId() %>">Nombre 1:</label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getNombre1_U() %>" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nombreArea<%= u.getId() %>">Nombre 2:</label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getNombre2_U() %>" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido 1:</label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getApellido1_U() %>" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido 2:</label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombreArea" value="<%= u.getApellido2_U() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="descripcionArea<%= u.getId() %>">Correo:</label>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getCorreo() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="descripcionArea<%= u.getId() %>">Telefono:</label>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getTelefono() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="descripcionArea<%= u.getId() %>">Rol:</label>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="descripcionArea" value="<%= u.getRol() %>" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getId() %>">Guardar Cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <%} %>
                                 </tbody>
                             </table>
+
+                            <!-- Modal para editar usuario -->
+                            <div id="editUserModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal()">&times;</span>
+                                    <h2>Editar Usuario</h2>
+                                    <form id="editUserForm" action="ActualizarUsuarioServlet" method="post">
+                                        <input type="hidden" id="editUserId" name="id">
+                                        <div>
+                                            <label for="editUserCorreo">Correo:</label>
+                                            <input type="email" id="editUserCorreo" name="correo" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserNombre1">Primer Nombre:</label>
+                                            <input type="text" id="editUserNombre1" name="nombre1_U" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserApellido1">Primer Apellido:</label>
+                                            <input type="text" id="editUserApellido1" name="apellido1_U" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserNombre2">Segundo Nombre:</label>
+                                            <input type="text" id="editUserNombre2" name="nombre2_U">
+                                        </div>
+                                        <div>
+                                            <label for="editUserApellido2">Segundo Apellido:</label>
+                                            <input type="text" id="editUserApellido2" name="apellido2_U">
+                                        </div>
+                                        <div>
+                                            <label for="editUserTelefono">Teléfono:</label>
+                                            <input type="text" id="editUserTelefono" name="telefono" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserContrasena">Contraseña:</label>
+                                            <input type="password" id="editUserContrasena" name="contrasena" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserEstado">Estado:</label>
+                                            <input type="number" id="editUserEstado" name="estado" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserCodigo">Código:</label>
+                                            <input type="text" id="editUserCodigo" name="codigo" required>
+                                        </div>
+                                        <div>
+                                            <label for="editUserRol">Rol:</label>
+                                            <input type="text" id="editUserRol" name="rol" required>
+                                        </div>
+                                        <button type="submit">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
                             <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
@@ -449,6 +558,27 @@
         <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
     </form>
 </div>
+<script>
+    // Abrir el modal para editar usuario
+    function openEditModal(id, correo, nombre) {
+        document.getElementById('editUserId').value = id;
+        document.getElementById('editUserCorreo').value = correo;
+        document.getElementById('editUserNombre').value = nombre;
+        document.getElementById('editUserModal').style.display = 'block';
+    }
+
+    // Cerrar el modal
+    document.querySelector('.modal .close').onclick = function() {
+        document.getElementById('editUserModal').style.display = 'none';
+    };
+
+    // Cerrar el modal cuando el usuario haga clic fuera de él
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('editUserModal')) {
+            document.getElementById('editUserModal').style.display = 'none';
+        }
+    };
+</script>
 <script>
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");

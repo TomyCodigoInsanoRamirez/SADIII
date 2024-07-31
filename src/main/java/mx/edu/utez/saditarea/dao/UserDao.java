@@ -116,21 +116,25 @@ public class UserDao {
     }
 
     // Actualizar un usuario (incluyendo nombre y apellido)
-    public void update(Usuario usuario) {
-        String query = "UPDATE usuarios SET nombre1_U = ?, nombre2_U = ?, apellido1_U = ?, apellido2_U = ?, telefono_U = ?, correo = ? WHERE id_empleado = ?";
+    public boolean update(Usuario usuario) {
+        boolean isUpdated = false;
         try (Connection con = DatabaseConnectionManager.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setString(1, usuario.getNombre1_U());
-            ps.setString(2, usuario.getNombre2_U());
-            ps.setString(3, usuario.getApellido1_U());
-            ps.setString(4, usuario.getApellido2_U());
-            ps.setString(5, usuario.getTelefono());
-            ps.setString(6, usuario.getCorreo());
-            ps.setString(7, usuario.getId());
-            ps.executeUpdate();
+             PreparedStatement pst = con.prepareStatement("UPDATE Usuarios SET correo=?, nombre1_U=?, apellido1_U=?, nombre2_U=?, apellido2_U=?, telefono=?, contrasena=?, estado=?, codigo=?, rol=? WHERE id=?")) {
+            pst.setString(1, usuario.getCorreo());
+            pst.setString(2, usuario.getNombre1_U());
+            pst.setString(3, usuario.getApellido1_U());
+            pst.setString(4, usuario.getNombre2_U());
+            pst.setString(5, usuario.getApellido2_U());
+            pst.setString(6, usuario.getTelefono());
+            pst.setString(7, usuario.getContrasena());
+            pst.setString(9, usuario.getCodigo());
+            pst.setString(10, usuario.getRol());
+            pst.setString(11, usuario.getId());
+            isUpdated = pst.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return isUpdated;
     }
 
     // Actualizar la contraseña del usuario

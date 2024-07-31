@@ -14,13 +14,15 @@ public class AreasDao {
 
     public boolean save(Areas area) {
         boolean rowInserted = false;
-        String query = "INSERT INTO areas (nombreArea, descripcionArea) VALUES (?, ?)";
+        String query = "INSERT INTO Areas (claveArea, nombreArea, descripcionArea, estado_ar) VALUES (?, ?, ?, ?)";
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, area.getNombreArea());
-            ps.setString(2, area.getDescripcionArea());
+            ps.setString(1, area.getClaveArea());
+            ps.setString(2, area.getNombreArea());
+            ps.setString(3, area.getDescripcionArea());
+            ps.setInt(4, area.getEstadoAr());
 
             rowInserted = ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -31,7 +33,7 @@ public class AreasDao {
 
     public List<Areas> getAll() {
         List<Areas> areasList = new ArrayList<>();
-        String query = "SELECT * FROM areas";
+        String query = "SELECT * FROM Areas";
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
@@ -43,7 +45,7 @@ public class AreasDao {
                 area.setClaveArea(rs.getString("claveArea"));
                 area.setNombreArea(rs.getString("nombreArea"));
                 area.setDescripcionArea(rs.getString("descripcionArea"));
-                area.setEstadoA(rs.getInt("estado_ar"));
+                area.setEstadoAr(rs.getInt("estado_ar"));
                 areasList.add(area);
             }
         } catch (SQLException e) {
@@ -51,36 +53,55 @@ public class AreasDao {
         }
         return areasList;
     }
-    public boolean updateOn(String id){
+
+    public boolean updateOn(String id) {
         boolean flag = false;
-        String query = "update areas set estado_ar = 1 where claveArea=?";
-        try{
+        String query = "UPDATE Areas SET estado_ar = 1 WHERE claveArea = ?";
+
+        try {
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
-    public boolean updateOf(String id){
+
+    public boolean updateOf(String id) {
         boolean flag = false;
-        String query = "update areas set estado_ar = 0 where claveArea=?";
-        try{
+        String query = "UPDATE Areas SET estado_ar = 0 WHERE claveArea = ?";
+
+        try {
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,id);
-            if (ps.executeUpdate()>0){
-                //Que si se hizo la modificacion o modificaciones
+            ps.setString(1, id);
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    public boolean update(Areas area) {
+        boolean rowUpdated = false;
+        String query = "UPDATE Areas SET nombreArea = ?, descripcionArea = ? WHERE claveArea = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, area.getNombreArea());
+            ps.setString(2, area.getDescripcionArea());
+            ps.setString(3, area.getClaveArea());
+
+            rowUpdated = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
     }
 }
