@@ -1,7 +1,35 @@
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saditarea.dao.ProveedoresDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Proveedores" %>
+<%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
+<%@ page import="mx.edu.utez.saditarea.dao.UnidadMedidaDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!--Extraxion del dao-->
+<%
+    ProveedoresDao dao = new ProveedoresDao();
+    List<Proveedores> proveedores = dao.findAll();
+
+%>
+<%
+    ProductosDao daoProducto = new ProductosDao();
+    List<Productos> productos= daoProducto.getAll();
+
+%>
+<%
+    UnidadMedidaDao daoUnidadM = new UnidadMedidaDao();
+    List<UnidadMedida> unidadMedida= daoUnidadM.getAll();
+
+%>
+<%
+    UserDao daoUser = new UserDao();
+    List<Usuario> userDao= daoUser.getAll2();
+
+%>
 <!DOCTYPE html>
 <html>
 
@@ -220,26 +248,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
-                                <%
-                                    UserDao dao = new UserDao();
-                                    ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
-                                <!---Se va a repetir --->
-                                <tr>
-                                    <td class="todisable2"><%=u.getId()%></td>
-                                    <td><%=u.getNombre1_U()%></td>
-                                    <td class="todisable"><%=u.getCorreo()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                                    <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                                    <td class="acc">
-                                        <label class="switch small">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <%} %>
+
                                 <!--
                                 <tr>
                                     <td>1</td>
@@ -318,71 +327,131 @@
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
-                </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
-                </div>
-                <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
 
                 <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
+                    <label for="folio-E">Folio:</label>
+                    <input type="text" id="folio-E" name="folio-E">
                 </div>
+                <div class="form-group">
+                    <label for="nombreCompleto">Nombre del proveedor: </label>
+                    <select id="nombreCompleto" name="nombreCompleto">
+
+                        <%
+                            if (userDao != null) {
+                                for (Usuario usuario : userDao) {
+                        %>
+                        <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                        <%
+                            }
+                        }else {
+                        %>
+                        <option value="">No hay usuarios disponibles</option>
+                        <%
+                            }
+                        %>
+
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="nombreCompletoAlmacenista">Nombre completo del almacenista receptor: </label>
+                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista">
+
+                            <%
+                                if (userDao != null) {
+                                    for (Usuario usuario : userDao) {
+                            %>
+                            <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                            <%
+                                }
+                            }else {
+                            %>
+                            <option value="">No hay usuarios disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="unit">Unidad de medida:</label>
+                        <select id="unit" name="unit">
+                            <%
+                                if (unidadMedida != null) {
+                                    for (UnidadMedida unidadM : unidadMedida) {
+                            %>
+                            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No hay unidades de medida disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
+                    </div>
+
+                </div   >
+
+
+                <div class="form-group">
+                    <label for="unit-price">Precio Unitario :</label>
+                    <input type="number" id="unit-price" name="unit-price">
+                </div>
+
             </div>
             <div class="derecha">
                 <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                    <label for="billing-number">Número de facturación:</label>
+                    <input type="text" id="billing-number" name="billing-number">
                 </div>
                 <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
+                    <label for="entry-date">Fecha de entrada:</label>
+                    <input type="date" id="entry-date" name="entry-date">
                 </div>
                 <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
+                    <label for="product">Producto:</label>
+                    <select id="product" name="product">
+                        <%
+                            if (productos != null) {
+                                for (Productos producto : productos) {
+                        %>
+                        <option value="<%= producto.getClaveProducto() %>"><%= producto.getNombreProducto() %></option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="">No existen productos</option>
+                        <%
+                            }
+                        %>
+
+
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
+                    <label for="quantity">Cantidad:</label>
+                    <input type="number" id="quantity" name="quantity">
                 </div>
+                <div class="form-group">
+                    <label for="total-price">Precio total de productos:</label>
+                    <input type="number" id="total-price" name="total-price" readonly>
+                </div>
+
             </div>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
-    </form>
+        <button id="btn-enviarr" type="submit" class="btn-to-actions">Agregar</button>
+        <a id="add-desdeEntrada" class="btn-to-actions">Agregar Producto</a>
+        <a id="btn-backl" href="entradas.jsp" class="btn-to-actions">Volver</a>    </form>
 </div>
 <script>
     const elemento = document.getElementById("item-responsive");

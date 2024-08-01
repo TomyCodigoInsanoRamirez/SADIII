@@ -87,6 +87,35 @@ public class UserDao {
         return lista;
     }
 
+
+    public ArrayList<Usuario> getAll2() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        String query = "SELECT * FROM usuarios WHERE rol = 'almacenista' AND estado = '1'";
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getString("id_empleado"));
+                u.setNombre1_U(rs.getString("nombre1_U"));
+                u.setNombre2_U(rs.getString("nombre2_U"));
+                u.setApellido1_U(rs.getString("apellido1_U"));
+                u.setApellido2_U(rs.getString("apellido2_U"));
+                u.setTelefono(rs.getString("telefono_U"));
+                u.setRol(rs.getString("rol"));
+                u.setCorreo(rs.getString("correo"));
+                u.setContrasena(rs.getString("contrasena"));
+                u.setCodigo(rs.getString("codigo"));
+                u.setEstado(rs.getInt("estado"));
+
+                lista.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
     // Obtener un usuario por ID
     public Usuario getById(String id) {
         Usuario u = null;
