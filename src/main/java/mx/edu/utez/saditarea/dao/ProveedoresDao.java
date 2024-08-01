@@ -80,7 +80,7 @@ public class ProveedoresDao {
     }
 
     public boolean save(Proveedores proveedor) {
-        String query = "INSERT INTO Proveedores (RFC, razon_social, codigo_postal, direccion, nombre1_P, nombre2_P, apellido1_P, apellido2_P, telefono_P, nombre1_adicional, nombre2_adicional, apellido1_adicional, apellido2_adicional, telefono_adicional, estado_usu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Proveedores (RFC, razon_social, codigo_postal_P, direccion, nombre1_P, nombre2_P, apellido1_P, apellido2_P, telefono_P, nombre1_adicional, nombre2_adicional, apellido1_adicional, apellido2_adicional, telefono_adicional, estado_usu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -102,6 +102,7 @@ public class ProveedoresDao {
             ps.setInt(15, proveedor.getEstado_usu());
 
             int filasAfectadas = ps.executeUpdate();
+            System.out.println("El save de proveedor regresa: "+filasAfectadas);
             return filasAfectadas > 0;
 
         } catch (SQLException e) {

@@ -286,11 +286,13 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+                            <!--
                             <form class="d-flex" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                                 </button>
                             </form>
+                            -->
                         </div>
                         <div style="position: relative;">
 
@@ -432,7 +434,7 @@
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila-prov">
                             </button>
                         </div>
                     </div>
@@ -465,10 +467,10 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Proveedores</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form action="RegistrarProveedor" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
@@ -588,7 +590,7 @@
         }
 
     })
-    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-fila-prov").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");

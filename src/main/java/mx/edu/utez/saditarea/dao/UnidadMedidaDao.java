@@ -16,13 +16,14 @@ public class UnidadMedidaDao {
     // Método para guardar una nueva unidad de medida
     public boolean save(UnidadMedida unidadMedida) {
         boolean rowInserted = false;
-        String query = "INSERT INTO Unidad_Medida (abreviacionUnidadMedida, nombreUnidadMedida) VALUES (?, ?)";
+        String query = "INSERT INTO Unidad_Medida (abreviacionUnidadMedida, nombreUnidadMeidida,estado_um) VALUES (?, ?,?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setString(1, unidadMedida.getAbreviacionUndidadMedida());
             ps.setString(2, unidadMedida.getNombreUnidadMedida());
+            ps.setInt(3, unidadMedida.getEstadoUm());
 
             rowInserted = ps.executeUpdate() > 0;
         } catch (SQLException e) {

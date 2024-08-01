@@ -287,11 +287,15 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+
                             <form class="d-flex" role="search">
+                                <!--
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                                 </button>
+                                -->
                             </form>
+
                         </div>
                         <div style="position: relative; display: block" >
 
@@ -321,7 +325,7 @@
                                     </td>
                                     <td class="acc">
                                         <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getId() %>">
-                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" style="width: 24px; height: 24px;">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar">
                                         </a>
                                     </td>
                                     <td class="acc">
@@ -497,69 +501,49 @@
 </div><!-- formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Usario</h2>
         <button class="close-btn" id="close">✖</button>
     </div>
-    <form action="usuario" method="post">
+    <form action="usuarioo" method="post">
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
+                    <label for="rfc">Numero de identificación:</label>
+                    <input type="text" id="rfc" name="id" required>
                 </div>
                 <div class="form-group">
                     <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
+                    <input type="text" id="nombre1" name="nombre1" required>
                 </div>
                 <div class="form-group">
                     <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional" required>
                 </div>
                 <div class="form-group">
                     <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
+                    <input type="text" id="apellido1" name="apellido1" required>
                 </div>
                 <div class="form-group">
                     <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
+                    <input type="text" id="apellido2" name="apellido2" required>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
+                    <input type="number" id="telefono" name="telefono" required>
                 </div>
-                <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
-                </div>
+
             </div>
             <div class="derecha">
                 <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                    <label for="email">CorreoY :</label>
+                    <input type="text" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
+                    <label for="role">Rol :</label>
+                    <select id="role" name="rol" required>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Almacenista">Almacenista</option>
+                    </select>
                 </div>
             </div>
         </div>

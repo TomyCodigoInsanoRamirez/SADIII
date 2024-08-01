@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Salidas {
     private String folio_S;
-    private int empleado_S;
-    private int empleado_E;
+    private String empleado_S;
+    private String empleado_E;
     private String area;
     private Date fecha;
     private int cantidad_S;
@@ -14,7 +14,7 @@ public class Salidas {
 
     public Salidas() {}
 
-    public Salidas(String folio_S, int empleado_S, int empleado_E, String area, Date fecha, int cantidad_S, String claveProducto, String unidadMedida) {
+    public Salidas(String folio_S, String empleado_S, String empleado_E, String area, Date fecha, int cantidad_S, String claveProducto, String unidadMedida) {
         this.folio_S = folio_S;
         this.empleado_S = empleado_S;
         this.empleado_E = empleado_E;
@@ -33,19 +33,19 @@ public class Salidas {
         this.folio_S = folio;
     }
 
-    public int getEmpleado_S() {
+    public String getEmpleado_S() {
         return empleado_S;
     }
 
-    public void setEmpleado_S(int empleado_S) {
+    public void setEmpleado_S(String empleado_S) {
         this.empleado_S = empleado_S;
     }
 
-    public int getEmpleado_E() {
+    public String getEmpleado_E() {
         return empleado_E;
     }
 
-    public void setEmpleado_E(int empleado_E) {
+    public void setEmpleado_E(String empleado_E) {
         this.empleado_E = empleado_E;
     }
 

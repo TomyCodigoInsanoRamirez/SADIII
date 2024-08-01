@@ -214,4 +214,30 @@ public class UserDao {
         }
         return flag;
     }
+
+    public boolean insert(Usuario usuario){
+        boolean flag = false;
+        String query = "insert into usuarios (id_empleado,correo,nombre1_U,nombre2_U,apellido1_U,apellido2_U,telefono_U,contrasena,rol,estado) values (?,?,?,?,?,?,?,?,?,1)";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, usuario.getId());
+            ps.setString(2,usuario.getCorreo());
+            ps.setString(3,usuario.getNombre1_U());
+            ps.setString(4,usuario.getNombre2_U());
+            ps.setString(5,usuario.getApellido1_U());
+            ps.setString(6,usuario.getApellido2_U());
+            ps.setString(7,usuario.getTelefono());
+            ps.setString(8,usuario.getCorreo());
+            ps.setString(9,usuario.getRol());
+
+            if (ps.executeUpdate()>0){
+                System.out.println("Que si se hizo la modificacion o modificaciones");
+                flag = true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }

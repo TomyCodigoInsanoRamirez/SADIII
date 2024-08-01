@@ -1,13 +1,7 @@
-<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="mx.edu.utez.saditarea.dao.UnidadMedidaDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
 <%@ page import="java.util.List" %>
-<%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
-<%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
+<%@ page import="mx.edu.utez.saditarea.dao.*" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   UnidadMedidaDao daoUnidadM = new UnidadMedidaDao();
@@ -237,32 +231,26 @@
               <table class="table table-hover tab">
                 <thead>
                 <tr>
-                  <th class="todisable2">ID_Usuario</th>
-                  <th>Nombre</th>
-                  <th  class="todisable">Correo</th>  <!--style="padding-left: 65px;" -->
+                  <th class="todisable2">Folio</th>
+                  <th>Almacenista (Recibió)</th>
+                  <th  class="todisable">Almacenista (Envío)</th>  <!--style="padding-left: 65px;" -->
                   <th >Acciones</th> <!--style="padding-left: 45px;"-->
                   <th></th>
                 </tr>
                 </thead>
                 <tbody id="tabla-body">
                 <%
-                  UserDao dao = new UserDao();
-                  ArrayList<Usuario> lista = dao.getAll();
-                  for(Usuario u : lista){ %>
+                  SalidasDao daoE = new SalidasDao();
+                  List<Salidas> lista = daoE.getAll();
+                  for(Salidas u : lista){ %>
                 <!---Se va a repetir --->
                 <tr>
-                  <td class="todisable2"><%=u.getId()%></td>
-                  <td><%=u.getNombre1_U()%></td>
-                  <td class="todisable"><%=u.getCorreo()%></td>
+                  <td class="todisable2"><%=u.getFolio()%></td>
+                  <td><%=u.getEmpleado_S()%></td>
+                  <td class="todisable"><%=u.getEmpleado_E()%></td>
                   <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
                   <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
-                  <td class="acc"><a href="login?id=<%=u.getId()%>"><a href="editar.jsp"><img class="act" src="img/iconolapiz-removebg-preview.png" ></a></a> </td>
-                  <td class="acc">
-                    <label class="switch small">
-                      <input type="checkbox">
-                      <span class="slider"></span>
-                    </label>
-                  </td>
+
                 </tr>
                 <%} %>
                 <!--

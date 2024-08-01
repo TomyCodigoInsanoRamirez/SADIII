@@ -42,23 +42,23 @@ public class RegistroSalidasServlet extends HttpServlet {
         }
 
         // Crear el objeto Salidas
-        Salidas salida = new Salidas(folio, empleadoS, empleadoE, area, fecha, cantidad, claveProducto, unidadMedida);
+        //Salidas salida = new Salidas(folio, empleadoS, empleadoE, area, fecha, cantidad, claveProducto, unidadMedida);
 
         // Obtener la sesión y el DAO
         HttpSession sesion = req.getSession();
         SalidasDao dao = new SalidasDao();
 
         // Guardar la salida en la base de datos
-        boolean resultado = dao.save(salida);
+       // boolean resultado = dao.save(salida);
 
         String ruta = "index.jsp";
-        if (resultado) {
+        /*if (resultado) {
             sesion.setAttribute("mensaje", "Salida registrada correctamente");
             ruta = "home.jsp";
         } else {
             sesion.setAttribute("mensaje", "Error al registrar la salida");
             ruta = "index.jsp?error=true";
-        }
+        }*/
 
         resp.sendRedirect(ruta);
     }

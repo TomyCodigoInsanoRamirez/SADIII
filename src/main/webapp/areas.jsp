@@ -286,11 +286,13 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+                            <!--
                             <form class="d-flex" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                                 </button>
                             </form>
+                            -->
                         </div>
                         <div style="position: relative;">
                             <table class="table table-hover tab">
@@ -319,7 +321,7 @@
                                     </td>
                                     <td class="acc">
                                         <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getClaveArea() %>">
-                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" style="width: 24px; height: 24px;">
+                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" >
                                         </a>
                                     </td>
                                     <td class="acc">
@@ -382,7 +384,7 @@
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA">
                             </button>
                         </div>
                     </div>
@@ -503,7 +505,7 @@
         }
 
     })
-    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-filaA").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");

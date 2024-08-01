@@ -11,7 +11,7 @@ public class ProductosDao {
 
     public boolean save(Productos producto) {
         boolean rowInserted = false;
-        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto, estadoProducto) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto, estado) VALUES (?, ?, ?, ?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {

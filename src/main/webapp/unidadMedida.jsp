@@ -286,11 +286,13 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+                            <!--
                             <form class="d-flex" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                                 </button>
                             </form>
+                            -->
                         </div>
                         <div style="position: relative;">
 
@@ -382,7 +384,7 @@
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU">
                             </button>
                         </div>
                     </div>
@@ -415,73 +417,23 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Unidad de Medida</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form action="RegistrarUnidadMedida" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
-                </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
-                </div>
-                <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
-                </div>
 
                 <div class="form-group">
-                    <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
+                    <label for="nombre1A">Abreviatura :</label>
+                    <input type="text" id="nombre1A" name="abrev">
                 </div>
             </div>
             <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
-                    <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
-                </div>
-                <div class="form-group">
-                    <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
-                </div>
-                <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
-                </div>
-                <div class="form-group">
-                    <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
-                </div>
-                <div class="form-group">
-                    <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
-                </div>
-
-                <div class="form-group">
-                    <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
+                    <label for="direccion">Nombre :</label>
+                    <input type="text" id="direccion" name="nombre">
                 </div>
             </div>
         </div>
@@ -538,7 +490,7 @@
         }
 
     })
-    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-filaU").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");

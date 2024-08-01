@@ -44,23 +44,23 @@ public class RegistroEntradasServlet extends HttpServlet {
         }
 
         // Crear el objeto Entradas
-        Entradas entrada = new Entradas(folioE, numeroFactura, fecha, rfc, precioUnitario, precioTotal, claveProducto, idEmpleado, unidadMedida);
+        //Entradas entrada = new Entradas(folioE, numeroFactura, fecha, rfc, precioUnitario, precioTotal, claveProducto, idEmpleado, unidadMedida);
 
         // Obtener la sesión y el DAO
         HttpSession sesion = req.getSession();
         EntradasDao dao = new EntradasDao();
 
         // Guardar la entrada en la base de datos
-        boolean resultado = dao.save(entrada);
+        //boolean resultado = dao.save(entrada);
 
         String ruta = "index.jsp";
-        if (resultado) {
+       /* if (resultado) {
             sesion.setAttribute("mensaje", "Entrada registrada correctamente");
             ruta = "home.jsp";
         } else {
             sesion.setAttribute("mensaje", "Error al registrar la entrada");
             ruta = "index.jsp?error=true";
-        }
+        }*/
 
         resp.sendRedirect(ruta);
     }

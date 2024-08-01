@@ -7,15 +7,15 @@ public class Entradas {
     private String numero_Factura;
     private Date Fecha;
     private String RFC;
-    private boolean precio_Unitario;
-    private boolean precio_Total;
+    private float precio_Unitario;
+    private float precio_Total;
     private int cantidad;
     private String clave_Producto;
-    private int id_Empleado;
+    private String id_Empleado;
     private String unidad_Medida;
 
     public Entradas(){}
-    public Entradas( String folio_E, String numero_Factura, Date Fecha, String RFC, boolean precio_Unitario, boolean precio_Total, String clave_Producto, int id_Empleado, String unidad_Medida  ) {
+    public Entradas( String folio_E, String numero_Factura, Date Fecha, String RFC, float precio_Unitario, float precio_Total, String clave_Producto, String id_Empleado, String unidad_Medida  ) {
 
         this.folio_E = folio_E;
         this.numero_Factura = numero_Factura;
@@ -63,19 +63,19 @@ public class Entradas {
         this.RFC = RFC;
     }
 
-    public boolean isPrecio_Unitario() {
+    public float isPrecio_Unitario() {
         return precio_Unitario;
     }
 
-    public void setPrecio_Unitario(boolean precio_Unitario) {
+    public void setPrecio_Unitario(float precio_Unitario) {
         this.precio_Unitario = precio_Unitario;
     }
 
-    public boolean isPrecio_Total() {
+    public float isPrecio_Total() {
         return precio_Total;
     }
 
-    public void setPrecio_Total(boolean precio_Total) {
+    public void setPrecio_Total(float precio_Total) {
         this.precio_Total = precio_Total;
     }
 
@@ -95,11 +95,11 @@ public class Entradas {
         this.clave_Producto = clave_Producto;
     }
 
-    public int getId_Empleado() {
+    public String getId_Empleado() {
         return id_Empleado;
     }
 
-    public void setId_Empleado(int id_Empleado) {
+    public void setId_Empleado(String id_Empleado) {
         this.id_Empleado = id_Empleado;
     }
 
