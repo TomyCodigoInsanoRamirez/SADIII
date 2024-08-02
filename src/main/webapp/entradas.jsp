@@ -299,7 +299,6 @@
                         </div>
                     </div>
 
-
                 </div>
             </div>
         </section>
@@ -327,27 +326,27 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Productos</h2>
+        <h2>Registro de Entradas</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form>
+    <form action="registroEntradas" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
 
                 <div class="form-group">
                     <label for="folio-E">Folio:</label>
-                    <input type="text" id="folio-E" name="folio-E">
+                    <input type="text" id="folio-E" name="folio-E" required>
                 </div>
                 <div class="form-group">
                     <label for="nombreCompleto">Nombre del proveedor: </label>
-                    <select id="nombreCompleto" name="nombreCompleto">
+                    <select id="nombreCompleto" name="nombreCompleto" required>
 
                         <%
-                            if (userDao != null) {
-                                for (Usuario usuario : userDao) {
+                            if (proveedores != null) {
+                                for (Proveedores usuario : proveedores) {
                         %>
-                        <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                        <option value="<%= usuario.getRFC()%>"><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
                         <%
                             }
                         }else {
@@ -363,13 +362,13 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="nombreCompletoAlmacenista">Nombre completo del almacenista receptor: </label>
-                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista">
+                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required>
 
                             <%
                                 if (userDao != null) {
                                     for (Usuario usuario : userDao) {
                             %>
-                            <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
                             <%
                                 }
                             }else {
@@ -387,7 +386,7 @@
 
                     <div class="form-group">
                         <label for="unit">Unidad de medida:</label>
-                        <select id="unit" name="unit">
+                        <select id="unit" name="unit" required>
                             <%
                                 if (unidadMedida != null) {
                                     for (UnidadMedida unidadM : unidadMedida) {
@@ -410,7 +409,7 @@
 
                 <div class="form-group">
                     <label for="unit-price">Precio Unitario :</label>
-                    <input type="number" id="unit-price" name="unit-price">
+                    <input type="number" id="unit-price" name="unit-price" required>
                 </div>
 
             </div>
@@ -418,15 +417,15 @@
                 <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
                     <label for="billing-number">Número de facturación:</label>
-                    <input type="text" id="billing-number" name="billing-number">
+                    <input type="text" id="billing-number" name="billing-number" required>
                 </div>
                 <div class="form-group">
                     <label for="entry-date">Fecha de entrada:</label>
-                    <input type="date" id="entry-date" name="entry-date">
+                    <input type="date" id="entry-date" name="entry-date" required>
                 </div>
                 <div class="form-group">
                     <label for="product">Producto:</label>
-                    <select id="product" name="product">
+                    <select id="product" name="product" required>
                         <%
                             if (productos != null) {
                                 for (Productos producto : productos) {
@@ -447,12 +446,15 @@
 
                 <div class="form-group">
                     <label for="quantity">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity">
+                    <input type="number" id="quantity" name="quantity" required>
                 </div>
+
                 <div class="form-group">
                     <label for="total-price">Precio total de productos:</label>
-                    <input type="number" id="total-price" name="total-price" readonly>
+                    <input type="number" id="total-price" name="total-price" required>
                 </div>
+
+
 
             </div>
         </div>

@@ -22,7 +22,7 @@ public class ActualizarUsuarioServlet extends HttpServlet {
         String nombre2_U = request.getParameter("nombre2_U");
         String apellido2_U = request.getParameter("apellido2_U");
         String telefono = request.getParameter("telefono");
-        String contrasena = request.getParameter("contrasena");
+        String contrasena = request.getParameter("contra");
        // String codigo = request.getParameter("codigo");
         String rol = request.getParameter("rol");
 

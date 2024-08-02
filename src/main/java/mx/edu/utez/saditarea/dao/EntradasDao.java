@@ -6,13 +6,14 @@ import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EntradasDao {
 
     public boolean save(Entradas entrada) {
         boolean rowInserted = false;
-        String query = "INSERT INTO entradas (folio_E, numero_Factura, Fecha, RFC, precio_Unitario, precio_Total, cantidad, clave_Producto, id_Empleado, unidad_Medida) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO entradas (folio_E, numero_Factura, Fecha, fk_RFC, precio_Unitario, precio_Total, cantidad_E, fk_claveProducto, fk_id_Empleado, fk_unidadMedida) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
@@ -55,7 +56,7 @@ public class EntradasDao {
                 String clave_Producto = rs.getString("fk_claveProducto");
                 String id_Empleado = rs.getString("fk_id_empleado");
                 String clave_Medida = rs.getString("fk_unidadMedida");
-                Entradas entrada = new Entradas(folio_E,numero_Factura,fechaaa,rfc,precioUnitario,precioTotal,clave_Producto,id_Empleado,clave_Medida);
+                Entradas entrada = new Entradas(folio_E,numero_Factura,fechaaa,rfc,precioUnitario,precioTotal,cantidad,clave_Producto,id_Empleado,clave_Medida);
                 productosList.add(entrada);
             }
         } catch (SQLException e) {

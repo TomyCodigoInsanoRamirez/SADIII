@@ -396,6 +396,9 @@
                                                         <label for="descripcionArea<%= u.getId() %>">Rol:</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <input type="hidden" class="form-control" id="descripcionArea<%= u.getId() %>" name="contra" value="<%= u.getContrasena() %>" required>
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">

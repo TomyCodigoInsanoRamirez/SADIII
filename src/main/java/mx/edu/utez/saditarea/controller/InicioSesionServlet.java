@@ -99,7 +99,7 @@ public class InicioSesionServlet extends HttpServlet {
             if ("Administrador".equals(usuario.getRol())) {
                 sesion.setAttribute("tipoSesion", "admin");
                 ruta = "home.jsp";
-            } else if ("almacenista".equals(usuario.getRol())) {
+            } else if ("Almacenista".equals(usuario.getRol())) {
                 sesion.setAttribute("tipoSesion", "almacenista");
                 ruta = "almacenistaHome.jsp";
             } else {

@@ -15,7 +15,7 @@ public class Entradas {
     private String unidad_Medida;
 
     public Entradas(){}
-    public Entradas( String folio_E, String numero_Factura, Date Fecha, String RFC, float precio_Unitario, float precio_Total, String clave_Producto, String id_Empleado, String unidad_Medida  ) {
+    public Entradas( String folio_E, String numero_Factura,Date Fecha, String RFC, float precio_Unitario, float precio_Total,int cantidad, String clave_Producto, String id_Empleado, String unidad_Medida  ) {
 
         this.folio_E = folio_E;
         this.numero_Factura = numero_Factura;

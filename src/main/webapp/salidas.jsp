@@ -327,7 +327,7 @@
     <h2>Registro de Productos</h2>
     <button  class="close-btn" id="close">✖</button>
   </div>
-  <form>
+  <form action="registroSalidas" method="post">
     <!-- <button id="close" class="close-btn" >✖</button> -->
     <div class="contenedorInputs">
       <div class="izquierda">
@@ -343,7 +343,7 @@
               if (userDao != null) {
                 for (Usuario usuario : userDao) {
             %>
-            <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
             <%
               }
             }else {
@@ -366,7 +366,7 @@
               if (Productos != null) {
                 for (Productos Producto: Productos) {
             %>
-            <option value="<%= Producto.getNombreProducto() %>"><%= Producto.getClaveProducto()%></option>
+            <option value="<%= Producto.getClaveProducto() %>"><%= Producto.getClaveProducto()%></option>
             <%
               }
             } else {
@@ -389,7 +389,7 @@
               if (userDao != null) {
                 for (Usuario usuario : userDao) {
             %>
-            <option value="<%= usuario.getRol()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
             <%
               }
             }else {
@@ -408,7 +408,7 @@
               if (Areas != null) {
                 for (Areas areas: Areas) {
             %>
-            <option value="<%= areas.getDescripcionArea()%>"><%= areas.getNombreArea()%></option>
+            <option value="<%= areas.getClaveArea()%>"><%= areas.getNombreArea()%></option>
             <%
               }
             } else {
