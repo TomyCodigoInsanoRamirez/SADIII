@@ -302,7 +302,7 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th>Acciones</th>
+                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU"></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -310,7 +310,41 @@
                                 <%
                                     UnidadMedidaDao dao = new UnidadMedidaDao();
                                     List<UnidadMedida> lista = dao.getAll();
-                                    for (UnidadMedida u : lista) { %>
+                                    int numeroElementos = lista.size();
+                                    double numeroPaginadores = (double) numeroElementos/10;
+                                    System.out.println("numero de Elementos: "+numeroElementos);
+                                    int numeroPaginadoreDecimal = numeroElementos/10;
+                                    if(numeroPaginadoreDecimal == 0){
+                                        numeroPaginadoreDecimal = 1;
+                                    }
+                                    System.out.println("Antes de obtener el parametro de la url");
+                                    String paginadorSolicitado = "1";
+                                    if(request.getParameter("value") == null){
+                                        paginadorSolicitado = "1";
+                                    }else{
+                                        paginadorSolicitado = request.getParameter("value");
+                                    }
+                                    int paginadorSolicitadoInt = Integer.parseInt(paginadorSolicitado);
+
+                                    int contador = 0;
+                                    System.out.println("Antes de mequetreque para lo de los paginadores");
+                                    if(numeroPaginadores >= 0 && numeroPaginadores < 1){
+                                        numeroPaginadores = 1;
+                                    } else if (numeroPaginadores > numeroPaginadoreDecimal ) {
+                                        numeroPaginadoreDecimal++;
+                                    }
+                                    if(paginadorSolicitadoInt > numeroPaginadoreDecimal){
+                                        paginadorSolicitadoInt = numeroPaginadoreDecimal;
+                                    }else if (paginadorSolicitadoInt < 1) {
+                                        paginadorSolicitadoInt = 1;
+                                    }
+                                    System.out.println("Antes de imprimir la tabla");
+                                    for (UnidadMedida u : lista) {
+                                        if( contador >= ((paginadorSolicitadoInt * 10)-10) && contador < (paginadorSolicitadoInt * 10)){
+                                            System.out.println("Con el paginador: "+paginadorSolicitadoInt);
+                                            System.out.println(("contador >= "+((paginadorSolicitadoInt * 10)-10) + "&& contador < "+(paginadorSolicitadoInt * 10) ));
+                                %>
+
                                 <tr>
                                     <td><%= u.getAbreviacionUndidadMedida() %></td>
                                     <td><%= u.getNombreUnidadMedida() %></td>
@@ -379,12 +413,45 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%} contador++;%>
                                 <% } %>
                                 </tbody>
                             </table>
+
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item ">
+                                        <a class="page-link" id="anteriorPaginador" href="unidadMedida.jsp?value=<%=paginadorSolicitadoInt-1%>" >Anterior</a>
+                                    </li>
+                                    <%
+                                        System.out.println("Decimal: "+numeroPaginadores);
+                                        System.out.println("Entero: "+numeroPaginadoreDecimal);
+                                        for(int i =0; i<numeroPaginadoreDecimal; i++){
+                                    %>
+                                    <%
+                                        if((i+1)==paginadorSolicitadoInt){
+                                    %>
+
+                                    <li class="page-item active"><a class="page-link" href="unidadMedida.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
+                                    <%
+                                    } else{
+                                    %>
+                                    <li class="page-item"><a class="page-link" href="unidadMedida.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        }
+                                    %>
+                                    <li class="page-item">
+                                        <a class="page-link" id="siguientePaginador" href="unidadMedida.jsp?value=<%=paginadorSolicitadoInt+1%>"  >Siguiente</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU">
+                            <!--<img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU">-->
                             </button>
                         </div>
                     </div>
@@ -538,3 +605,6 @@
 </body>
 
 </html>
+
+
+

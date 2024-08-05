@@ -1,4 +1,3 @@
-
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
@@ -305,7 +304,7 @@
                                     <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
                                     <th class="todisable">Correo</th>
-                                    <th>Acciones</th>
+                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila"></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -313,13 +312,47 @@
                                 <%
                                     UserDao dao = new UserDao();
                                     ArrayList<Usuario> lista = dao.getAll();
-                                    for(Usuario u : lista){ %>
+                                    int numeroElementos = lista.size();
+                                    double numeroPaginadores = (double) numeroElementos/10;
+                                    System.out.println("numero de Elementos: "+numeroElementos);
+                                    int numeroPaginadoreDecimal = numeroElementos/10;
+                                    if(numeroPaginadoreDecimal == 0){
+                                        numeroPaginadoreDecimal = 1;
+                                    }
+                                    System.out.println("Antes de obtener el parametro de la url");
+                                    String paginadorSolicitado = "1";
+                                    if(request.getParameter("value") == null){
+                                        paginadorSolicitado = "1";
+                                    }else{
+                                        paginadorSolicitado = request.getParameter("value");
+                                    }
+                                    int paginadorSolicitadoInt = Integer.parseInt(paginadorSolicitado);
+
+                                    int contador = 0;
+                                    System.out.println("Antes de mequetreque para lo de los paginadores");
+                                    if(numeroPaginadores >= 0 && numeroPaginadores < 1){
+                                        numeroPaginadores = 1;
+                                    } else if (numeroPaginadores > numeroPaginadoreDecimal ) {
+                                        numeroPaginadoreDecimal++;
+                                    }
+                                    if(paginadorSolicitadoInt > numeroPaginadoreDecimal){
+                                        paginadorSolicitadoInt = numeroPaginadoreDecimal;
+                                    }else if (paginadorSolicitadoInt < 1) {
+                                        paginadorSolicitadoInt = 1;
+                                    }
+                                    System.out.println("Antes de imprimir la tabla");
+                                    for(Usuario u : lista){
+                                        System.out.println("Vamos a darle a imprimir la tabla");
+                                        if( contador >= ((paginadorSolicitadoInt * 10)-10) && contador < (paginadorSolicitadoInt * 10)){
+                                            System.out.println("Con el paginador: "+paginadorSolicitadoInt);
+                                            System.out.println(("contador >= "+((paginadorSolicitadoInt * 10)-10) + "&& contador < "+(paginadorSolicitadoInt * 10) ));
+                                %>
                                 <tr>
                                     <td class="todisable2"><%=u.getId()%></td>
                                     <td><%=u.getNombre1_U()%></td>
                                     <td class="todisable"><%=u.getCorreo()%></td>
                                     <td id="acc" class="acc">
-                                           <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getId() %>">
+                                        <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getId() %>">
                                             <img class="act" src="img/visibility_24dp.png"  >
                                         </a>
                                     </td>
@@ -396,9 +429,6 @@
                                                         <label for="descripcionArea<%= u.getId() %>">Rol:</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="hidden" class="form-control" id="descripcionArea<%= u.getId() %>" name="contra" value="<%= u.getContrasena() %>" required>
-                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -411,10 +441,49 @@
 
                                 <!-- modal solo para mostrar info-->
 
+
+                                <%} contador++;%>
                                 <%} %>
                                 </tbody>
-                            </table>
 
+                            </table>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item ">
+                                        <a class="page-link" id="anteriorPaginador" href="home.jsp?value=<%=paginadorSolicitadoInt-1%>" >Anterior</a>
+                                    </li>
+                                    <%
+                                        System.out.println("Decimal: "+numeroPaginadores);
+                                        System.out.println("Entero: "+numeroPaginadoreDecimal);
+                                        for(int i =0; i<numeroPaginadoreDecimal; i++){
+                                    %>
+                                    <%
+                                        if((i+1)==paginadorSolicitadoInt){
+                                    %>
+
+                                    <li class="page-item active"><a class="page-link" href="home.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
+                                    <%
+                                    } else{
+                                    %>
+                                    <li class="page-item"><a class="page-link" href="home.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        }
+                                    %>
+                                    <li class="page-item">
+                                        <a class="page-link" id="siguientePaginador" href="home.jsp?value=<%=paginadorSolicitadoInt+1%>"  >Siguiente</a>
+                                    </li>
+
+                                </ul>
+                                <script>
+                                    const siguientePaginador = document.getElementById("siguientePaginador");
+                                    const anteriorPaginador = document.getElementById("anteriorPaginador");
+
+
+                                </script>
+                            </nav>
                             <!-- Modal para editar usuario -->
                             <div id="editUserModal" class="modal">
                                 <div class="modal-content">
@@ -472,7 +541,7 @@
 
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            <!--<img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">-->
                             </button>
                         </div>
                     </div>
@@ -658,3 +727,6 @@
 </body>
 
 </html>
+
+
+
