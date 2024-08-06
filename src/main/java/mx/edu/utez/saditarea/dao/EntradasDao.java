@@ -2,6 +2,7 @@ package mx.edu.utez.saditarea.dao;
 
 import mx.edu.utez.saditarea.modelo.Entradas;
 import mx.edu.utez.saditarea.modelo.Productos;
+import mx.edu.utez.saditarea.modelo.Salidas;
 import mx.edu.utez.saditarea.modelo.Usuario;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
@@ -96,7 +97,7 @@ public class EntradasDao {
         return productosList2;
     }
 
-
+/*
     public List<Entradas> reporteFechas(String fecha1, String fecha2) {
         List<Entradas> productosList = new ArrayList<>();
         String query = "SELECT * FROM Entradas WHERE fecha BETWEEN ? AND ? ";
@@ -135,5 +136,48 @@ public class EntradasDao {
         return productosList;
 
     }
+*/
+
+    public List<Entradas> reporteFechas(String fecha1, String fecha2) {
+        List<Entradas> productosList = new ArrayList<>();
+        String sql = "{CALL GetRecordsBetweenDates(?, ?)}";
+
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection(); // obtener conexión
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setString(1, fecha1);
+            cs.setString(2, fecha2);
+            ResultSet rs = cs.executeQuery();
+
+            while (rs.next()) {
+                Entradas u = new Entradas();
+                u.setFolio_E(rs.getString("folio_E"));
+                u.setNumero_Factura(rs.getString("numero_factura"));
+                Date fechaaa = rs.getDate("Fecha");
+                u.setFecha(fechaaa);
+                u.setRFC("fk_RFC");
+                u.setPrecio_Unitario(rs.getFloat("precio_unitario"));
+                u.setPrecio_Total(rs.getFloat("precio_total"));
+                u.setCantidad(rs.getInt("cantidad_E"));
+                u.setClave_Producto(rs.getString("fk_claveProducto"));
+                u.setId_Empleado(rs.getString("fk_id_empleado"));
+                u.setUnidad_Medida(rs.getString("fk_unidadMedida"));
+                productosList.add(u);
+            }
+
+            rs.close();
+            cs.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
+
+
+
+
 }
 

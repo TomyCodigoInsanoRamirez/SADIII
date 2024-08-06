@@ -123,11 +123,17 @@
                                 <i class="bi bi-collection-fill mr-3 " aria-hidden="true" ></i>Catálogos
                             </a>
                             <div id="dashboard-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                                <%
+                                    if(session.getAttribute("tipoSesion").equals("admin")){
+                                %>
                                 <a href="home.jsp"
                                    class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1 item-list-res" >
                                     <i class="bi bi-people-fill mr-3 " aria-hidden="true"></i>
                                     Usuarios
                                 </a>
+                                <%
+                                    }
+                                %>
                                 <a href="productos.jsp"
                                    class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                     <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -150,8 +156,8 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="acciones">
-                                <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                                id="acciones">
+
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
                                 <div class="bg-coffee text-light text-center">Registro</div>
@@ -216,11 +222,17 @@
                                         <i class="bi bi-collection-fill mr-3" aria-hidden="true" ></i>Catálogos
                                     </a>
                                     <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
+                                        <%
+                                            if(session.getAttribute("tipoSesion").equals("admin")){
+                                        %>
                                         <a href="home.jsp"
                                            class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1">
                                             <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
                                             Usuarios
                                         </a>
+                                        <%
+                                            }
+                                        %>
                                         <a href="productos.jsp"
                                            class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                             <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -242,10 +254,12 @@
                                             Unidades de Medida
                                         </a>
                                     </div>
+                                    <!--
                                     <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
                                        class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
                                         <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
                                     </a>
+                                    -->
                                     <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
                                         <div class="bg-coffee text-light text-center">Registro</div>
                                         <div class="d-flex flex-row text-center" >

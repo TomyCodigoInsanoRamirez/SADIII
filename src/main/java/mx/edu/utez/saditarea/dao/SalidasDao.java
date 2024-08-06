@@ -59,4 +59,42 @@ public class SalidasDao {
 
         return productosList;
     }
+
+
+    public List<Salidas> reporteFechasS(String fecha1, String fecha2) {
+        List<Salidas> productosList = new ArrayList<>();
+        String sql = "{CALL fechasSalidas(?, ?)}";
+
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection(); // obtener conexión
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setString(1, fecha1);
+            cs.setString(2, fecha2);
+            ResultSet rs = cs.executeQuery();
+
+            while (rs.next()) {
+                Salidas u = new Salidas();
+                u.setFolio("folio_S");
+                u.setEmpleado_S("fk_empleado_S");
+                u.setEmpleado_E("fk_empleado_E");
+                u.setArea("fk_area_S");
+                java.util.Date fechaaa = rs.getDate("Fecha");
+                u.setFecha(fechaaa);
+                u.setClaveProducto("fk_claveProducto");
+                u.setUnidadMedida("fk_unidadMedida");
+                //u.setCantidad_S(Integer.parseInt("cantidad_S"));
+                u.setCantidad_S(rs.getInt("cantidad_S"));
+                productosList.add(u);
+            }
+
+            rs.close();
+            cs.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
 }

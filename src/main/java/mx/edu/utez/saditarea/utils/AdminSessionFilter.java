@@ -30,7 +30,7 @@ public class AdminSessionFilter implements Filter {
         if (session != null) {
             //isAdmin = session.getAttribute("tipoSesion").equals("admin");
             //Object tipoSesion = session.getAttribute("tipoSesion");
-            if (session.getAttribute("tipoSesion") != null && session.getAttribute("tipoSesion").equals("admin")) {
+            if ((session.getAttribute("tipoSesion") != null && session.getAttribute("tipoSesion").equals("admin")) || (session.getAttribute("tipoSesion") != null && session.getAttribute("tipoSesion").equals("almacenista"))) {
                 isAdmin = true;
             }
         }

@@ -55,11 +55,17 @@
                 <i class="bi bi-collection-fill mr-3 " aria-hidden="true" ></i>Catálogos
               </a>
               <div id="dashboard-items-responsive" class="collapse" data-parent="#sidebar-accordion">
+                <%
+                  if(session.getAttribute("tipoSesion").equals("admin")){
+                %>
                 <a href="home.jsp"
                    class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1 item-list-res" >
                   <i class="bi bi-people-fill mr-3 " aria-hidden="true"></i>
                   Usuarios
                 </a>
+                <%
+                  }
+                %>
                 <a href="productos.jsp"
                    class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                   <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -82,8 +88,8 @@
                 </a>
               </div>
               <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                 class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="acciones">
-                <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                  id="acciones">
+
               </a>
               <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
                 <div class="bg-coffee text-light text-center">Registro</div>
@@ -177,10 +183,12 @@
                       Unidades de Medida
                     </a>
                   </div>
+                  <!--
                   <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
                      class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
                     <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
                   </a>
+                  -->
                   <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
                     <div class="bg-coffee text-light text-center">Registro</div>
                     <div class="d-flex flex-row text-center" >
@@ -221,10 +229,45 @@
           <div class="col-md-9 contenedorPrc">
             <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
               <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+              <!--
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                 </button>
+              </form>
+              -->
+              <form class="d-flex" action="salidas.jsp" method="post">
+                <div class="form-group">
+                  <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
+                  <input type="date" class="form-control" id="fechaInicio" name="desde">
+                </div>
+                <span class="ms-auto p-2"></span>
+                <div class="form-group">
+                  <%--@declare id="hasta"--%><label for="Hasta">Hasta el dia:</label>
+                  <input type="date" class="form-control" id="fechaFin" name="hasta"/>
+                </div>
+                <span class="ms-auto p-1"></span>
+                <!--<a href="entradas.jsp?value=''">Enviar</a>-->
+
+                <div class="form-group" style="margin-top: 4.8%;">
+                  <button type="submit" class="btn btn-outline-success">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+
+                <!--
+                <span class="ms-auto p-3"></span>
+                <div class="form-group" style="margin-top: 29px;">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                </div>
+                <span class="ms-auto p-1"></span>
+
+                <div class="form-group">
+                    <button class="btn btn-outline-success" type="submit" style="margin-top: 78%;">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                -->
               </form>
             </div>
             <div style="position: relative;">
@@ -241,7 +284,16 @@
                 <tbody id="tabla-body">
                 <%
                   SalidasDao daoE = new SalidasDao();
-                  List<Salidas> lista = daoE.getAll();
+                  //List<Salidas> lista = daoE.getAll();
+                  List<Salidas>  lista = new ArrayList<>();
+                  if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
+                    String desde = request.getParameter("desde");
+                    String hasta = request.getParameter("hasta");
+                    lista = daoE.reporteFechasS(desde,hasta) ;
+                  }else{
+                    lista = daoE.getAll() ;
+                  }
+
                   for(Salidas u : lista){ %>
                 <!---Se va a repetir --->
                 <tr>

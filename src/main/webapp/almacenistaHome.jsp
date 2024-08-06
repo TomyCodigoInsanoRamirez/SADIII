@@ -1,10 +1,29 @@
-<%@page import="mx.edu.utez.saditarea.dao.UserDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
-<%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
 <%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saditarea.dao.*" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!--Extraxion del dao-->
+<%
+    ProveedoresDao dao = new ProveedoresDao();
+    List<Proveedores> proveedores = dao.findAll();
+
+%>
+<%
+    ProductosDao daoProducto = new ProductosDao();
+    List<Productos> productos= daoProducto.getAll();
+
+%>
+<%
+    UnidadMedidaDao daoUnidadM = new UnidadMedidaDao();
+    List<UnidadMedida> unidadMedida= daoUnidadM.getAll();
+
+%>
+<%
+    UserDao daoUser = new UserDao();
+    List<Usuario> userDao= daoUser.getAll2();
+
+%>
 <!DOCTYPE html>
 <html>
 
@@ -18,89 +37,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
-<script>
 
-    let apagados = 0;
-    clikis = 0  ;
-    function checar(input){
-
-        //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
-        clikis ++;
-        console.log(clikis);
-        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
-            let toStatusActive = document.getElementById("activar");
-            let toStatusInactive = document.getElementById("desactivar");
-            let mensaje = document.getElementById("contbasemsj");
-            let aceptar = document.getElementById("aceptar");
-            let cancelar = document.getElementById("cancelar");
-            let aceptarO = document.getElementById("aceptarO");
-            let cancelarO = document.getElementById("cancelarO");
-            let estado = input.getAttribute("data-estado");
-            if(estado == 1){
-                mensaje.style.display = "block";
-                toStatusInactive.style.display = "block"
-                aceptar.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelar.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }else{
-                mensaje.style.display = "block";
-                toStatusActive.style.display = "block"
-                aceptarO.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelarO.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }
-
-        }
-    }
-    /*  function triggerDelete(input) {
-          console.log(clikis);
-          if(clikis >= 2){
-              input.previousElementSibling.click();
-          }
-          clikis ++;
-      }*/
-</script>
 <body>
-<div id="contbasemsj">
-    <div class="basemsj" id="basemsj">
-        <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿DESACTIVAR ÁREA? </h2>
-            <h5>(No aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptar">
-                    Aceptar
-                </button>
-                <button id="cancelar">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-        <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿ACTIVAR ÁREA? </h2>
-            <h5>(Aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptarO">
-                    Aceptar
-                </button>
-                <button id="cancelarO">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="capa-obscurecer">
 
 </div>
@@ -111,9 +49,6 @@
                 <a id="logoImg" href=""><img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px" ></a>
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
-                <div class="tituloSeccion">
-                    <h1>ÁREAS</h1>
-                </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
                     <div id="sidebar-accordion-responsive" class="accordion" style="width: 70%;">
@@ -123,17 +58,11 @@
                                 <i class="bi bi-collection-fill mr-3 " aria-hidden="true" ></i>Catálogos
                             </a>
                             <div id="dashboard-items-responsive" class="collapse" data-parent="#sidebar-accordion">
-                                <%
-                                    if(session.getAttribute("tipoSesion").equals("admin")){
-                                %>
                                 <a href="home.jsp"
                                    class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1 item-list-res" >
                                     <i class="bi bi-people-fill mr-3 " aria-hidden="true"></i>
                                     Usuarios
                                 </a>
-                                <%
-                                    }
-                                %>
                                 <a href="productos.jsp"
                                    class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                     <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -156,8 +85,8 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
-
+                               class="list-group-item list-group-item-action bg-coffee text-light  mb-2" id="acciones">
+                                <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
                                 <div class="bg-coffee text-light text-center">Registro</div>
@@ -196,6 +125,9 @@
 
                 </div>
             </a>
+            <div class="tituloSeccion">
+                <h1>ENTRADAS</h1>
+            </div>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
                 </ul>
@@ -222,17 +154,11 @@
                                         <i class="bi bi-collection-fill mr-3" aria-hidden="true" ></i>Catálogos
                                     </a>
                                     <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
-                                        <%
-                                            if(session.getAttribute("tipoSesion").equals("admin")){
-                                        %>
                                         <a href="home.jsp"
                                            class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1">
                                             <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
                                             Usuarios
                                         </a>
-                                        <%
-                                            }
-                                        %>
                                         <a href="productos.jsp"
                                            class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                             <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -254,12 +180,10 @@
                                             Unidades de Medida
                                         </a>
                                     </div>
-                                    <!--
                                     <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
                                        class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
                                         <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
                                     </a>
-                                    -->
                                     <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
                                         <div class="bg-coffee text-light text-center">Registro</div>
                                         <div class="d-flex flex-row text-center" >
@@ -300,173 +224,118 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
-                            <!--
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
-                                <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
-                                </button>
+                            <form class="d-flex" action="entradas.jsp" method="post">
+                                <div class="form-group">
+                                    <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
+                                    <input type="date" class="form-control" id="fechaInicio" name="desde">
+                                </div>
+                                <span class="ms-auto p-2"></span>
+                                <div class="form-group">
+                                    <%--@declare id="hasta"--%><label for="Hasta">Hasta el dia:</label>
+                                    <input type="date" class="form-control" id="fechaFin" name="hasta"/>
+                                </div>
+                                <span class="ms-auto p-1"></span>
+                                <!--<a href="entradas.jsp?value=''">Enviar</a>-->
+
+                                <div class="form-group" style="margin-top: 4.8%;">
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+
+                                <!--
+                                <span class="ms-auto p-3"></span>
+                                <div class="form-group" style="margin-top: 29px;">
+                                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                                </div>
+                                <span class="ms-auto p-1"></span>
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-success" type="submit" style="margin-top: 78%;">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                -->
                             </form>
-                            -->
                         </div>
                         <div style="position: relative;">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">Clave área</th>
-                                    <th>Nombre área</th>
-                                    <th class="todisable">Descripción área</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA"></th>
+                                    <th class="todisable2">Folio</th>
+                                    <th>Numero de factura</th>
+                                    <th  class="todisable">Almacenista</th>  <!--style="padding-left: 65px;" -->
+                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
-                                    AreasDao dao = new AreasDao();
-                                    List<Areas> lista = dao.getAll();
-                                    int numeroElementos = lista.size();
-                                    double numeroPaginadores = (double) numeroElementos/10;
-                                    System.out.println("numero de Elementos: "+numeroElementos);
-                                    int numeroPaginadoreDecimal = numeroElementos/10;
-                                    if(numeroPaginadoreDecimal == 0){
-                                        numeroPaginadoreDecimal = 1;
-                                    }
-                                    System.out.println("Antes de obtener el parametro de la url");
-                                    String paginadorSolicitado = "1";
-                                    if(request.getParameter("value") == null){
-                                        paginadorSolicitado = "1";
+                                    EntradasDao daoE = new EntradasDao();
+                                    List<Entradas>  lista = new ArrayList<>();
+                                    if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
+                                        String desde = request.getParameter("desde");
+                                        String hasta = request.getParameter("hasta");
+                                        System.out.println("Desde:"+desde);
+                                        System.out.println("Hasta: "+hasta);
+                                        lista = daoE.reporteFechas(desde,hasta) ;
                                     }else{
-                                        paginadorSolicitado = request.getParameter("value");
+                                        lista = daoE.getAll() ;
                                     }
-                                    int paginadorSolicitadoInt = Integer.parseInt(paginadorSolicitado);
 
-                                    int contador = 0;
-                                    System.out.println("Antes de mequetreque para lo de los paginadores");
-                                    if(numeroPaginadores >= 0 && numeroPaginadores < 1){
-                                        numeroPaginadores = 1;
-                                    } else if (numeroPaginadores > numeroPaginadoreDecimal ) {
-                                        numeroPaginadoreDecimal++;
-                                    }
-                                    if(paginadorSolicitadoInt > numeroPaginadoreDecimal){
-                                        paginadorSolicitadoInt = numeroPaginadoreDecimal;
-                                    } else if (paginadorSolicitadoInt < 1) {
-                                        paginadorSolicitadoInt = 1;
-                                    }
-                                    System.out.println("Antes de imprimir la tabla");
-                                    for(Areas u : lista){
-                                        if( contador >= ((paginadorSolicitadoInt * 10)-10) && contador < (paginadorSolicitadoInt * 10)){
-                                            System.out.println("Con el paginador: "+paginadorSolicitadoInt);
-                                            System.out.println(("contador >= "+((paginadorSolicitadoInt * 10)-10) + "&& contador < "+(paginadorSolicitadoInt * 10) ));
-                                %>
+                                    for(Entradas u : lista){ %>
+                                <!---Se va a repetir --->
                                 <tr>
-                                    <td class="todisable2"><%= u.getClaveArea() %></td>
-                                    <td><%= u.getNombreArea() %></td>
-                                    <td class="todisable"><%= u.getDescripcionArea() %></td>
-                                    <td id="acc" class="acc">
-                                        <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getClaveArea() %>">
-                                            <img class="act" src="img/visibility_24dp.png"  width="70px">
-                                        </a>
-                                    </td>
-                                    <td class="acc">
-                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getClaveArea() %>">
-                                            <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar" >
-                                        </a>
-                                    </td>
-                                    <td class="acc">
-                                        <label class="switch small">
-                                            <a href="actualizarAreaE?id=<%=u.getClaveArea()%>&estado=<%=u.getEstadoAr()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoAr()%>" onclick="checar(this);">
-                                            <span class="slider" ></span>
-                                            <%
-                                                if(u.getEstadoAr() == 1){
-                                            %>
-                                            <script>
-                                                console.log("Aun entra a la condición para activar el slider");
-                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
-                                            </script>
-                                            <%
-                                            }else{
-                                            %>
-                                            <script>
-                                                apagados ++;
-                                            </script>
-                                            <%
-                                                }
-                                            %>
-                                        </label>
+                                    <td class="todisable2"><%=u.getFolio_E()%></td>
+                                    <td><%=u.getNumero_Factura()%></td>
+                                    <td class="todisable"><%=u.getId_Empleado()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+
+                                </tr>
+                                <%} %>
+                                <!--
+                                <tr>
+                                    <td>1</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
                                     </td>
                                 </tr>
-
-                                <!-- Modal para Editar Información -->
-                                <div class="modal fade" id="editModal<%= u.getClaveArea() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getClaveArea() %>" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel<%= u.getClaveArea() %>">Editar Información del Área</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
                                             </div>
-                                            <div class="modal-body">
-                                                <form id="editForm<%= u.getClaveArea() %>" action="actualizarArea.jsp" method="post">
-                                                    <input type="hidden" name="claveArea" value="<%= u.getClaveArea() %>">
-                                                    <div class="form-group">
-                                                        <label for="nombreArea<%= u.getClaveArea() %>">Nombre del Área:</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getClaveArea() %>" name="nombreArea" value="<%= u.getNombreArea() %>" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getClaveArea() %>">Descripción del Área:</label>
-                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getClaveArea() %>" name="descripcionArea" value="<%= u.getDescripcionArea() %>" required>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary" form="editForm<%= u.getClaveArea() %>">Guardar Cambios</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%} contador++;%>
-                                <% } %>
+                                        </template>
+                                    </td>
+                                </tr>
+                                -->
                                 </tbody>
                             </table>
-                            <nav aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item ">
-                                        <a class="page-link" id="anteriorPaginador" href="areas.jsp?value=<%=paginadorSolicitadoInt-1%>" >Anterior</a>
-                                    </li>
-                                    <%
-                                        System.out.println("Decimal: "+numeroPaginadores);
-                                        System.out.println("Entero: "+numeroPaginadoreDecimal);
-                                        for(int i =0; i<numeroPaginadoreDecimal; i++){
-                                    %>
-                                    <%
-                                        if((i+1)==paginadorSolicitadoInt){
-                                    %>
-
-                                    <li class="page-item active"><a class="page-link" href="areas.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
-                                    <%
-                                    } else{
-                                    %>
-                                    <li class="page-item"><a class="page-link" href="areas.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
-                                    <%
-                                        }
-                                    %>
-                                    <%
-                                        }
-                                    %>
-                                    <li class="page-item">
-                                        <a class="page-link" id="siguientePaginador" href="areas.jsp?value=<%=paginadorSolicitadoInt+1%>"  >Siguiente</a>
-                                    </li>
-
-                                </ul>
-                            </nav>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <!--<img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA">-->
+                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
                             </button>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -492,47 +361,145 @@
         </div>
     </div>
 </div>
-<!-- Formulario de registro (add) -->
+<!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Áreas</h2>
-        <button class="close-btn" id="close">✖</button>
+        <h2>Registro de Entradas</h2>
+        <button  class="close-btn" id="close">✖</button>
     </div>
-    <form action="AreaServlet" method="post">
-        <input type="hidden" name="action" value="agregar">
+    <form action="registroEntradas" method="post">
+        <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs">
             <div class="izquierda">
+
                 <div class="form-group">
-                    <label for="claveArea">Clave del Área:</label>
-                    <input type="text" id="claveArea" name="claveArea" required>
+                    <label for="folio-E">Folio:</label>
+                    <input type="text" id="folio-E" name="folio-E" required>
                 </div>
                 <div class="form-group">
-                    <label for="nombreArea">Nombre del Área:</label>
-                    <input type="text" id="nombreArea" name="nombreArea" required>
-                </div>
-                <div class="form-group">
-                    <label for="descripcionArea">Descripción:</label>
-                    <input type="text" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
-                </div>
-                <div class="form-group">
-                    <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" name="estadoAr" required>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
+                    <label for="nombreCompleto">Nombre del proveedor: </label>
+                    <select id="nombreCompleto" name="nombreCompleto" required>
+
+                        <%
+                            if (proveedores != null) {
+                                for (Proveedores usuario : proveedores) {
+                        %>
+                        <option value="<%= usuario.getRFC()%>"><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
+                        <%
+                            }
+                        }else {
+                        %>
+                        <option value="">No hay usuarios disponibles</option>
+                        <%
+                            }
+                        %>
+
                     </select>
+
                 </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="nombreCompletoAlmacenista">Nombre completo del almacenista receptor: </label>
+                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required>
+
+                            <%
+                                if (userDao != null) {
+                                    for (Usuario usuario : userDao) {
+                            %>
+                            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                            <%
+                                }
+                            }else {
+                            %>
+                            <option value="">No hay usuarios disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="unit">Unidad de medida:</label>
+                        <select id="unit" name="unit" required>
+                            <%
+                                if (unidadMedida != null) {
+                                    for (UnidadMedida unidadM : unidadMedida) {
+                            %>
+                            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No hay unidades de medida disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
+                    </div>
+
+                </div   >
+
+
+                <div class="form-group">
+                    <label for="unit-price">Precio Unitario :</label>
+                    <input type="number" id="unit-price" name="unit-price" required>
+                </div>
+
             </div>
             <div class="derecha">
-                <!-- Puedes añadir más campos aquí si es necesario -->
+                <!--<button id="close" class="close-btn" >✖</button>-->
+                <div class="form-group">
+                    <label for="billing-number">Número de facturación:</label>
+                    <input type="text" id="billing-number" name="billing-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="entry-date">Fecha de entrada:</label>
+                    <input type="date" id="entry-date" name="entry-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="product">Producto:</label>
+                    <select id="product" name="product" required>
+                        <%
+                            if (productos != null) {
+                                for (Productos producto : productos) {
+                        %>
+                        <option value="<%= producto.getClaveProducto() %>"><%= producto.getNombreProducto() %></option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="">No existen productos</option>
+                        <%
+                            }
+                        %>
+
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Cantidad:</label>
+                    <input type="number" id="quantity" name="quantity" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="total-price">Precio total de productos:</label>
+                    <input type="number" id="total-price" name="total-price" required>
+                </div>
+
+
+
             </div>
         </div>
-        <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
-    </form>
+        <button id="btn-enviarr" type="submit" class="btn-to-actions">Agregar</button>
+        <a id="add-desdeEntrada" class="btn-to-actions">Agregar Producto</a>
+        <a id="btn-backl" href="entradas.jsp" class="btn-to-actions">Volver</a>    </form>
 </div>
-
-
-
-
 <script>
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");
@@ -583,7 +550,7 @@
         }
 
     })
-    document.getElementById("agregar-filaA").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
