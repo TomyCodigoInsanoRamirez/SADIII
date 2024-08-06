@@ -224,10 +224,38 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
-                                <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
-                                </button>
+                            <form class="d-flex" action="entradas.jsp" method="post">
+                                <div class="form-group">
+                                    <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
+                                    <input type="date" class="form-control" id="fechaInicio" name="desde">
+                                </div>
+                                <span class="ms-auto p-2"></span>
+                                <div class="form-group">
+                                    <%--@declare id="hasta"--%><label for="Hasta">Hasta el dia:</label>
+                                    <input type="date" class="form-control" id="fechaFin" name="hasta"/>
+                                </div>
+                                <span class="ms-auto p-1"></span>
+                                <!--<a href="entradas.jsp?value=''">Enviar</a>-->
+
+                                <div class="form-group" style="margin-top: 4.8%;">
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+
+                                <!--
+                                <span class="ms-auto p-3"></span>
+                                <div class="form-group" style="margin-top: 29px;">
+                                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                                </div>
+                                <span class="ms-auto p-1"></span>
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-success" type="submit" style="margin-top: 78%;">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                -->
                             </form>
                         </div>
                         <div style="position: relative;">
@@ -244,7 +272,15 @@
                                 <tbody id="tabla-body">
                                 <%
                                     EntradasDao daoE = new EntradasDao();
-                                    List<Entradas> lista = daoE.getAll();
+                                    List<Entradas>  lista = new ArrayList<>();
+                                    if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
+                                        String desde = request.getParameter("desde");
+                                        String hasta = request.getParameter("hasta");
+                                        lista = daoE.reporteFechas(desde,hasta) ;
+                                    }else{
+                                        lista = daoE.getAll() ;
+                                    }
+
                                     for(Entradas u : lista){ %>
                                 <!---Se va a repetir --->
                                 <tr>
