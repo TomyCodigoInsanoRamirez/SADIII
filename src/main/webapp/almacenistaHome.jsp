@@ -258,14 +258,14 @@
                                 -->
                             </form>
                         </div>
-                        <div style="position: relative;">
+                        <div style="position: relative; display: block">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Folio</th>
                                     <th>Numero de factura</th>
                                     <th  class="todisable">Almacenista</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila-almacenista"></th> <!--style="padding-left: 45px;"-->
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -332,7 +332,7 @@
                             </table>
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
+                            <!--<img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">-->
                             </button>
                         </div>
                     </div>

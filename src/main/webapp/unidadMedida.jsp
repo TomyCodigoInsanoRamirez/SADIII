@@ -299,6 +299,7 @@
                     </div>
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
+
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
                             <!--
                             <form class="d-flex" role="search">
@@ -308,7 +309,8 @@
                             </form>
                             -->
                         </div>
-                        <div style="position: relative;">
+
+                        <div style="position: relative; display: block">
 
 
                             <table class="table table-hover tab">
@@ -316,7 +318,7 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU"></th>
+                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU"></th>
                                     <th></th>
                                 </tr>
                                 </thead>

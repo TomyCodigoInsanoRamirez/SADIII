@@ -308,14 +308,14 @@
                             </form>
                             -->
                         </div>
-                        <div style="position: relative;">
+                        <div style="position: relative; display: block">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
                                     <th class="todisable">Descripción área</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA"></th>
+                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila"></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">

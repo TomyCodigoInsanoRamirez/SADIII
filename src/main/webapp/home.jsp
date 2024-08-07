@@ -74,9 +74,7 @@
 <div id="contbasemsj">
     <div class="basemsj" id="basemsj">
         <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿DESACTIVAR USUARIO? </h2>
-            <h5>(No aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
+            <h2>¿Estás seguro de desactivar el usuario? </h2>
             <div class="btn-ar">
                 <button id="aceptar">
                     Aceptar
@@ -87,9 +85,8 @@
             </div>
         </div>
         <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿ACTIVAR USUARIO? </h2>
-            <h5>(Aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
+            <h2>¿Estás seguro de activar el usario? </h2>
+
             <div class="btn-ar">
                 <button id="aceptarO">
                     Aceptar
@@ -343,11 +340,11 @@
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
 
                             <form class="d-flex" role="search">
-                                <!--
+
                                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
                                 <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
                                 </button>
-                                -->
+
                             </form>
 
                         </div>
@@ -454,34 +451,34 @@
                                                     <input type="hidden" name="id" value="<%= u.getId() %>">
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Nombre 1:</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Nombre 1</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre1_U" value="<%= u.getNombre1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Nombre 2:</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Nombre 2</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Apellido 1:</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido 1</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido1_U" value="<%= u.getApellido1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Apellido 2:</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido 2</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido2_U" value="<%= u.getApellido2_U() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Correo:</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Correo</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="correo" value="<%= u.getCorreo() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Telefono:</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Telefono</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="telefono" value="<%= u.getTelefono() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Rol:</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Rol</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                                                     </div>
                                                 </form>
@@ -547,43 +544,43 @@
                                     <form id="editUserForm" action="ActualizarUsuarioServlet" method="post">
                                         <input type="hidden" id="editUserId" name="id">
                                         <div>
-                                            <label for="editUserCorreo">Correo:</label>
+                                            <label for="editUserCorreo">Correo</label>
                                             <input type="email" id="editUserCorreo" name="correo" required>
                                         </div>
                                         <div>
-                                            <label for="editUserNombre1">Primer Nombre:</label>
+                                            <label for="editUserNombre1">Primer Nombre</label>
                                             <input type="text" id="editUserNombre1" name="nombre1_U" required>
                                         </div>
                                         <div>
-                                            <label for="editUserApellido1">Primer Apellido:</label>
+                                            <label for="editUserApellido1">Primer Apellido</label>
                                             <input type="text" id="editUserApellido1" name="apellido1_U" required>
                                         </div>
                                         <div>
-                                            <label for="editUserNombre2">Segundo Nombre:</label>
+                                            <label for="editUserNombre2">Segundo Nombre</label>
                                             <input type="text" id="editUserNombre2" name="nombre2_U">
                                         </div>
                                         <div>
-                                            <label for="editUserApellido2">Segundo Apellido:</label>
+                                            <label for="editUserApellido2">Segundo Apellido</label>
                                             <input type="text" id="editUserApellido2" name="apellido2_U">
                                         </div>
                                         <div>
-                                            <label for="editUserTelefono">Teléfono:</label>
+                                            <label for="editUserTelefono">Teléfono</label>
                                             <input type="text" id="editUserTelefono" name="telefono" required>
                                         </div>
                                         <div>
-                                            <label for="editUserContrasena">Contraseña:</label>
+                                            <label for="editUserContrasena">Contraseña</label>
                                             <input type="password" id="editUserContrasena" name="contrasena" required>
                                         </div>
                                         <div>
-                                            <label for="editUserEstado">Estado:</label>
+                                            <label for="editUserEstado">Estado</label>
                                             <input type="number" id="editUserEstado" name="estado" required>
                                         </div>
                                         <div>
-                                            <label for="editUserCodigo">Código:</label>
+                                            <label for="editUserCodigo">Código</label>
                                             <input type="text" id="editUserCodigo" name="codigo" required>
                                         </div>
                                         <div>
-                                            <label for="editUserRol">Rol:</label>
+                                            <label for="editUserRol">Rol</label>
                                             <input type="text" id="editUserRol" name="rol" required>
                                         </div>
                                         <!--<button type="submit">Guardar Cambios</button>-->
@@ -628,45 +625,45 @@
 </div><!-- formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Usario</h2>
+        <h2>Registro de Usuario</h2>
         <button class="close-btn" id="close">✖</button>
     </div>
     <form action="usuarioo" method="post">
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="rfc">Numero de identificación:</label>
+                    <label for="rfc">Numero de identificación</label>
                     <input type="text" id="rfc" name="id" required>
                 </div>
                 <div class="form-group">
-                    <label for="nombre1">Nombre :</label>
+                    <label for="nombre1">Nombre</label>
                     <input type="text" id="nombre1" name="nombre1" required>
                 </div>
                 <div class="form-group">
-                    <label for="nombre2">Segundo nombre :</label>
+                    <label for="nombre2">Segundo nombre </label>
                     <input type="text" id="nombre2" name="nombre2" placeholder="Opcional" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellido1">Apellido Paterno :</label>
+                    <label for="apellido1">Apellido Paterno </label>
                     <input type="text" id="apellido1" name="apellido1" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellido2">Apellido Materno :</label>
+                    <label for="apellido2">Apellido Materno </label>
                     <input type="text" id="apellido2" name="apellido2" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
+                    <label for="telefono">Número de telefono </label>
                     <input type="number" id="telefono" name="telefono" required>
                 </div>
 
             </div>
             <div class="derecha">
                 <div class="form-group">
-                    <label for="email">CorreoY :</label>
+                    <label for="email">Correo</label>
                     <input type="text" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="role">Rol :</label>
+                    <label for="role">Rol</label>
                     <select id="role" name="rol" required>
                         <option value="Administrador">Administrador</option>
                         <option value="Almacenista">Almacenista</option>

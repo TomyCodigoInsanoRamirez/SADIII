@@ -313,7 +313,7 @@
                             </form>
                             -->
                         </div>
-                        <div style="position: relative;">
+                        <div style="position: relative; display: block">
 
                             <table class="table table-hover tab">
                                 <thead>

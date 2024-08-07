@@ -138,30 +138,61 @@ tr{
     border-bottom: solid 2px black;
 }
 #agregar-fila {
+
     position: absolute;
-    top: -11%;
-    left: 82%;
+    top: -5%;
+    left: 95%;
 }
+
 #agregar-filaP{
     position: absolute;
-    top: 28%;
-    left: 82%;
+    top: -11%;
+    left: 95%;
 }
 #agregar-filaA{
     position: absolute;
-    top: -14%;
-    left: 82%;
+    top: -11%;
+    left: 95%;
 }
 #agregar-fila-prov{
     position: absolute;
-    top: -19%;
-    left: 82%;
+    top: -11%;
+    left: 95%;
 }
 #agregar-filaU{
     position: absolute;
-    top: -20%;
-    left: 78%;
+    top: -5%;
+    left: 95%;
 }
+#agregar-fila-almacenista{
+    position: absolute;
+    top: -14%;
+    left: 95%;
+}
+
+/** ESTO ES PARA CAMBIAR LA RESPONSIBIDAD PARA EL BOTON **/
+
+@media (max-width: 450px) {
+    #agregar-fila {
+        left: 85%;
+    }
+    #agregar-filaP {
+        left: 85%;
+    }
+    #agregar-filaA {
+        left: 85%;
+    }
+    #agregar-fila-prov {
+        left: 85%;
+    }
+    #agregar-filaU {
+        left: 85%;
+    }
+    #agregar-fila-almacenista{
+        left: 85%;
+    }
+}
+
 #sidebar-responsive{
     display: none;
 }
