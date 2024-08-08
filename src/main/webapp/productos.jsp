@@ -21,6 +21,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        margin-top: 98px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.3rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+
+</style>
+
+
 <script>
 
     let apagados = 0;
@@ -321,7 +347,9 @@
                                     <th class="todisable2">Clave de producto</th>
                                     <th>Nombre Producto</th>
                                     <th class="todisable">Descripción producto</th>
-                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaP"></th>
+                                    <th id="columnaAcciones">Acciones        <button id="agregar-filaP" type="button" class="btn add-button">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -506,34 +534,34 @@
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header">
+    <div class="popup-header text-center">
         <h2>Registro de Productos</h2>
-        <button  class="close-btn" id="close">✖</button>
+        <button  class="close-btn btn btn-link" id="close" style="background: none; border: none; "><i class="bi bi-x-circle-fill text-danger" style="font-size: 2.6rem;"></i></button>
     </div>
     <form method="post" action="registroProducto">
-        <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs">
-            <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">Clave</label>
-                    <input type="text" id="rfc" name="clave" required>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rfc">Clave</label>
+                        <input type="text" class="form-control" id="rfc" name="clave" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="nombre1">Nombre Producto:</label>
+                        <input type="text" class="form-control" id="nombre1" name="nombre" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre Producto:</label>
-                    <input type="text" id="nombre1" name="nombre" required>
+                <div class="col-md-6">
+                    <div class="form-group mt-3">
+                        <label for="nombre2A">Descripción:</label>
+                        <input type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" required>
+                    </div>
                 </div>
-
-            </div>
-            <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="nombre2A">Descripción:</label>
-                    <input type="text" id="nombre2A" name="descipcion" placeholder="Opcional" required>
-                </div>
-
             </div>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
+        <div class="text-center mt-3">
+            <button id="btn-enviarr" type="submit" class="btn btn-primary">Agregar</button>
+        </div>
     </form>
 </div>
 <script>

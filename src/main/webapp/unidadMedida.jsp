@@ -18,6 +18,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        margin-top: -5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.3rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+
+</style>
+
 <script>
 
     let apagados = 0;
@@ -318,7 +343,9 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaU"></th>
+                                    <th id="columnaAcciones">Acciones        <button  type="button" class="btn add-button" id="agregar-filaU">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
                                     <th></th>
                                 </tr>
                                 </thead>

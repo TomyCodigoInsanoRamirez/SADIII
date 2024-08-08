@@ -18,6 +18,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.3rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+    .custom-title {
+        background-color: #a57c50; /* Fondo color amarillo dorado */
+        color: #333; /* Color de letra gris oscuro */
+        font-family: 'Georgia', cursive, serif; /* Estilo de letra */
+        padding: 10px 20px; /* Espaciado interno */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra */
+        text-align: center; /* Alinear el texto al centro */
+        margin-top: 20px; /* Espacio superior */
+
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Para Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    .icon-red {
+        color: red;
+    }
+</style>
 <script>
 
     let apagados = 0;
@@ -109,7 +156,7 @@
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
                 <div class="tituloSeccion">
-                    <h1>USUARIOS</h1>
+                    <h1 class="custom-title">USUARIOS</h1>
                 </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
@@ -356,7 +403,9 @@
                                     <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
                                     <th class="todisable">Correo</th>
-                                    <th id="columnaAcciones">Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila"></th>
+                                    <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -499,6 +548,7 @@
                                 </tbody>
 
                             </table>
+
                             <nav aria-label="...">
                                 <ul class="pagination">
                                     <li class="page-item ">
@@ -623,57 +673,59 @@
         </div>
     </div>
 </div><!-- formulario de registro (add) -->
-<div class="popup-container" id="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Usuario</h2>
-        <button class="close-btn" id="close">✖</button>
-    </div>
-    <form action="usuarioo" method="post">
-        <div class="contenedorInputs">
-            <div class="izquierda">
-                <div class="form-group">
-                    <label for="rfc">Numero de identificación</label>
-                    <input type="text" id="rfc" name="id" required>
-                </div>
-                <div class="form-group">
-                    <label for="nombre1">Nombre</label>
-                    <input type="text" id="nombre1" name="nombre1" required>
-                </div>
-                <div class="form-group">
-                    <label for="nombre2">Segundo nombre </label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional" required>
-                </div>
-                <div class="form-group">
-                    <label for="apellido1">Apellido Paterno </label>
-                    <input type="text" id="apellido1" name="apellido1" required>
-                </div>
-                <div class="form-group">
-                    <label for="apellido2">Apellido Materno </label>
-                    <input type="text" id="apellido2" name="apellido2" required>
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Número de telefono </label>
-                    <input type="number" id="telefono" name="telefono" required>
-                </div>
 
-            </div>
-            <div class="derecha">
-                <div class="form-group">
-                    <label for="email">Correo</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Rol</label>
-                    <select id="role" name="rol" required>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Almacenista">Almacenista</option>
-                    </select>
-                </div>
-            </div>
+    <div class="popup-container" id="popup-container">
+        <div class="popup-header">
+            <h2 style="top: 20%">Registro de Usuario</h2>
+            <button class="close-btn" id="close"><i class="bi bi-x-circle-fill text-danger"></i>
+            </button>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
-    </form>
-</div>
+        <form action="usuarioo" method="post">
+            <div class="contenedorInputs">
+                <div class="izquierda">
+                    <div class="form-group">
+                        <label for="rfc">Número de identificación</label>
+                        <input type="text" class="form-control" id="rfc" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre1">Nombre</label>
+                        <input type="text" class="form-control" id="nombre1" name="nombre1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre2">Segundo nombre </label>
+                        <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Opcional" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido1">Apellido Paterno </label>
+                        <input type="text" class="form-control" id="apellido1" name="apellido1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido2">Apellido Materno </label>
+                        <input type="text" class="form-control" id="apellido2" name="apellido2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Número de teléfono </label>
+                        <input type="number" class="form-control" id="telefono" name="telefono" required>
+                    </div>
+
+                </div>
+                <div class="derecha" >
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="text" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Rol</label>
+                        <select id="role" class="form-control" name="rol" required style="width: 200px">
+                            <option value="Administrador">Administrador</option>
+                            <option value="Almacenista">Almacenista</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button id="btn-enviarr" type="submit" class="btn btn-primary add-btn">Agregar</button>
+        </form>
+    </div></div>
 <script>
     // Abrir el modal para editar usuario
     function openEditModal(id, correo, nombre) {

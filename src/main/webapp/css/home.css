@@ -412,4 +412,56 @@ input {
 .navbar .form-inline {
     margin-left: auto !important;
 }
+.popup-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.contenedorInputs {
+    display: flex;
+    flex-wrap: wrap;
+}
+.izquierda, .derecha {
+    flex: 1;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+.derecha {
+    padding-right: 0;
+    flex: 1;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+}
+.add-btn {
+    width: 100%;
+}
+@media (max-width: 768px) {
+    .izquierda, .derecha {
+        flex: 100%;
+        padding-right: 0;
+    }
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+/* Para Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

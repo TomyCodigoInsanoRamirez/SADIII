@@ -34,6 +34,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+  .table-wrapper {
+    position: relative;
+  }
+  .custom-color {
+    color: #28a745;
+  }
+  .add-button {
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    border: none;
+  }
+  .add-button:hover {
+    background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+    box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+  }
+
+</style>
 
 <body>
 <div id="capa-obscurecer">
@@ -278,6 +302,10 @@
                   <th>Almacenista (Recibió)</th>
                   <th  class="todisable">Almacenista (Envío)</th>  <!--style="padding-left: 65px;" -->
                   <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                  <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
+                    <i class="bi bi-plus-circle-fill custom-color"></i>
+                  </button></th>
+                  <th></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -343,8 +371,7 @@
               </table>
               <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                   <i class="bi bi-plus-lg"></i>-->
-              <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
-              </button>
+
             </div>
           </div>
 

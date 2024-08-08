@@ -18,6 +18,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        margin-top: -5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.3rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+
+</style>
+
 <script>
 
     let apagados = 0;
@@ -315,7 +340,9 @@
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
                                     <th class="todisable">Descripción área</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila"></th>
+                                    <th >Acciones        <button type="button" class="btn add-button"  id="agregar-fila">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">

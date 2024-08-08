@@ -32,7 +32,7 @@ body{
     border-radius: 10px;
 }
 .close {
-    color: #aaa;
+    color: #fbcccc;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -140,7 +140,7 @@ tr{
 #agregar-fila {
 
     position: absolute;
-    top: -5%;
+    top: -1%;
     left: 95%;
 }
 

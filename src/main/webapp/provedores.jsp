@@ -18,6 +18,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        margin-top: 0%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.3rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+
+</style>
 <script>
 
     let apagados = 0;
@@ -316,7 +340,9 @@
                                     <th class="todisable2">RFC</th>
                                     <th>Nombre proveedor</th>
                                     <th class="todisable">Teléfono</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila-prov"></th>
+                                    <th>Acciones        <button id="agregar-fila-prov" type="button" class="btn add-button">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
                                     <th></th>
                                 </tr>
                                 </thead>
