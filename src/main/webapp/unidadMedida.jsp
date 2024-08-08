@@ -26,7 +26,7 @@
         color: #28a745;
     }
     .add-button {
-        margin-top: -5px;
+        margin-top: 3%;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -343,7 +343,8 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th id="columnaAcciones">Acciones        <button  type="button" class="btn add-button" id="agregar-filaU">
+                                    <th id="columnaAcciones">Acciones</th>
+                                    <th ><button  type="button" class="btn add-button" id="agregar-filaU">
                                         <i class="bi bi-plus-circle-fill custom-color"></i>
                                     </button></th>
                                     <th></th>
@@ -528,7 +529,7 @@
 <div class="popup-container" id="popup-container">
     <div class="popup-header">
         <h2>Registro de Unidad de Medida</h2>
-        <button  class="close-btn" id="close">✖</button>
+
     </div>
     <form action="RegistrarUnidadMedida" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
