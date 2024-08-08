@@ -527,9 +527,14 @@
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="telefono" value="<%= u.getTelefono() %>" required>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="descripcionArea<%= u.getId() %>">Contraseña</label>
+                                                        <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="contrasena" value="<%= u.getContrasena() %>" required>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="descripcionArea<%= u.getId() %>">Rol</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                                                     </div>
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">

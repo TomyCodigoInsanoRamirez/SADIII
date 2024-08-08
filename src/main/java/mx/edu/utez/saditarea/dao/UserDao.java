@@ -156,7 +156,7 @@ public class UserDao {
             pst.setString(5, usuario.getApellido2_U());
             pst.setString(6, usuario.getTelefono());
             pst.setString(7, usuario.getContrasena());
-           // pst.setInt(8,Integer.parseInt(usuario.getEstado());
+            // pst.setInt(8,Integer.parseInt(usuario.getEstado());
             pst.setString(8,Integer.toString(usuario.getEstado()));
             pst.setString(9, usuario.getCodigo());
             pst.setString(10, usuario.getRol());
