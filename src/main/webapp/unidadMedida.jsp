@@ -19,14 +19,11 @@
 
 </head>
 <style>
-    .table-wrapper {
-        position: relative;
-    }
     .custom-color {
         color: #28a745;
     }
     .add-button {
-        margin-top: 3%;
+        right: 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -38,9 +35,8 @@
     }
     .add-button:hover {
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
-        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea; /* Sombra verde brillante al pasar el cursor */
     }
-
 </style>
 
 <script>
@@ -343,11 +339,15 @@
                                 <tr>
                                     <th class="todisable2">Abreviación</th>
                                     <th>Nombre</th>
-                                    <th id="columnaAcciones">Acciones</th>
-                                    <th ><button  type="button" class="btn add-button" id="agregar-filaU">
-                                        <i class="bi bi-plus-circle-fill custom-color"></i>
-                                    </button></th>
-                                    <th></th>
+                                    <th id="columnaAcciones" colspan="2" style="position: relative;">
+                                        Acciones
+
+                                    </th>
+                                    <th>
+                                        <button style="position: absolute; top: 3%; right: 30%; transform: translateY(-50%); background-color: white; z-index: 0; padding: 5px;" type="button" class="btn add-button" id="agregar-filaU">
+                                            <i class="bi bi-plus-circle-fill custom-color"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -355,38 +355,30 @@
                                     UnidadMedidaDao dao = new UnidadMedidaDao();
                                     List<UnidadMedida> lista = dao.getAll();
                                     int numeroElementos = lista.size();
-                                    double numeroPaginadores = (double) numeroElementos/10;
-                                    System.out.println("numero de Elementos: "+numeroElementos);
-                                    int numeroPaginadoreDecimal = numeroElementos/10;
-                                    if(numeroPaginadoreDecimal == 0){
+                                    double numeroPaginadores = (double) numeroElementos / 10;
+                                    int numeroPaginadoreDecimal = numeroElementos / 10;
+                                    if (numeroPaginadoreDecimal == 0) {
                                         numeroPaginadoreDecimal = 1;
                                     }
-                                    System.out.println("Antes de obtener el parametro de la url");
-                                    String paginadorSolicitado = "1";
-                                    if(request.getParameter("value") == null){
-                                        paginadorSolicitado = "1";
-                                    }else{
-                                        paginadorSolicitado = request.getParameter("value");
-                                    }
+
+                                    String paginadorSolicitado = request.getParameter("value") == null ? "1" : request.getParameter("value");
                                     int paginadorSolicitadoInt = Integer.parseInt(paginadorSolicitado);
 
                                     int contador = 0;
-                                    System.out.println("Antes de mequetreque para lo de los paginadores");
-                                    if(numeroPaginadores >= 0 && numeroPaginadores < 1){
+                                    if (numeroPaginadores >= 0 && numeroPaginadores < 1) {
                                         numeroPaginadores = 1;
-                                    } else if (numeroPaginadores > numeroPaginadoreDecimal ) {
+                                    } else if (numeroPaginadores > numeroPaginadoreDecimal) {
                                         numeroPaginadoreDecimal++;
                                     }
-                                    if(paginadorSolicitadoInt > numeroPaginadoreDecimal){
+
+                                    if (paginadorSolicitadoInt > numeroPaginadoreDecimal) {
                                         paginadorSolicitadoInt = numeroPaginadoreDecimal;
-                                    }else if (paginadorSolicitadoInt < 1) {
+                                    } else if (paginadorSolicitadoInt < 1) {
                                         paginadorSolicitadoInt = 1;
                                     }
-                                    System.out.println("Antes de imprimir la tabla");
+
                                     for (UnidadMedida u : lista) {
-                                        if( contador >= ((paginadorSolicitadoInt * 10)-10) && contador < (paginadorSolicitadoInt * 10)){
-                                            System.out.println("Con el paginador: "+paginadorSolicitadoInt);
-                                            System.out.println(("contador >= "+((paginadorSolicitadoInt * 10)-10) + "&& contador < "+(paginadorSolicitadoInt * 10) ));
+                                        if (contador >= ((paginadorSolicitadoInt * 10) - 10) && contador < (paginadorSolicitadoInt * 10)) {
                                 %>
 
                                 <tr>
@@ -404,21 +396,20 @@
                                     </td>
                                     <td class="acc">
                                         <label class="switch small">
-                                            <a href="actualizarEstadoUM?id=<%=u.getAbreviacionUndidadMedida()%>&estado=<%=u.getEstadoUm()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoUm()%>" onclick="checar(this);">
-                                            <span class="slider" ></span>
+                                            <a href="actualizarEstadoUM?id=<%= u.getAbreviacionUndidadMedida() %>&estado=<%= u.getEstadoUm() %>" class="delete-link" style="display: none;">Eliminar</a>
+                                            <input type="checkbox" class="inn" data-estado="<%= u.getEstadoUm() %>" onclick="checar(this);">
+                                            <span class="slider"></span>
                                             <%
-                                                if(u.getEstadoUm() == 1){
+                                                if (u.getEstadoUm() == 1) {
                                             %>
                                             <script>
-                                                console.log("Aun entra a la condición para activar el slider");
-                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
+                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length) - 1)].click();
                                             </script>
                                             <%
-                                            }else{
+                                            } else {
                                             %>
                                             <script>
-                                                apagados ++;
+                                                apagados++;
                                             </script>
                                             <%
                                                 }
@@ -439,7 +430,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form id="editForm<%= u.getAbreviacionUndidadMedida() %>" action="ActualizarUnidadMedida" method="post">
-
+                                                    <input type="hidden" name="claveFija" value="<%= u.getAbreviacionUndidadMedida() %>">
                                                     <div class="form-group">
                                                         <label for="abrum<%= u.getAbreviacionUndidadMedida() %>">Abreviación Unidad de Medida:</label>
                                                         <input type="text" class="form-control" id="abrum<%= u.getAbreviacionUndidadMedida() %>" name="abrum" value="<%= u.getAbreviacionUndidadMedida() %>" required>
@@ -457,8 +448,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%} contador++;%>
-                                <% } %>
+                                <%
+                                        }
+                                        contador++;
+                                    }
+                                %>
                                 </tbody>
                             </table>
 

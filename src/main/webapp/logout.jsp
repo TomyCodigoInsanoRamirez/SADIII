@@ -16,5 +16,23 @@
     // Redirigir al usuario a la página de inicio de sesión
     response.sendRedirect("home.jsp");
 %>
+
+<script>
+    // Recuperamos el rol del usuario desde Local Storage
+    const userRole = localStorage.getItem('userRole');
+    const userName = localStorage.getItem('userName');
+
+    // Mostramos el rol en la consola (o puedes usarlo para personalizar la UI)
+    console.log('User Role:', userRole);
+    console.log('User Name:', userName);
+
+    // Si deseas hacer algo basado en el rol del usuario
+    if (userRole === 'Administrador') {
+        // Lógica específica para el administrador
+    } else if (userRole === 'Almacenista') {
+        // Lógica específica para el almacenista
+    }
+</script>
+
 </body>
 </html>

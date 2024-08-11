@@ -1,6 +1,10 @@
 <%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
-
+<%
+    if(session.getAttribute("tipoSesion") == null||session.getAttribute("tipoSesion") == "") {
+        response.sendRedirect("error.jsp");
+        return;}
+%>
 <%
     // Obtener datos del formulario
     String claveArea = request.getParameter("claveArea");

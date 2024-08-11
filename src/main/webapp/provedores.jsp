@@ -19,14 +19,11 @@
 
 </head>
 <style>
-    .table-wrapper {
-        position: relative;
-    }
     .custom-color {
         color: #28a745;
     }
     .add-button {
-        margin-top: 0%;
+        right: 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -38,9 +35,8 @@
     }
     .add-button:hover {
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
-        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea; /* Sombra verde brillante al pasar el cursor */
     }
-
 </style>
 <script>
 
@@ -340,10 +336,11 @@
                                     <th class="todisable2">RFC</th>
                                     <th>Nombre proveedor</th>
                                     <th class="todisable">Teléfono</th>
-                                    <th>Acciones        <button id="agregar-fila-prov" type="button" class="btn add-button">
-                                        <i class="bi bi-plus-circle-fill custom-color"></i>
-                                    </button></th>
-                                    <th></th>
+                                    <th>Acciones
+                                        </th>
+                                    <th><button  style="position: absolute; top: 3%; right: 30%; transform: translateY(-50%); background-color: white; z-index: 0; padding: 5px;" id="agregar-fila-prov" type="button" class="btn add-button">
+                                    <i class="bi bi-plus-circle-fill custom-color"></i>
+                                </button></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">

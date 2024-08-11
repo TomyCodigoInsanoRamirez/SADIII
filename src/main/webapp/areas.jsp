@@ -5,6 +5,7 @@
 <%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -340,9 +341,12 @@
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
                                     <th class="todisable">Descripción área</th>
-                                    <th >Acciones        <button type="button" class="btn add-button"  id="agregar-fila">
-                                        <i class="bi bi-plus-circle-fill custom-color"></i>
-                                    </button></th>
+                                    <th   id="columnaAcciones" colspan="2" style="position: relative;" >Acciones   </th>
+                                    <th>
+                                        <button style="position: absolute; top: 4%; right: 30%; transform: translateY(-50%); background-color: white; z-index: 0; padding: 5px;" type="button" class="btn add-button"  id="agregar-filaA">
+                                            <i class="bi bi-plus-circle-fill custom-color"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">

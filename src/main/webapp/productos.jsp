@@ -559,8 +559,10 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-3">
+        <div class="text-center mt-3" >
             <button id="btn-enviarr" type="submit" class="btn btn-primary">Agregar</button>
+            <button type="submit" class="btn btn-primary add-btn" onclick="cancelForm()" style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616; color: white; width: 150px; outline: none;">Cancelar</button>
+
         </div>
     </form>
 </div>

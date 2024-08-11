@@ -18,6 +18,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+<%
+    if(session.getAttribute("tipoSesion")=="almacenista") {
+        response.sendRedirect("accessDenied.jsp");
+        return;}
+%>
+<%
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if (usuario != null) {
+%>
+<script>
+    // Guardamos el rol del usuario en Local Storage
+    localStorage.setItem('userRole', '<%= usuario.getRol() %>');
+
+    // Puedes agregar más información en Local Storage si es necesario
+    localStorage.setItem('userName', '<%= usuario.getCorreo() %>');
+</script>
+<%
+    }
+%>
+
 <style>
     .table-wrapper {
         position: relative;
@@ -60,9 +80,11 @@
     /* Para Firefox */
     input[type="number"] {
         -moz-appearance: textfield;
+
     }
-    .icon-red {
-        color: red;
+    button:focus {
+        outline: none;
+        box-shadow: none; /* También elimina cualquier sombra que pueda aparecer */
     }
 </style>
 <script>
@@ -403,11 +425,11 @@
                                     <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
                                     <th class="todisable">Correo</th>
-                                    <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
+                                    <th id="columnaAcciones">Acciones
+                                        <button id="agregar-fila" type="button" class="btn add-button">
                                         <i class="bi bi-plus-circle-fill custom-color"></i>
                                     </button></th>
-                                    <th></th>
-                                </tr>
+x                                </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
@@ -679,58 +701,73 @@
     </div>
 </div><!-- formulario de registro (add) -->
 
-    <div class="popup-container" id="popup-container">
-        <div class="popup-header">
-            <h2 style="top: 20%">Registro de Usuario</h2>
-            <button class="close-btn" id="close"><i class="bi bi-x-circle-fill text-danger"></i>
-            </button>
+<div class="popup-container" id="popup-container" >
+    <div class="popup-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <h2 style="margin: 0; text-align: center;">Registro de Usuario</h2>
         </div>
-        <form action="usuarioo" method="post">
-            <div class="contenedorInputs">
-                <div class="izquierda">
-                    <div class="form-group">
-                        <label for="rfc">Número de identificación</label>
-                        <input type="text" class="form-control" id="rfc" name="id" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre1">Nombre</label>
-                        <input type="text" class="form-control" id="nombre1" name="nombre1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre2">Segundo nombre </label>
-                        <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Opcional" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido1">Apellido Paterno </label>
-                        <input type="text" class="form-control" id="apellido1" name="apellido1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido2">Apellido Materno </label>
-                        <input type="text" class="form-control" id="apellido2" name="apellido2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Número de teléfono </label>
-                        <input type="number" class="form-control" id="telefono" name="telefono" required>
-                    </div>
+        <i class="bi bi-x-circle-fill" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
+    </div>
 
+    <form action="usuarioo" method="post" onsubmit="return validateForm()">
+        <div class="contenedorInputs">
+            <div class="izquierda">
+                <div class="form-group">
+                    <label for="rfc">Número de identificación</label>
+                    <input type="text" class="form-control" id="rfc" name="id" required pattern="[A-Z0-9\-]{3,15}" title="Debe contener entre 3 y 15 caracteres alfanuméricos en mayúsculas, incluyendo '-' si es necesario">
                 </div>
-                <div class="derecha" >
-                    <div class="form-group">
-                        <label for="email">Correo</label>
-                        <input type="text" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role">Rol</label>
-                        <select id="role" class="form-control" name="rol" required style="width: 200px">
-                            <option value="Administrador">Administrador</option>
-                            <option value="Almacenista">Almacenista</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="nombre1">Nombre</label>
+                    <input type="text" class="form-control" id="nombre1" name="nombre1" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                </div>
+                <div class="form-group">
+                    <label for="nombre2">Segundo nombre </label>
+                    <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Opcional" pattern="[A-Za-zÀ-ÿ\s]*" title="Solo se permiten letras y espacios">
+                </div>
+                <div class="form-group">
+                    <label for="apellido1">Apellido Paterno </label>
+                    <input type="text" class="form-control" id="apellido1" name="apellido1" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                </div>
+                <div class="form-group">
+                    <label for="apellido2">Apellido Materno </label>
+                    <input type="text" class="form-control" id="apellido2" name="apellido2" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número de teléfono </label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="[0-9]{10}" title="Debe contener 10 dígitos">
                 </div>
             </div>
-            <button id="btn-enviarr" type="submit" class="btn btn-primary add-btn">Agregar</button>
-        </form>
-    </div></div>
+            <div class="derecha">
+                <div class="form-group">
+                    <label for="email">Correo</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group" style="font-size: 15px; padding: 8px; width: 100%; box-sizing: border-box;">
+                    <label for="role">Rol</label>
+                    <select id="role" class="form-control" name="rol" required style="width: 100%; max-width: 100%; box-sizing: border-box;">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Almacenista">Almacenista</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-buttons" style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">
+            <button id="btn-enviarr" type="submit" class="btn btn-primary add-btn" style="width: 150px; outline: none;">Agregar</button>
+            <button type="submit" class="btn btn-primary add-btn" onclick="cancelForm()" style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616; color: white; width: 150px; outline: none;">Cancelar</button>
+        </div>
+
+
+    </form>
+</div>
+
+<style>
+    .form-buttons {
+        margin-top: 20px;
+        text-align: right;
+    }
+</style>
+</div>
 <script>
     // Abrir el modal para editar usuario
     function openEditModal(id, correo, nombre) {
@@ -811,11 +848,9 @@
         document.body.style.overflow = "hidden"; // Evita el scroll de la página principal
     });
 
-    document.getElementById("close").addEventListener("click", function () {
+    document.getElementById("close-br").addEventListener("click", function () {
         let pop = document.getElementById("popup-container");
-        let capa = document.getElementById("capa-obscurecer");
         pop.style.display = "none";
-        capa.style.display = "none";
         document.body.style.overflow = "auto"; // Restaura el scroll de la página principal
     });
 
@@ -823,6 +858,25 @@
         window.scrollTo(0, 0);
     }
 </script>
+
+<script>
+    // Funcion para validacion del numero de telefono
+    function validateForm() {
+        const telefono = document.getElementById('telefono').value;
+        const telefonoPattern = /^[0-9]{10}$/;
+
+        if (!telefonoPattern.test(telefono)) {
+            alert('Número de teléfono debe contener exactamente 10 dígitos.');
+            return false;
+        }
+        return true;
+    }
+
+    function cancelForm() {
+        document.getElementById('popup-container').style.display = 'none';
+    }
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

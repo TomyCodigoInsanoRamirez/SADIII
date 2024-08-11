@@ -109,7 +109,4 @@ public class InicioSesionServlet extends HttpServlet {
         resp.sendRedirect(ruta);
     }
 
-    @Override
-    public void destroy() {
-    }
 }

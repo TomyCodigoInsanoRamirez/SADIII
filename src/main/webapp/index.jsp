@@ -41,9 +41,7 @@
         <div class="form-group">
           <center><button type="submit">Iniciar sesión</button></center>
         </div>
-        <div class="form-group">
-          <center><a href="#">Olvidé mi contraseña</a></center>
-        </div>
+
       </form>
     </div>
   </div>

@@ -105,7 +105,7 @@ public class UnidadMedidaDao {
         return flag;
     }
 
-    public boolean updatee(UnidadMedida unidadMedidaa) {
+    public boolean updatee(UnidadMedida unidadMedidaa, String uf) {
         boolean rowUpdated = false;
         String query = "UPDATE unidad_medida SET abreviacionUnidadMedida = ?, nombreUnidadMeidida = ? WHERE abreviacionUnidadMedida = ?";
 
@@ -113,7 +113,7 @@ public class UnidadMedidaDao {
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, unidadMedidaa.getAbreviacionUndidadMedida());
             ps.setString(2, unidadMedidaa.getNombreUnidadMedida());
-            ps.setString(3, unidadMedidaa.getAbreviacionUndidadMedida());
+            ps.setString(3, uf);
             rowUpdated = ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

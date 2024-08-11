@@ -47,11 +47,11 @@
         <i class="bi bi-hand-index-thumb-fill"></i>
     </div>
     <div class="error-code">
-        ERROR 401
+        Acceso Denegado
     </div>
     <div style="margin-top: 20px;">
-        <a href="index.jsp" style="font-size: 1.5rem; color: #d9534f; text-decoration: none;">
-            ᴅᴇʙᴇꜱ ɪɴɪᴄɪᴀʀ ꜱᴇꜱɪóɴ ᴘᴀʀᴀ ᴄᴏɴᴛɪɴᴜᴀʀ.
+        <a href="almacenistaHome.jsp" style="font-size: 1.5rem; color: #d9534f; text-decoration: none;">
+            No cuentas con permisos suficientes
         </a>
     </div>
 </div>

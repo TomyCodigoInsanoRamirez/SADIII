@@ -24,17 +24,17 @@ public class ActualizarUnidadMedida extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("SI LLEGA LA DATA DE LA UNIDAD MEDIDA");
-
+        String claveFija =req.getParameter("claveFija");
         String abrum = req.getParameter("abrum");
         String nombreUnidadMedida = req.getParameter("nombreUnidadMedida");
 
         UnidadMedida unidadMedida = new UnidadMedida();
         UnidadMedidaDao dao = new UnidadMedidaDao();
-
+        System.out.println("Clave fijo: " + claveFija);
         unidadMedida.setAbreviacionUndidadMedida(abrum);
         unidadMedida.setNombreUnidadMedida(nombreUnidadMedida);
 
-        if(dao.updatee(unidadMedida)){
+        if(dao.updatee(unidadMedida,claveFija)){
             //resp.getWriter().println("unidadMedida.jsp");
             resp.sendRedirect("unidadMedida.jsp");
         }

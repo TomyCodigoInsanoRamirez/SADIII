@@ -400,142 +400,142 @@
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Entradas</h2>
-        <button  class="close-btn" id="close">✖</button>
-    </div>
-    <form action="registroEntradas" method="post">
-        <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs">
-            <div class="izquierda">
-
-                <div class="form-group">
-                    <label for="folio-E">Folio:</label>
-                    <input type="text" id="folio-E" name="folio-E" required>
-                </div>
-                <div class="form-group">
-                    <label for="nombreCompleto">Nombre del proveedor: </label>
-                    <select id="nombreCompleto" name="nombreCompleto" required>
-
-                        <%
-                            if (proveedores != null) {
-                                for (Proveedores usuario : proveedores) {
-                        %>
-                        <option value="<%= usuario.getRFC()%>"><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
-                        <%
-                            }
-                        }else {
-                        %>
-                        <option value="">No hay usuarios disponibles</option>
-                        <%
-                            }
-                        %>
-
-                    </select>
-
-                </div>
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="nombreCompletoAlmacenista">Nombre completo del almacenista receptor: </label>
-                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required>
-
-                            <%
-                                if (userDao != null) {
-                                    for (Usuario usuario : userDao) {
-                            %>
-                            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
-                            <%
-                                }
-                            }else {
-                            %>
-                            <option value="">No hay usuarios disponibles</option>
-                            <%
-                                }
-                            %>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="unit">Unidad de medida:</label>
-                        <select id="unit" name="unit" required>
-                            <%
-                                if (unidadMedida != null) {
-                                    for (UnidadMedida unidadM : unidadMedida) {
-                            %>
-                            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
-                            <%
-                                }
-                            } else {
-                            %>
-                            <option value="">No hay unidades de medida disponibles</option>
-                            <%
-                                }
-                            %>
-
-                        </select>
-                    </div>
-
-                </div   >
-
-
-                <div class="form-group">
-                    <label for="unit-price">Precio Unitario :</label>
-                    <input type="number" id="unit-price" name="unit-price" required>
-                </div>
-
-            </div>
-            <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="billing-number">Número de facturación:</label>
-                    <input type="text" id="billing-number" name="billing-number" required>
-                </div>
-                <div class="form-group">
-                    <label for="entry-date">Fecha de entrada:</label>
-                    <input type="date" id="entry-date" name="entry-date" required>
-                </div>
-                <div class="form-group">
-                    <label for="product">Producto:</label>
-                    <select id="product" name="product" required>
-                        <%
-                            if (productos != null) {
-                                for (Productos producto : productos) {
-                        %>
-                        <option value="<%= producto.getClaveProducto() %>"><%= producto.getNombreProducto() %></option>
-                        <%
-                            }
-                        } else {
-                        %>
-                        <option value="">No existen productos</option>
-                        <%
-                            }
-                        %>
-
-
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="quantity">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="total-price">Precio total de productos:</label>
-                    <input type="number" id="total-price" name="total-price" required>
-                </div>
-
-
-
-            </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Registro de Entradas</h2>
+            <button class="btn btn-sm btn-danger" id="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <button id="btn-enviarr" type="submit" class="btn-to-actions">Agregar</button>
-        <a id="add-desdeEntrada" class="btn-to-actions">Agregar Producto</a>
-        <a id="btn-backl" href="entradas.jsp" class="btn-to-actions">Volver</a>    </form>
+        <div class="card-body">
+            <form action="registroEntradas" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="folio-E">Folio:</label>
+                            <input type="text" class="form-control" id="folio-E" name="folio-E" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombreCompleto">Nombre del proveedor:</label>
+                            <select class="form-control" id="nombreCompleto" name="nombreCompleto" required>
+                                <%
+                                    if (proveedores != null) {
+                                        for (Proveedores usuario : proveedores) {
+                                %>
+                                <option value="<%= usuario.getRFC()%>">
+                                    <%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="">No hay usuarios disponibles</option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombreCompletoAlmacenista">Nombre completo del almacenista receptor:</label>
+                            <select class="form-control" id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required>
+                                <%
+                                    if (userDao != null) {
+                                        for (Usuario usuario : userDao) {
+                                %>
+                                <option value="<%= usuario.getId()%>">
+                                    <%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="">No hay usuarios disponibles</option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unit">Unidad de medida:</label>
+                            <select class="form-control" id="unit" name="unit" required>
+                                <%
+                                    if (unidadMedida != null) {
+                                        for (UnidadMedida unidadM : unidadMedida) {
+                                %>
+                                <option value="<%= unidadM.getAbreviacionUndidadMedida() %>">
+                                    <%= unidadM.getNombreUnidadMedida()%>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="">No hay unidades de medida disponibles</option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unit-price">Precio Unitario:</label>
+                            <input type="number" class="form-control" id="unit-price" name="unit-price" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="billing-number">Número de facturación:</label>
+                            <input type="text" class="form-control" id="billing-number" name="billing-number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entry-date">Fecha de entrada:</label>
+                            <input type="date" class="form-control" id="entry-date" name="entry-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product">Producto:</label>
+                            <select class="form-control" id="product" name="product" required>
+                                <%
+                                    if (productos != null) {
+                                        for (Productos producto : productos) {
+                                %>
+                                <option value="<%= producto.getClaveProducto() %>">
+                                    <%= producto.getNombreProducto() %>
+                                </option>
+                                <%
+                                    }
+                                } else {
+                                %>
+                                <option value="">No existen productos</option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity">Cantidad:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="total-price">Precio total de productos:</label>
+                            <input type="number" class="form-control" id="total-price" name="total-price" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button id="btn-enviarr" type="submit" class="btn btn-primary mr-2">Agregar</button>
+                    <a id="add-desdeEntrada" class="btn btn-secondary mr-2">Agregar Producto</a>
+                    <a id="btn-backl" href="entradas.jsp" class="btn btn-secondary">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <script>
     const elemento = document.getElementById("item-responsive");
