@@ -43,6 +43,13 @@
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
         box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
     }
+    .icon-hover {
+
+          transition: color 0.3s, transform 0.3s;
+      }
+    .icon-hover:hover {
+        transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
+    }
 
 </style>
 
@@ -534,9 +541,11 @@
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header text-center">
-        <h2>Registro de Productos</h2>
-        <button  class="close-btn btn btn-link" id="close" style="background: none; border: none; "><i class="bi bi-x-circle-fill text-danger" style="font-size: 2.6rem;"></i></button>
+    <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <h2 style="margin: 0; text-align: center; ">Registrar Producto</h2>
+        </div>
+        <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
     </div>
     <form method="post" action="registroProducto">
         <div class="container mt-3">
@@ -546,23 +555,26 @@
                         <label for="rfc">Clave</label>
                         <input type="text" class="form-control" id="rfc" name="clave" required>
                     </div>
-                    <div class="form-group mt-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label for="nombre1">Nombre Producto:</label>
                         <input type="text" class="form-control" id="nombre1" name="nombre" required>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group mt-3">
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="form-group">
                         <label for="nombre2A">Descripción:</label>
-                        <input type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" required>
+                        <input type="text" class="form-control" id="nombre2A" name="descripcion" placeholder="Opcional">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-3" >
+        <div class="text-center mt-4">
             <button id="btn-enviarr" type="submit" class="btn btn-primary">Agregar</button>
-            <button type="submit" class="btn btn-primary add-btn" onclick="cancelForm()" style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616; color: white; width: 150px; outline: none;">Cancelar</button>
-
+            <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
         </div>
     </form>
 </div>
@@ -578,69 +590,81 @@
     const hamburguesa = document.getElementById("hbsb");
     const menu = document.getElementById("sidebar-accordion-responsive");
     elemento.addEventListener("click", function () {
-        if(elemento.getAttribute("aria-expanded") === "true"){
-            elemento.removeAttribute("aria-expanded","false");
-            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2");
-            desboardItems.removeAttribute("class","collapse");
-            desboardItems.setAttribute("class","collapse show")
-        }else{
-            elemento.removeAttribute("aria-expanded","true");
-            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2 collapsed");
-            desboardItems.removeAttribute("class","collapse show");
-            desboardItems.setAttribute("class","collapse")
+        if (elemento.getAttribute("aria-expanded") === "true") {
+            elemento.removeAttribute("aria-expanded", "false");
+            elemento.setAttribute("class", "list-group-item list-group-item-action text-light mb-2");
+            desboardItems.removeAttribute("class", "collapse");
+            desboardItems.setAttribute("class", "collapse show")
+        } else {
+            elemento.removeAttribute("aria-expanded", "true");
+            elemento.setAttribute("class", "list-group-item list-group-item-action text-light mb-2 collapsed");
+            desboardItems.removeAttribute("class", "collapse show");
+            desboardItems.setAttribute("class", "collapse")
         }
 
     })
-    acciones.addEventListener("click", function (){
-        if(accioness.getAttribute("class") === "collapse"){
-            accioness.removeAttribute("class","collapse");
-            accioness.setAttribute("class","collapse show")
-        }else{
-            accioness.removeAttribute("class","collapse show");
-            accioness.setAttribute("class","collapse")
+    acciones.addEventListener("click", function () {
+        if (accioness.getAttribute("class") === "collapse") {
+            accioness.removeAttribute("class", "collapse");
+            accioness.setAttribute("class", "collapse show")
+        } else {
+            accioness.removeAttribute("class", "collapse show");
+            accioness.setAttribute("class", "collapse")
         }
     })
-    reportes.addEventListener("click", function (){
-        if(reportess.getAttribute("class") === "collapse"){
-            reportess.removeAttribute("class","collapse");
-            reportess.setAttribute("class","collapse show")
-        }else{
-            reportess.removeAttribute("class","collapse show");
-            reportess.setAttribute("class","collapse")
+    reportes.addEventListener("click", function () {
+        if (reportess.getAttribute("class") === "collapse") {
+            reportess.removeAttribute("class", "collapse");
+            reportess.setAttribute("class", "collapse show")
+        } else {
+            reportess.removeAttribute("class", "collapse show");
+            reportess.setAttribute("class", "collapse")
         }
     })
-    hamburguesa.addEventListener("click", function (event){
+    hamburguesa.addEventListener("click", function (event) {
         event.preventDefault();
-        if(menu.style.display === "none"){
+        if (menu.style.display === "none") {
             menu.style.display = "block";
-        }else{
+        } else {
             menu.style.display = "none"
         }
 
     })
-    document.getElementById("agregar-filaP").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-filaP").addEventListener("click", function () { /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        if(pop.style.display === "none"){
+        if (pop.style.display === "none") {
             pop.style.display = "block";
             capa.style.zIndex = 1;
             pop.style.zIndex = 2;
             capa.style.backgroundColor = "rgba(0,0,0,0.7)";
             window.addEventListener('scroll', noScroll);
-        }else{
+        } else {
             pop.style.display = "none";
             todoLoQueEstorba.style.zIndex = 0;
         }
     })
-    document.getElementById("close").addEventListener("click",function (){
+    document.getElementById("close-br").addEventListener("click", function () {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "none") {
+            pop.style.display = "block";
+        } else {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    });
+    document.getElementById("close").addEventListener("click", function () {
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
         //pop.style.display = "none";
 
-        if(pop.style.display === "none"){
+        if (pop.style.display === "none") {
             pop.style.display = "block";
-        }else{
+        } else {
             capa.style.zIndex = -1;
             capa.style.backgroundColor = "rgba(255,255,255,0)";
             pop.style.display = "none";
@@ -652,6 +676,27 @@
     function noScroll() {
         window.scrollTo(0, 0);
     }
+    function cancelForm() {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "block") {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    }
+
+    function showPopup() {
+        document.getElementById("popup-container").style.display = "block";
+        document.getElementById("capa-obscurecer").style.display = "block";
+        document.getElementById("capa-obscurecer").style.zIndex = 1050;
+        document.getElementById("capa-obscurecer").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        window.addEventListener('scroll', noScroll);
+    }
+    document.getElementById("close-br").addEventListener("click", cancelForm);
+    document.getElementById("btn-cancelar").addEventListener("click", cancelForm);
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

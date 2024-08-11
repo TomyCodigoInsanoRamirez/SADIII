@@ -36,6 +36,14 @@
     .add-button:hover {
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
         box-shadow: 0 0 10px 5px #e6f9ea; /* Sombra verde brillante al pasar el cursor */
+
+    }
+    .icon-hover {
+
+        transition: color 0.3s, transform 0.3s;
+    }
+    .icon-hover:hover {
+        transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
 </style>
 <script>
@@ -569,81 +577,82 @@
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Proveedores</h2>
-        <button  class="close-btn" id="close">✖</button>
+    <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="flex: 1; display: flex; justify-content: center;">
+        <h2 style="margin: 0; text-align: center;">Registro de Proveedores</h2>
     </div>
+    <i class="bi bi-x-circle-fill icon-hover
+" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
+</div>
     <form action="RegistrarProveedor" method="post">
-        <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs">
-            <div class="izquierda">
+        <div class="form-row">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="rfc">RFC:</label>
-                    <input type="text" id="rfc" name="rfc">
+                    <input type="text" id="rfc" name="rfc" class="form-control" required pattern="[A-Z0-9\-]+">
                 </div>
                 <div class="form-group">
                     <label for="nombre1">Nombre :</label>
-                    <input type="text" id="nombre1" name="nombre1">
+                    <input type="text" id="nombre1" name="nombre1" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="nombre2">Segundo nombre :</label>
-                    <input type="text" id="nombre2" name="nombre2" placeholder="Opcional">
+                    <input type="text" id="nombre2" name="nombre2" class="form-control" placeholder="Opcional">
                 </div>
                 <div class="form-group">
                     <label for="apellido1">Apellido Paterno :</label>
-                    <input type="text" id="apellido1" name="apellido1">
+                    <input type="text" id="apellido1" name="apellido1" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="apellido2">Apellido Materno :</label>
-                    <input type="text" id="apellido2" name="apellido2">
+                    <input type="text" id="apellido2" name="apellido2" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono">Número de telefono :</label>
-                    <input type="number" id="telefono" name="telefono">
+                    <label for="telefono">Número de teléfono :</label>
+                    <input type="tel" id="telefono" name="telefono" class="form-control" required pattern="[0-9]{10}">
                 </div>
-
                 <div class="form-group">
                     <label for="nombre1A">Nombre (Contacto Adicional) :</label>
-                    <input type="text" id="nombre1A" name="nombre1A">
+                    <input type="text" id="nombre1A" name="nombre1A" class="form-control">
                 </div>
             </div>
-            <div class="derecha">
-                <!--<button id="close" class="close-btn" >✖</button>-->
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="nombre2A">Segundo nombre (Contacto Adicional):</label>
-                    <input type="text" id="nombre2A" name="nombre2A" placeholder="Opcional">
+                    <input type="text" id="nombre2A" name="nombre2A" class="form-control" placeholder="Opcional">
                 </div>
                 <div class="form-group">
                     <label for="apellido1A">Apellido Paterno (Contacto Adicional):</label>
-                    <input type="text" id="apellido1A" name="apellido1A">
+                    <input type="text" id="apellido1A" name="apellido1A" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="apellido2A">Apellido Materno (Contacto Adicional):</label>
-                    <input type="text" id="apellido2A" name="apellido2A">
+                    <input type="text" id="apellido2A" name="apellido2A" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="telefonoA">Número de telefono :</label>
-                    <input type="number" id="telefonoA" name="telefonoA">
+                    <label for="telefonoA">Número de teléfono :</label>
+                    <input type="tel" id="telefonoA" name="telefonoA" class="form-control" pattern="[0-9]{10}">
                 </div>
                 <div class="form-group">
                     <label for="razonSocial">Razón Social :</label>
-                    <input type="text" id="razonSocial" name="razonSocial">
+                    <input type="text" id="razonSocial" name="razonSocial" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="cp">Código postal :</label>
-                    <input type="number" id="cp" name="cp">
+                    <input type="text" id="cp" name="cp" class="form-control" required pattern="[0-9]{5}">
                 </div>
-
                 <div class="form-group">
                     <label for="direccion">Dirección :</label>
-                    <input type="text" id="direccion" name="direccion">
+                    <input type="text" id="direccion" name="direccion" class="form-control" required>
                 </div>
             </div>
         </div>
-        <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
+        <div class="text-center mt-4">
+            <button id="btn-enviarr" type="submit" class="btn btn-primary">Agregar</button>
+            <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
+        </div>
     </form>
-</div>
-<script>
+</div><script>
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");
     const accioness = document.getElementById("setting-items-responsive");
@@ -708,6 +717,18 @@
             todoLoQueEstorba.style.zIndex = 0;
         }
     })
+    document.getElementById("close-br").addEventListener("click", function () {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "none") {
+            pop.style.display = "block";
+        } else {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    });
     document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
@@ -727,6 +748,27 @@
     function noScroll() {
         window.scrollTo(0, 0);
     }
+    function cancelForm() {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "block") {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    }
+
+    function showPopup() {
+        document.getElementById("popup-container").style.display = "block";
+        document.getElementById("capa-obscurecer").style.display = "block";
+        document.getElementById("capa-obscurecer").style.zIndex = 1050;
+        document.getElementById("capa-obscurecer").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        window.addEventListener('scroll', noScroll);
+    }
+    document.getElementById("close-br").addEventListener("click", cancelForm);
+    document.getElementById("btn-cancelar").addEventListener("click", cancelForm);
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

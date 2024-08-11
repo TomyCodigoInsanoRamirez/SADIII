@@ -41,7 +41,12 @@
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
         box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
     }
-
+    .icon-hover {
+        transition: color 0.3s, transform 0.3s;
+    }
+    .icon-hover:hover {
+        transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
+    }
 </style>
 
 <script>
@@ -525,42 +530,47 @@
 </div>
 <!-- Formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Áreas</h2>
-        <button class="close-btn" id="close">✖</button>
+    <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="flex: 1; display: flex; justify-content: center;">
+        <h2 style="text-align: center; margin: 0;" >Registro de Áreas</h2>
+            </div>
+            <i class="bi bi-x-circle-fill icon-hover
+" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
     </div>
     <form action="AreaServlet" method="post">
         <input type="hidden" name="action" value="agregar">
-        <div class="contenedorInputs">
-            <div class="izquierda">
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
-                    <input type="text" id="claveArea" name="claveArea" required>
+                    <input type="text" id="claveArea" name="claveArea" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="nombreArea">Nombre del Área:</label>
-                    <input type="text" id="nombreArea" name="nombreArea" required>
+                    <input type="text" id="nombreArea" name="nombreArea" class="form-control" required>
                 </div>
+
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="descripcionArea">Descripción:</label>
-                    <input type="text" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
+                    <input type="text" id="descripcionArea" name="descripcionArea" class="form-control" placeholder="Opcional">
                 </div>
                 <div class="form-group">
                     <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" name="estadoAr" required>
+                    <select id="estadoAr" name="estadoAr" class="form-control" required>
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
                 </div>
             </div>
-            <div class="derecha">
-                <!-- Puedes añadir más campos aquí si es necesario -->
-            </div>
         </div>
-        <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary mx-2">Agregar</button>
+            <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
+        </div>
     </form>
 </div>
-
 
 
 
@@ -629,6 +639,18 @@
             todoLoQueEstorba.style.zIndex = 0;
         }
     })
+    document.getElementById("close-br").addEventListener("click", function () {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "none") {
+            pop.style.display = "block";
+        } else {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    });
     document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
@@ -648,6 +670,27 @@
     function noScroll() {
         window.scrollTo(0, 0);
     }
+    function cancelForm() {
+        let pop = document.getElementById("popup-container");
+        let capa = document.getElementById("capa-obscurecer");
+        if (pop.style.display === "block") {
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = "rgba(255,255,255,0)";
+            pop.style.display = "none";
+            window.removeEventListener('scroll', noScroll);
+        }
+    }
+
+    function showPopup() {
+        document.getElementById("popup-container").style.display = "block";
+        document.getElementById("capa-obscurecer").style.display = "block";
+        document.getElementById("capa-obscurecer").style.zIndex = 1050;
+        document.getElementById("capa-obscurecer").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        window.addEventListener('scroll', noScroll);
+    }
+    document.getElementById("close-br").addEventListener("click", cancelForm);
+    document.getElementById("btn-cancelar").addEventListener("click", cancelForm);
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

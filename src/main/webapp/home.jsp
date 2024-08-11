@@ -85,7 +85,14 @@
     button:focus {
         outline: none;
         box-shadow: none; /* También elimina cualquier sombra que pueda aparecer */
+    } .icon-hover {
+
+          transition: color 0.3s, transform 0.3s;
+      }
+    .icon-hover:hover {
+        transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
+
 </style>
 <script>
 
@@ -706,7 +713,7 @@ x                                </tr>
         <div style="flex: 1; display: flex; justify-content: center;">
             <h2 style="margin: 0; text-align: center;">Registro de Usuario</h2>
         </div>
-        <i class="bi bi-x-circle-fill" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
+        <i class="bi bi-x-circle-fill icon-hover" id="close-br" style="color: #df1616; font-size: 3rem;  " ></i>
     </div>
 
     <form action="usuarioo" method="post" onsubmit="return validateForm()">

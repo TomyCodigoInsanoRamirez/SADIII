@@ -245,12 +245,7 @@ input:checked + .slider:before {
 }
 
 
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
+
 
 .form-group {
     margin-bottom: 15px;
@@ -291,17 +286,9 @@ textarea {
     background-color: #218838;
 }
 
-#close {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #7e0d0d;
-    color: white;
-}
 
-#close:hover {
-    background-color: #ff0000;
-}
+
+
 
 #capa-obscurecer {
     width: 100%;
@@ -441,11 +428,7 @@ input {
     margin-bottom: 10px;
     padding-right: 10px;
 }
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-}
+
 .add-btn {
     width: 100%;
 }
