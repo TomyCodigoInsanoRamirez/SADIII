@@ -2,6 +2,7 @@
 <%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <%
     // Obtener datos del formulario

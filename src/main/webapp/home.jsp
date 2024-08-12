@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 
 </head>
 <%
@@ -45,17 +47,7 @@
     .custom-color {
         color: #28a745;
     }
-    .add-button {
-        right: 10px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3.3rem;
-        border: none;
-    }
+
     .add-button:hover {
         background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
         box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
@@ -432,11 +424,12 @@
                                     <th class="todisable2">ID_Usuario</th>
                                     <th>Nombre</th>
                                     <th class="todisable">Correo</th>
-                                    <th id="columnaAcciones">Acciones
-                                        <button id="agregar-fila" type="button" class="btn add-button">
-                                        <i class="bi bi-plus-circle-fill custom-color"></i>
-                                    </button></th>
-x                                </tr>
+                                    <th id="columnaAcciones">Acciones</th>
+                                    <th></th>
+                                    <th style="text-align: right; ">
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;></i>
+                                </th>
+                                </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%

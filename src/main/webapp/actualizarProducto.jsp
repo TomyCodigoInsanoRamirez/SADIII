@@ -1,6 +1,7 @@
 <%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <%
     System.out.println("SE RECIBEN LOS DATOS EN ACTUALIZAR PRODUCTO");

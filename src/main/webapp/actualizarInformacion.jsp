@@ -1,6 +1,7 @@
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <!DOCTYPE html>
 <html>

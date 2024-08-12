@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login SADI</title>
   <link rel='stylesheet' type='text/css' media='screen' href='css/index.css'>
+  <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+  <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 </head>
 <body>
 <% //borrar en caso de que no se ocupe lo de borrar la sesión siempte que se le da hacia atraas junt con el script de abajo

@@ -13,6 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Proveedores</title>
     <link rel="stylesheet" href="css/registrarEntradas.css">
+    <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 </head>
 <body>
 <div class="form-container">

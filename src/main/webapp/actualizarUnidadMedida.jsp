@@ -1,5 +1,6 @@
 <%@ page import="mx.edu.utez.saditarea.dao.UnidadMedidaDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <%
     // Obtener datos del formulario

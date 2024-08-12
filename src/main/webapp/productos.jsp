@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 </head>
 <style>
@@ -28,25 +29,23 @@
     .custom-color {
         color: #28a745;
     }
+    #agregar-productos{
+
+    }
     .add-button {
-        margin-top: 98px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        border-radius: 50%;
         font-size: 3.3rem;
         border: none;
     }
-    .add-button:hover {
-        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
-        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    button:focus {
+        outline: none;
+        box-shadow: none; /* También elimina cualquier sombra que pueda aparecer */
     }
     .icon-hover {
 
-          transition: color 0.3s, transform 0.3s;
-      }
+        transition: color 0.3s, transform 0.3s;
+    }
     .icon-hover:hover {
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
@@ -194,7 +193,7 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
+                               id="acciones">
 
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
@@ -347,17 +346,17 @@
                             -->
                         </div>
                         <div style="position: relative; display: block">
-
-                            <table class="table table-hover tab">
+                            <table class="table">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">Clave de producto</th>
+                                    <th class="todisable2">Clave producto</th>
                                     <th>Nombre Producto</th>
                                     <th class="todisable">Descripción producto</th>
-                                    <th id="columnaAcciones">Acciones        <button id="agregar-filaP" type="button" class="btn add-button">
-                                        <i class="bi bi-plus-circle-fill custom-color"></i>
-                                    </button></th>
+                                    <th   id="columnaAcciones" colspan="2" style="position: relative;" >Acciones</th>
                                     <th></th>
+                                    <th style="text-align: right;">
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -541,11 +540,11 @@
 </div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <div style="flex: 1; display: flex; justify-content: center;">
-            <h2 style="margin: 0; text-align: center; ">Registrar Producto</h2>
+    <div class="popup-header text-center">
+        <h2>Registro de Productos</h2>
+        <div>
+            <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
         </div>
-        <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
     </div>
     <form method="post" action="registroProducto">
         <div class="container mt-3">
@@ -555,24 +554,21 @@
                         <label for="rfc">Clave</label>
                         <input type="text" class="form-control" id="rfc" name="clave" required>
                     </div>
+
+                    <div class="form-group mt-6">
+                        <label for="nombre2A">Descripción:</label>
+                        <input style="width: 527px;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group mt-0">
                         <label for="nombre1">Nombre Producto:</label>
                         <input type="text" class="form-control" id="nombre1" name="nombre" required>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="nombre2A">Descripción:</label>
-                        <input type="text" class="form-control" id="nombre2A" name="descripcion" placeholder="Opcional">
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="text-center mt-4">
+        <div class="text-center mt-3" >
             <button id="btn-enviarr" type="submit" class="btn btn-primary">Agregar</button>
             <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
         </div>
@@ -590,57 +586,57 @@
     const hamburguesa = document.getElementById("hbsb");
     const menu = document.getElementById("sidebar-accordion-responsive");
     elemento.addEventListener("click", function () {
-        if (elemento.getAttribute("aria-expanded") === "true") {
-            elemento.removeAttribute("aria-expanded", "false");
-            elemento.setAttribute("class", "list-group-item list-group-item-action text-light mb-2");
-            desboardItems.removeAttribute("class", "collapse");
-            desboardItems.setAttribute("class", "collapse show")
-        } else {
-            elemento.removeAttribute("aria-expanded", "true");
-            elemento.setAttribute("class", "list-group-item list-group-item-action text-light mb-2 collapsed");
-            desboardItems.removeAttribute("class", "collapse show");
-            desboardItems.setAttribute("class", "collapse")
+        if(elemento.getAttribute("aria-expanded") === "true"){
+            elemento.removeAttribute("aria-expanded","false");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2");
+            desboardItems.removeAttribute("class","collapse");
+            desboardItems.setAttribute("class","collapse show")
+        }else{
+            elemento.removeAttribute("aria-expanded","true");
+            elemento.setAttribute("class","list-group-item list-group-item-action text-light mb-2 collapsed");
+            desboardItems.removeAttribute("class","collapse show");
+            desboardItems.setAttribute("class","collapse")
         }
 
     })
-    acciones.addEventListener("click", function () {
-        if (accioness.getAttribute("class") === "collapse") {
-            accioness.removeAttribute("class", "collapse");
-            accioness.setAttribute("class", "collapse show")
-        } else {
-            accioness.removeAttribute("class", "collapse show");
-            accioness.setAttribute("class", "collapse")
+    acciones.addEventListener("click", function (){
+        if(accioness.getAttribute("class") === "collapse"){
+            accioness.removeAttribute("class","collapse");
+            accioness.setAttribute("class","collapse show")
+        }else{
+            accioness.removeAttribute("class","collapse show");
+            accioness.setAttribute("class","collapse")
         }
     })
-    reportes.addEventListener("click", function () {
-        if (reportess.getAttribute("class") === "collapse") {
-            reportess.removeAttribute("class", "collapse");
-            reportess.setAttribute("class", "collapse show")
-        } else {
-            reportess.removeAttribute("class", "collapse show");
-            reportess.setAttribute("class", "collapse")
+    reportes.addEventListener("click", function (){
+        if(reportess.getAttribute("class") === "collapse"){
+            reportess.removeAttribute("class","collapse");
+            reportess.setAttribute("class","collapse show")
+        }else{
+            reportess.removeAttribute("class","collapse show");
+            reportess.setAttribute("class","collapse")
         }
     })
-    hamburguesa.addEventListener("click", function (event) {
+    hamburguesa.addEventListener("click", function (event){
         event.preventDefault();
-        if (menu.style.display === "none") {
+        if(menu.style.display === "none"){
             menu.style.display = "block";
-        } else {
+        }else{
             menu.style.display = "none"
         }
 
     })
-    document.getElementById("agregar-filaP").addEventListener("click", function () { /*add*/
+    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        if (pop.style.display === "none") {
+        if(pop.style.display === "none"){
             pop.style.display = "block";
             capa.style.zIndex = 1;
             pop.style.zIndex = 2;
             capa.style.backgroundColor = "rgba(0,0,0,0.7)";
             window.addEventListener('scroll', noScroll);
-        } else {
+        }else{
             pop.style.display = "none";
             todoLoQueEstorba.style.zIndex = 0;
         }
@@ -657,14 +653,15 @@
             window.removeEventListener('scroll', noScroll);
         }
     });
-    document.getElementById("close").addEventListener("click", function () {
+
+    document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
         //pop.style.display = "none";
 
-        if (pop.style.display === "none") {
+        if(pop.style.display === "none"){
             pop.style.display = "block";
-        } else {
+        }else{
             capa.style.zIndex = -1;
             capa.style.backgroundColor = "rgba(255,255,255,0)";
             pop.style.display = "none";
@@ -686,7 +683,6 @@
             window.removeEventListener('scroll', noScroll);
         }
     }
-
     function showPopup() {
         document.getElementById("popup-container").style.display = "block";
         document.getElementById("capa-obscurecer").style.display = "block";
@@ -711,4 +707,3 @@
 </body>
 
 </html>
-

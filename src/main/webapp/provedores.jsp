@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 </head>
 <style>
@@ -344,11 +345,11 @@
                                     <th class="todisable2">RFC</th>
                                     <th>Nombre proveedor</th>
                                     <th class="todisable">Teléfono</th>
-                                    <th>Acciones
-                                        </th>
-                                    <th><button  style="position: absolute; top: 3%; right: 30%; transform: translateY(-50%); background-color: white; z-index: 0; padding: 5px;" id="agregar-fila-prov" type="button" class="btn add-button">
-                                    <i class="bi bi-plus-circle-fill custom-color"></i>
-                                </button></th>
+                                    <th>Acciones</th>
+                                    <th></th>
+                                    <th style="text-align: right; ">
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -702,7 +703,7 @@
         }
 
     })
-    document.getElementById("agregar-fila-prov").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");

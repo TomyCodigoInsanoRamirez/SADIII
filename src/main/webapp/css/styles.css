@@ -208,7 +208,8 @@ tr{
     display: none;
 }
 table{
-    margin-top: 11%;
+    border-top: none;
+    margin-top: 0;
 }
 
 

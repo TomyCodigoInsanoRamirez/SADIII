@@ -4,6 +4,8 @@
 <head>
     <title>Title</title>
 </head>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 <body>
 <%
     // Obtener la sesión actual

@@ -17,7 +17,7 @@ public class RegistroProductoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener los parámetros del formulario
-       // String claveProducto = UUID.randomUUID().toString().substring(0, 7); // Generar una clave única
+        // String claveProducto = UUID.randomUUID().toString().substring(0, 7); // Generar una clave única
         String clave = req.getParameter("clave");
         String nombreProducto = req.getParameter("nombre");
         String descripcionProducto = req.getParameter("descipcion");

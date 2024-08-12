@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="mx.edu.utez.saditarea.dao.ProveedoresDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Proveedores" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <%
     String RFC = request.getParameter("RFC");

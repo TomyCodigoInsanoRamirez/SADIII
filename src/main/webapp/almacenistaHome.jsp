@@ -3,6 +3,8 @@
 <%@ page import="mx.edu.utez.saditarea.dao.*" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 <!--Extraxion del dao-->
 <%
     ProveedoresDao dao = new ProveedoresDao();

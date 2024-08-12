@@ -1,5 +1,7 @@
 <%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
+<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 <%
     if(session.getAttribute("tipoSesion") == null||session.getAttribute("tipoSesion") == "") {
         response.sendRedirect("error.jsp");
