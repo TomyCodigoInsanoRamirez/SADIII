@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+
 
 </head>
 <style>
@@ -49,99 +51,155 @@
     .icon-hover:hover {
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
+    .alert1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: fixed;
+        top: 14%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050; /* sobrepasa los otros elementos */
+    }
 
 </style>
+<%
+    String message = (String) session.getAttribute("message");
+    if ("success".equals(message)) {
+%>
 
 
+<div id="alert-success" class="alert alert-success alert-dismissible fade show alert-center" style="background-color: #4CAF50" role="alert">
+    <strong>Éxito:</strong>  El producto se ha registrado correctamente.
+    <button type="button" class="close" data-dismiss="alert1" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<%
+    // Elimina el atributo de sesión después de mostrar la alerta
+    session.removeAttribute("message");
+}
+else if ("error_producto_existente".equals(message)) {
+%>
+<div id="alert-error" class="alert alert-danger alert-dismissible fade show alert-center" style="background-color: #c12b2b" role="alert">
+    <strong>Error:</strong> El producto ya existe en la base de datos.
+    <button type="button" class="close" data-dismiss="alert1" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<%
+        // Elimina el atributo de sesión después de mostrar la alerta
+        session.removeAttribute("message");
+    }
+%>
 <script>
 
     let apagados = 0;
-    clikis = 0  ;
-    function checar(input){
+    let clikis = 0;
 
-        //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
-        clikis ++;
-        console.log(clikis);
-        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
-            let toStatusActive = document.getElementById("activar");
-            let toStatusInactive = document.getElementById("desactivar");
-            let mensaje = document.getElementById("contbasemsj");
-            let aceptar = document.getElementById("aceptar");
-            let cancelar = document.getElementById("cancelar");
-            let aceptarO = document.getElementById("aceptarO");
-            let cancelarO = document.getElementById("cancelarO");
-            let estado = input.getAttribute("data-estado");
-            if(estado == 1){
-                mensaje.style.display = "block";
-                toStatusInactive.style.display = "block"
-                aceptar.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelar.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }else{
-                mensaje.style.display = "block";
-                toStatusActive.style.display = "block"
-                aceptarO.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelarO.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Función para ocultar la alerta después de 6 segundos
+        function hideAlertAfterTimeout(alertId) {
+            var alertElement = document.getElementById(alertId);
+            if (alertElement) {
+                setTimeout(function () {
+                    $(alertElement).alert('close');
+                }, 9000); // 9 segundos
             }
-
         }
-    }
-    /*  function triggerDelete(input) {
-          console.log(clikis);
-          if(clikis >= 2){
-              input.previousElementSibling.click();
-          }
-          clikis ++;
-      }*/
+
+        // Llamar a la función para ambas alertas, si existen
+        hideAlertAfterTimeout('alert-success');
+        hideAlertAfterTimeout('alert-error');
+    });
 </script>
+
+
 <body>
-<!--base para mensajes-->
-<div id="contbasemsj">
-    <div class="basemsj" id="basemsj">
-        <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿DESACTIVAR PRODUCTO? </h2>
-            <h5>(No aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptar">
-                    Aceptar
-                </button>
-                <button id="cancelar">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-        <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿ACTIVAR PRODUCTO? </h2>
-            <h5>(Aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptarO">
-                    Aceptar
-                </button>
-                <button id="cancelarO">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Establecer el estado del slider al cargar la página
+        document.querySelectorAll('.inn').forEach(input => {
+            if (input.dataset.estado == 1) {
+                input.checked = true;
+            }
+            input.addEventListener('click', () => toggleSlider(input));
+        });
+    });
+
+    function toggleSlider(element) {
+        const isChecked = element.checked;
+        const action = isChecked ? 'activar' : 'desactivar';
+        const title = isChecked ? '¿Estás seguro de activar el producto?' : '¿Estás seguro de desactivar el producto?';
+        const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
+        const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
+
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            title: title,
+            text: "Esta acción se puede revertir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar solicitud al servidor para actualizar el estado
+                window.location.href = element.parentElement.querySelector('a').href;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Revertir el estado del checkbox si el usuario cancela
+                element.checked = !isChecked;
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La acción ha sido cancelada.',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+</script><!--Alert para la desactivacion de productos-->
+<%
+    String action = request.getParameter("action");
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Verifica si 'action' no es null y tiene un valor
+        const action = '<%= action != null ? action : "" %>';
+        if (action !== '') {
+            Swal.fire({
+                title: action === "activado" ? "Activado!" : "Desactivado!",
+                text: 'El producto ha sido ' + action + '.',
+                icon: 'success'
+            }).then(() => {
+                // Elimina el parámetro 'action' de la URL sin recargar la página
+                const url = new URL(window.location);
+                url.searchParams.delete('action');
+                window.history.replaceState(null, null, url);
+            });
+        }
+    });
+
+</script>
+
 <div id="capa-obscurecer">
 
 </div>
 
-<div class="d-flex " >
+<div class="d-flex " style="">
     <div class="content w-100">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="home.jsp">
@@ -417,24 +475,8 @@
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="ActualizarEstadoProducto?id=<%=u.getClaveProducto()%>&estado=<%=u.getEstadoProducto()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoProducto()%>" onclick="checar(this);">
-                                            <span class="slider" ></span>
-                                            <%
-                                                if(u.getEstadoProducto() == 1){
-                                            %>
-                                            <script>
-                                                console.log("Aun entra a la condición para activar el slider");
-                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
-                                            </script>
-                                            <%
-                                            }else{
-                                            %>
-                                            <script>
-                                                apagados ++;
-                                            </script>
-                                            <%
-                                                }
-                                            %>
+                                            <input type="checkbox" class="inn" data-estado="<%=u.getEstadoProducto()%>" <%= u.getEstadoProducto() == 1 ? "checked" : "" %> onclick="toggleSlider(this)">
+                                            <span class="slider"></span>
                                         </label>
                                     </td>
                                 </tr>
@@ -520,24 +562,7 @@
 
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de Desactivación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro de que desea desactivar este usuario?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Modal(aqui estaba xd) -->
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header text-center">
@@ -557,7 +582,7 @@
 
                     <div class="form-group mt-6">
                         <label for="nombre2A">Descripción:</label>
-                        <input style="width: 527px;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" required>
+                        <input style="width: 527px;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" >
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -704,6 +729,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

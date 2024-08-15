@@ -208,8 +208,7 @@ tr{
     display: none;
 }
 table{
-    border-top: none;
-    margin-top: 0;
+    margin-top: 11%;
 }
 
 
@@ -433,6 +432,7 @@ textarea {
     top: 0;
     z-index: -1;
     background-color: rgba(255, 255, 255, 0);
+    /*display: none;*/
 }
 
 .contenedorInputs {

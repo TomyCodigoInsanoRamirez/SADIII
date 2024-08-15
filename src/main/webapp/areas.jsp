@@ -5,7 +5,6 @@
 <%@ page import="mx.edu.utez.saditarea.modelo.Areas" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html>
 
@@ -17,122 +16,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 </head>
-<style>
-    .table-wrapper {
-        position: relative;
-    }
-    .custom-color {
-        color: #28a745;
-    }
-    .add-button {
-        margin-top: -5px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3.3rem;
-        border: none;
-    }
-    .add-button:hover {
-        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
-        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
-    }
-    .icon-hover {
-        transition: color 0.3s, transform 0.3s;
-    }
-    .icon-hover:hover {
-        transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
-    }
-</style>
 
 <script>
-
-    let apagados = 0;
-    clikis = 0  ;
-    function checar(input){
-
-        //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
-        clikis ++;
-        console.log(clikis);
-        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
-            let toStatusActive = document.getElementById("activar");
-            let toStatusInactive = document.getElementById("desactivar");
-            let mensaje = document.getElementById("contbasemsj");
-            let aceptar = document.getElementById("aceptar");
-            let cancelar = document.getElementById("cancelar");
-            let aceptarO = document.getElementById("aceptarO");
-            let cancelarO = document.getElementById("cancelarO");
-            let estado = input.getAttribute("data-estado");
-            if(estado == 1){
-                mensaje.style.display = "block";
-                toStatusInactive.style.display = "block"
-                aceptar.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelar.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }else{
-                mensaje.style.display = "block";
-                toStatusActive.style.display = "block"
-                aceptarO.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelarO.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
+    document.addEventListener('DOMContentLoaded', () => {
+        // Establecer el estado del slider al cargar la página
+        document.querySelectorAll('.inn').forEach(input => {
+            if (input.dataset.estado == 1) {
+                input.checked = true;
             }
+            input.addEventListener('click', () => toggleSlider(input));
+        });
+    });
 
+    function toggleSlider(element) {
+        const isChecked = element.checked;
+        const action = isChecked ? 'activar' : 'desactivar';
+        const title = isChecked ? '¿Estás seguro de activar el producto?' : '¿Estás seguro de desactivar el producto?';
+        const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
+        const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
+
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            title: title,
+            text: "Esta acción se puede revertir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Enviar solicitud al servidor para actualizar el estado
+            window.location.href = element.parentElement.querySelector('a').href;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // Revertir el estado del checkbox si el usuario cancela
+            element.checked = !isChecked;
+            Swal.fire({
+                title: 'Cancelado',
+                text: 'La acción ha sido cancelada.',
+                icon: 'error'
+            });
         }
+    });
     }
-    /*  function triggerDelete(input) {
-          console.log(clikis);
-          if(clikis >= 2){
-              input.previousElementSibling.click();
-          }
-          clikis ++;
-      }*/
 </script>
 <body>
-<div id="contbasemsj">
-    <div class="basemsj" id="basemsj">
-        <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿DESACTIVAR ÁREA? </h2>
-            <h5>(No aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptar">
-                    Aceptar
-                </button>
-                <button id="cancelar">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-        <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿ACTIVAR ÁREA? </h2>
-            <h5>(Aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptarO">
-                    Aceptar
-                </button>
-                <button id="cancelarO">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
+</script><!--Alert para la desactivacion de productos-->
+<%
+    String action = request.getParameter("action");
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Verifica si 'action' no es null y tiene un valor
+        const action = '<%= action != null ? action : "" %>';
+        if (action !== '') {
+            Swal.fire({
+                title: action === "activado" ? "Activado!" : "Desactivado!",
+                text: 'El producto ha sido ' + action + '.',
+                icon: 'success'
+            }).then(() => {
+                // Elimina el parámetro 'action' de la URL sin recargar la página
+                const url = new URL(window.location);
+                url.searchParams.delete('action');
+                window.history.replaceState(null, null, url);
+            });
+        }
+    });
+
+</script>
 <div id="capa-obscurecer">
 
 </div>
@@ -188,7 +152,7 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
+                               id="acciones">
 
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
@@ -340,18 +304,14 @@
                             </form>
                             -->
                         </div>
-                        <div style="position: relative; display: block">
+                        <div style="position: relative;">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
                                     <th class="todisable">Descripción área</th>
-                                    <th   id="columnaAcciones" colspan="2" style="position: relative;" >Acciones</th>
-                                    <th></th>
-                                    <th style="text-align: right;">
-                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
-                                </th>
+                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA"></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -409,7 +369,7 @@
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="actualizarAreaE?id=<%=u.getClaveArea()%>&estado=<%=u.getEstadoAr()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstadoAr()%>" onclick="checar(this);">
+                                            <input type="checkbox" class="inn" data-estado="<%=u.getEstadoAr()%>" onclick="toggleSlider(this);">
                                             <span class="slider" ></span>
                                             <%
                                                 if(u.getEstadoAr() == 1){
@@ -511,66 +471,44 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de Desactivación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro de que desea desactivar este usuario?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <div style="flex: 1; display: flex; justify-content: center;">
-        <h2 style="text-align: center; margin: 0;" >Registro de Áreas</h2>
-            </div>
-            <i class="bi bi-x-circle-fill icon-hover
-" style="color: #df1616; font-size: 3rem;" id="close-br"></i>
+    <div class="popup-header">
+        <h2>Registro de Áreas</h2>
+        <button class="close-btn" id="close">✖</button>
     </div>
     <form action="AreaServlet" method="post">
         <input type="hidden" name="action" value="agregar">
-        <div class="row">
-            <div class="col-md-6">
+        <div class="contenedorInputs">
+            <div class="izquierda">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
-                    <input type="text" id="claveArea" name="claveArea" class="form-control" required>
+                    <input type="text" id="claveArea" name="claveArea" required>
                 </div>
                 <div class="form-group">
                     <label for="nombreArea">Nombre del Área:</label>
-                    <input type="text" id="nombreArea" name="nombreArea" class="form-control" required>
+                    <input type="text" id="nombreArea" name="nombreArea" required>
                 </div>
-
-            </div>
-            <div class="col-md-6">
                 <div class="form-group">
                     <label for="descripcionArea">Descripción:</label>
-                    <input type="text" id="descripcionArea" name="descripcionArea" class="form-control" placeholder="Opcional">
+                    <input type="text" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
                 </div>
                 <div class="form-group">
                     <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" name="estadoAr" class="form-control" required>
+                    <select id="estadoAr" name="estadoAr" required>
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
                 </div>
             </div>
+            <div class="derecha">
+                <!-- Puedes añadir más campos aquí si es necesario -->
+            </div>
         </div>
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary mx-2">Agregar</button>
-            <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
-        </div>
+        <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
     </form>
 </div>
+
 
 
 
@@ -624,7 +562,7 @@
         }
 
     })
-    document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
+    document.getElementById("agregar-filaA").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
@@ -639,18 +577,6 @@
             todoLoQueEstorba.style.zIndex = 0;
         }
     })
-    document.getElementById("close-br").addEventListener("click", function () {
-        let pop = document.getElementById("popup-container");
-        let capa = document.getElementById("capa-obscurecer");
-        if (pop.style.display === "none") {
-            pop.style.display = "block";
-        } else {
-            capa.style.zIndex = -1;
-            capa.style.backgroundColor = "rgba(255,255,255,0)";
-            pop.style.display = "none";
-            window.removeEventListener('scroll', noScroll);
-        }
-    });
     document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
@@ -670,27 +596,6 @@
     function noScroll() {
         window.scrollTo(0, 0);
     }
-    function cancelForm() {
-        let pop = document.getElementById("popup-container");
-        let capa = document.getElementById("capa-obscurecer");
-        if (pop.style.display === "block") {
-            capa.style.zIndex = -1;
-            capa.style.backgroundColor = "rgba(255,255,255,0)";
-            pop.style.display = "none";
-            window.removeEventListener('scroll', noScroll);
-        }
-    }
-
-    function showPopup() {
-        document.getElementById("popup-container").style.display = "block";
-        document.getElementById("capa-obscurecer").style.display = "block";
-        document.getElementById("capa-obscurecer").style.zIndex = 1050;
-        document.getElementById("capa-obscurecer").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        window.addEventListener('scroll', noScroll);
-    }
-    document.getElementById("close-br").addEventListener("click", cancelForm);
-    document.getElementById("btn-cancelar").addEventListener("click", cancelForm);
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -702,6 +607,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

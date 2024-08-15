@@ -34,15 +34,15 @@ public class RegistroProductoServlet extends HttpServlet {
         //boolean resultado1 = dao.save(producto1);
         //boolean resultado2 = dao.save(producto2);
 
-        String ruta = "index.jsp";
+        String ruta = "productos.jsp";
         if (dao.save(producto)/*resultado1 && resultado2*/) {
-            //req.getSession().setAttribute("mensaje", "Producto registrado correctamente");
-            ruta = "home.jsp";
+            req.getSession().setAttribute("message", "success");
+            ruta = "productos.jsp?success=true";
         } else {
             //req.getSession().setAttribute("mensaje", "Error al registrar el producto");
-            ruta = "index.jsp?error=true";
+            req.getSession().setAttribute("message", "error_producto_existente");
+            ruta = "productos.jsp?error=producto_existente";
         }
-
         resp.sendRedirect(ruta);
     }
-}
+}// Para éxito

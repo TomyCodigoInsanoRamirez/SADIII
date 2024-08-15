@@ -27,12 +27,14 @@ public class ActualizarEstadoUM extends HttpServlet {
         System.out.println("El estado de este producto es :"+estado);
         System.out.println("El id del producto es :"+id);
         UnidadMedidaDao dao = new UnidadMedidaDao();
+        String accion;
         if(estado == 1){
             dao.updateOf(id);
+            accion = "desactivado";
         }else{
             dao.updateOn(id);
+            accion = "activado";
         }
-        String ruta = "unidadMedida.jsp";
-        resp.sendRedirect(ruta);
+        resp.sendRedirect("unidadMedida.jsp?action="+ accion );
     }
 }

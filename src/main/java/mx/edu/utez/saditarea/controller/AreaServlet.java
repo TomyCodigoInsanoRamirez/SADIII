@@ -33,12 +33,16 @@ public class AreaServlet extends HttpServlet {
             nuevaArea.setNombreArea(nombreArea);
             nuevaArea.setDescripcionArea(descripcionArea);
             nuevaArea.setEstadoAr(estadoAr);
-
+            String rutaaa = "";
             // Agregar la nueva área
-            areasDao.save(nuevaArea);
-
+            //areasDao.save(nuevaArea);
+            if(areasDao.save(nuevaArea)){
+                rutaaa = "areas.jsp";
+            }else{
+                rutaaa = "hola.jsp";
+            }
             // Redirigir a la página de éxito
-            response.sendRedirect("areas.jsp");
+            response.sendRedirect(rutaaa);
 
         } else if ("actualizar".equals(action)) {
             // Obtener los parámetros del formulario para actualizar

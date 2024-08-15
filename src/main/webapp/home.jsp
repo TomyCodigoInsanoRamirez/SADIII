@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 
@@ -79,7 +80,7 @@
         box-shadow: none; /* También elimina cualquier sombra que pueda aparecer */
     } .icon-hover {
 
-          transition: color 0.3s, transform 0.3s;
+          transition: color 5s, transform 5s;
       }
     .icon-hover:hover {
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
@@ -89,46 +90,11 @@
 <script>
 
     let apagados = 0;
-    clikis = 0  ;
+    let clikis = 0;
     function checar(input){
 
         //console.log("cuando se inteta cambiar de esstad el estatus es: "+estado);
-        clikis ++;
-        console.log(clikis);
-        if(clikis>(document.querySelectorAll(".inn").length)-apagados){
-            let toStatusActive = document.getElementById("activar");
-            let toStatusInactive = document.getElementById("desactivar");
-            let mensaje = document.getElementById("contbasemsj");
-            let aceptar = document.getElementById("aceptar");
-            let cancelar = document.getElementById("cancelar");
-            let aceptarO = document.getElementById("aceptarO");
-            let cancelarO = document.getElementById("cancelarO");
-            let estado = input.getAttribute("data-estado");
-            if(estado == 1){
-                mensaje.style.display = "block";
-                toStatusInactive.style.display = "block"
-                aceptar.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelar.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }else{
-                mensaje.style.display = "block";
-                toStatusActive.style.display = "block"
-                aceptarO.addEventListener("click",event =>{
-                    input.previousElementSibling.click();
-                    mensaje.style.display = "none";
-                })
-                cancelarO.addEventListener("click",event =>{
-                    mensaje.style.display = "none";
-                    location.reload();
-                })
-            }
 
-        }
     }
     /*  function triggerDelete(input) {
           console.log(clikis);
@@ -139,33 +105,86 @@
       }*/
 </script>
 <body>
-<div id="contbasemsj">
-    <div class="basemsj" id="basemsj">
-        <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿Estás seguro de desactivar el usuario? </h2>
-            <div class="btn-ar">
-                <button id="aceptar">
-                    Aceptar
-                </button>
-                <button id="cancelar">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-        <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿Estás seguro de activar el usario? </h2>
+<!--Modal que se muesta al slider -->
 
-            <div class="btn-ar">
-                <button id="aceptarO">
-                    Aceptar
-                </button>
-                <button id="cancelarO">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+<script>
+    function toggleSlider(element) {
+        clikis++;
+        console.log("Si se hace click en el de activar o no")
+        const isChecked = element.checked;
+        const action = isChecked ? 'activar' : 'desactivar';
+        const title = isChecked ? '¿Estás seguro de activar el usuario?' : '¿Estás seguro de desactivar el usuario?';
+        const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
+        const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
+
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            title: title,
+            text: "Esta acción se puede revertir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false, // Evita cerrar la alerta al hacer clic fuera de ella
+            allowEscapeKey: false, // Evita cerrar la alerta con la tecla Escape
+            allowEnterKey: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                element.previousElementSibling.click();
+                const actionText = isChecked ? 'activado' : 'desactivado'; // Crear el texto en base al estado del checkbox
+                //if(clikis>(document.querySelectorAll(".inn").length)-apagados){element.previousElementSibling.click();}
+                // Aquí puedes realizar la acción adicional como enviar una solicitud al servidor
+
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Revertir el estado del checkbox si el usuario cancela
+                element.checked = !isChecked;
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La acción ha sido cancelada.',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Simular el estado inicial del slider
+        document.querySelectorAll('.inn').forEach(input => {
+            if (input.dataset.estado == 1) {
+                input.checked = true;
+                document.querySelector('.slider').classList.add('active');
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<%
+    String action = request.getParameter("action");
+    if (action != null) {
+%>
+<script>
+    Swal.fire({
+        title: '<%= action.equals("activado") ? "Activado!" : "Desactivado!" %>',
+        text: 'El usuario ha sido <%= action %>.',
+        icon: 'success'
+    }).then(() => {
+        // Elimino la alerta para que la  no se muestre al recargar
+        window.history.replaceState(null, null, window.location.pathname);
+    });
+</script>
+<%
+    }
+%>
+
 <div id="capa-obscurecer">
 
 </div>
@@ -427,7 +446,7 @@
                                     <th id="columnaAcciones">Acciones</th>
                                     <th></th>
                                     <th style="text-align: right; ">
-                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;></i>
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
                                 </th>
                                 </tr>
                                 </thead>
@@ -487,26 +506,12 @@
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="updateUsuarioE?id=<%=u.getId()%>&estado=<%=u.isEstado()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn" data-estado="<%=u.isEstado()%>" onclick="checar(this);">
+                                            <input type="checkbox" class="inn" data-estado="<%=u.isEstado()%>" <%= u.isEstado() == 1 ? "checked" : "" %> onclick="toggleSlider(this);">
                                             <span class="slider"></span>
-                                            <%
-                                                if(u.isEstado() == 1){
-                                            %>
-                                            <script>
-                                                console.log("Aun entra a la condición para activar el slider");
-                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
-                                            </script>
-                                            <%
-                                            }else{
-                                            %>
-                                            <script>
-                                                apagados ++;
-                                            </script>
-                                            <%
-                                                }
-                                            %>
                                         </label>
                                     </td>
+
+
                                 </tr>
                                 <div class="modal fade" id="editModal<%= u.getId() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getId() %>" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -609,8 +614,6 @@
                                 <script>
                                     const siguientePaginador = document.getElementById("siguientePaginador");
                                     const anteriorPaginador = document.getElementById("anteriorPaginador");
-
-
                                 </script>
                             </nav>
                             <!-- Modal para editar usuario -->
@@ -683,23 +686,6 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de Desactivación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro de que desea desactivar este usuario?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div><!-- formulario de registro (add) -->
 
 <div class="popup-container" id="popup-container" >
     <div class="popup-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -887,6 +873,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 
 </html>

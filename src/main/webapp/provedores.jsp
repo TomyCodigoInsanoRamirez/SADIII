@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 </head>
 <style>
@@ -99,37 +100,88 @@
           clikis ++;
       }*/
 </script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Establecer el estado del slider al cargar la página
+        document.querySelectorAll('.inn').forEach(input => {
+            if (input.dataset.estado == 1) {
+                input.checked = true;
+            }
+            input.addEventListener('click', () => toggleSlider(input));
+        });
+    });
+
+    function toggleSlider(element) {
+        const isChecked = element.checked;
+        const action = isChecked ? 'activar' : 'desactivar';
+        const title = isChecked ? '¿Estás seguro de activar el producto?' : '¿Estás seguro de desactivar el producto?';
+        const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
+        const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
+
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            title: title,
+            text: "Esta acción se puede revertir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar solicitud al servidor para actualizar el estado
+                window.location.href = element.parentElement.querySelector('a').href;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Revertir el estado del checkbox si el usuario cancela
+                element.checked = !isChecked;
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La acción ha sido cancelada.',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+</script><!--Alert para la desactivacion de productos-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<%
+    String action = request.getParameter("action");
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Verifica si 'action' no es null y tiene un valor
+        const action = '<%= action != null ? action : "" %>';
+        if (action !== '') {
+            Swal.fire({
+                title: action === "activado" ? "Activado!" : "Desactivado!",
+                text: 'El producto ha sido ' + action + '.',
+                icon: 'success'
+            }).then(() => {
+                // Elimina el parámetro 'action' de la URL sin recargar la página
+                const url = new URL(window.location);
+                url.searchParams.delete('action');
+                window.history.replaceState(null, null, url);
+            });
+        }
+    });
+
+</script>
+
+
 <body>
-<div id="contbasemsj">
-    <div class="basemsj" id="basemsj">
-        <div class="confirmar-cambio-estado-of" id="desactivar">
-            <h2>¿DESACTIVAR PROVEEDOR? </h2>
-            <h5>(No aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptar">
-                    Aceptar
-                </button>
-                <button id="cancelar">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-        <div class="confirmar-cambio-estado-of" id="activar">
-            <h2>¿ACTIVAR PROVEEDOR? </h2>
-            <h5>(Aparecerá en las entradas ni salidas)</h5>
-            <h3>¿Desea continuar?</h3>
-            <div class="btn-ar">
-                <button id="aceptarO">
-                    Aceptar
-                </button>
-                <button id="cancelarO">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div id="capa-obscurecer">
 
 </div>
@@ -408,24 +460,8 @@
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="actualizarProveedorE?id=<%=u.getRFC()%>&estado=<%=u.getEstado_usu()%>" class="delete-link" style="display: none;">Eliminar</a>
-                                            <input type="checkbox" class="inn"  data-estado="<%=u.getEstado_usu()%>" onclick="checar(this);">
+                                            <input type="checkbox" class="inn" data-estado="<%=u.getEstado_usu()%>" <%= u.getEstado_usu() == 1 ? "checked" : "" %> onclick="toggleSlider(this);">
                                             <span class="slider"></span>
-                                            <%
-                                                if(u.getEstado_usu() == 1){
-                                            %>
-                                            <script>
-                                                console.log("Aun entra a la condición para activar el slider");
-                                                document.querySelectorAll(".inn")[((document.querySelectorAll(".inn").length)-1)].click();
-                                            </script>
-                                            <%
-                                            }else{
-                                            %>
-                                            <script>
-                                                apagados ++;
-                                            </script>
-                                            <%
-                                                }
-                                            %>
                                         </label>
                                     </td>
                                 </tr>
@@ -559,23 +595,6 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de Desactivación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro de que desea desactivar este usuario?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -653,7 +672,8 @@
             <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
         </div>
     </form>
-</div><script>
+</div>
+<script>
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");
     const accioness = document.getElementById("setting-items-responsive");
@@ -781,6 +801,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

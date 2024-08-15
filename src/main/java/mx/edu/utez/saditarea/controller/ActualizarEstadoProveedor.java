@@ -26,12 +26,15 @@ public class ActualizarEstadoProveedor extends HttpServlet {
         System.out.println("El estado de este producto es :"+estado);
         System.out.println("El id del producto es :"+id);
         ProveedoresDao dao = new ProveedoresDao();
+        String action;
         if(estado == 1){
             dao.updateOf(id);
+           action = "desactivado";
         }else{
             dao.updateOn(id);
+           action = "activado";
         }
-        String ruta = "provedores.jsp";
-        resp.sendRedirect(ruta);
+        resp.sendRedirect("provedores.jsp?action=" + action);
     }
 }
+

@@ -26,12 +26,14 @@ public class ActualizarEstadoAreas extends HttpServlet {
         System.out.println("El estado de este producto es :"+estado);
         System.out.println("El id del producto es :"+id);
         AreasDao dao = new AreasDao();
+        String action;
         if(estado == 1){
             dao.updateOf(id);
+            action = "desactivar";
         }else{
             dao.updateOn(id);
+            action = "activar";
         }
-        String ruta = "areas.jsp";
-        resp.sendRedirect(ruta);
+        resp.sendRedirect("areas.jsp?action="+ action);
     }
 }
