@@ -1,9 +1,6 @@
 package mx.edu.utez.saditarea.dao;
 
-import mx.edu.utez.saditarea.modelo.Entradas;
-import mx.edu.utez.saditarea.modelo.Productos;
-import mx.edu.utez.saditarea.modelo.Salidas;
-import mx.edu.utez.saditarea.modelo.Usuario;
+import mx.edu.utez.saditarea.modelo.*;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.*;
@@ -176,8 +173,77 @@ public class EntradasDao {
         return productosList;
     }
 
+    public boolean save2(RegistroEntradas regE) {
+        boolean rowInserted = false;
+        String query = "INSERT INTO registro_entrada (folio_Entrada, numero_factura_e, fechas_entrada, fk_RFC_Proveedor, precioTotal, fk_empleado) VALUES (?, ?, ?, ?, ?,?    )";
 
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, regE.getFolioEntrada());
+            ps.setString(2,regE.getNumeroFacturaE());
+            ps.setDate(3, new java.sql.Date(regE.getFechasEntrada().getTime()));
+            ps.setString(4,regE.getFkRFCProveedor());
+            ps.setDouble(5,regE.getPrecioTotal());
+            ps.setString(6,regE.getFkEmpleado());
 
+            rowInserted = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInserted;
+    }
 
+    public boolean save3(RegistroProductoEntrada regEP) {
+        boolean rowInserted = false;
+        String query = "INSERT INTO registro_producto_entrada (fk_producto, precio_unitario_prod,precioTotalP,cantidad,unidadMedidaE,fk_folio) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, regEP.getFkProducto());
+            ps.setDouble(2,regEP.getPrecioUnitarioProd());
+            ps.setDouble(3,regEP.getPrecioTotalP());
+            ps.setInt(4,regEP.getCantidad());
+            ps.setString(5,regEP.getUnidadMedidaE());
+            ps.setString(6,regEP.getFkFolio());
+
+            rowInserted = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInserted;
+    }
+    public List<RegistroEntradas> getAllEntradas() {
+        List<RegistroEntradas> productosList = new ArrayList<>();
+        String query = "SELECT * FROM registro_entrada";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String folio_E = rs.getString("folio_Entrada");
+                String numero_Factura = rs.getString("numero_factura_e");
+
+                Date fechaaa = rs.getDate("Fechas_entrada");
+                /*
+                String fecha = fechaaa.toString();
+                float precioUnitario = rs.getFloat("precio_unitario");
+                int cantidad = rs.getInt("cantidad_E");
+                String clave_Producto = rs.getString("fk_claveProducto");
+                */
+                String rfc = rs.getString("fk_RFC_Proveedor");
+                Double precioTotal = rs.getDouble("precioTotal");
+                String id_Empleado = rs.getString("fk_empleado");
+                RegistroEntradas entradaa = new RegistroEntradas(folio_E,numero_Factura,fechaaa,rfc,precioTotal,id_Empleado);
+                productosList.add(entradaa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
 }
 
