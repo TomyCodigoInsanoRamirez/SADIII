@@ -397,7 +397,7 @@
 
 
 <!--formulario de registro (add)-->
-<div class="popup-containerIn" id="popup-container">
+    <div class="popup-containerIn" id="popup-container">
     <div class="popup-header">
         <h2>Registro de Entradas</h2>
         <button  class="close-btn" id="close">✖</button>

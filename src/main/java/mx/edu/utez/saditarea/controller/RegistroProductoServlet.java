@@ -21,11 +21,12 @@ public class RegistroProductoServlet extends HttpServlet {
         String clave = req.getParameter("clave");
         String nombreProducto = req.getParameter("nombre");
         String descripcionProducto = req.getParameter("descipcion");
-
+        String unidadMedida = req.getParameter("unidadMedida");
+        System.out.println("Unidad medida: "+unidadMedida+" ---------------------------------------------------------------------------");
         // Crear el objeto Productos
         //Productos producto1 = new Productos(claveProducto, nombreProducto, descripcionProducto, 0); // estadoProducto 0 por defecto
         //Productos producto2 = new Productos(claveProducto, nombreProducto, descripcionProducto, 1); // estadoProducto 1
-        Productos producto = new Productos(clave,nombreProducto,descripcionProducto,1);
+        Productos producto = new Productos(clave,nombreProducto,descripcionProducto,1,unidadMedida);
         ProductosDao dao = new ProductosDao();
         // Obtener el DAO
         //ProductosDao dao = new ProductosDao();

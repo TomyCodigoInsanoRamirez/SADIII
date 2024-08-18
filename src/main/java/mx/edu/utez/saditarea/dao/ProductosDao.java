@@ -11,14 +11,15 @@ public class ProductosDao {
 
     public boolean save(Productos producto) {
         boolean rowInserted = false;
-        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto, estado) VALUES (?, ?, ?, ?)";
-
+        String query = "INSERT INTO Productos (claveProducto, nombreProducto, descripcionProducto, estado,fk_unidadMedidaProd) VALUES (?, ?, ?, ?,?)";
+        System.out.println("Unidad medida desde dao: " + producto.getUnidadMedida());
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, producto.getClaveProducto());
             ps.setString(2, producto.getNombreProducto());
             ps.setString(3, producto.getDescripcionProducto());
             ps.setInt(4, producto.getEstadoProducto());
+            ps.setString(5, producto.getUnidadMedida());
 
             rowInserted = ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -40,7 +41,8 @@ public class ProductosDao {
                 String nombreProducto = rs.getString("nombreProducto");
                 String descripcionProducto = rs.getString("descripcionProducto");
                 int estado = rs.getInt("estado");
-                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estado); // Aquí el estado es 1 por defecto
+                String unidadMedida = rs.getString("fk_unidadMedidaProd");
+                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estado,unidadMedida); // Aquí el estado es 1 por defecto
                 productosList.add(producto);
             }
         } catch (SQLException e) {
@@ -63,7 +65,8 @@ public class ProductosDao {
                 String nombreProducto = rs.getString("nombreProducto");
                 String descripcionProducto = rs.getString("descripcionProducto");
                 int estadoProducto = rs.getInt("estadoProducto");
-                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estadoProducto);
+                String unidadMedida = rs.getString("fk_unidadMedidaProd");
+                Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estadoProducto,unidadMedida);
                 productosList.add(producto);
             }
         } catch (SQLException e) {

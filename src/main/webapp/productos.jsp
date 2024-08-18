@@ -6,7 +6,14 @@
 <%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.Productos" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.UnidadMedida" %>
+<%@ page import="mx.edu.utez.saditarea.dao.UnidadMedidaDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    UnidadMedidaDao daoUnidadM = new UnidadMedidaDao();
+    List<UnidadMedida> unidadMedida= daoUnidadM.getAll();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -582,13 +589,32 @@ else if ("error_producto_existente".equals(message)) {
 
                     <div class="form-group mt-6">
                         <label for="nombre2A">Descripción:</label>
-                        <input style="width: 527px;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" >
+                        <input style="width: 100%;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mt-0">
                         <label for="nombre1">Nombre Producto:</label>
                         <input type="text" class="form-control" id="nombre1" name="nombre" required>
+                    </div>
+                    <div class="form-group mt-0">
+                        <label for="unidadMedida">Unidad de Medida:</label>
+                        <select id="unidadMedida" name="unidadMedida" oninput="updateTable(contadorFilas,folio_EG)">
+                            <%
+                                if (unidadMedida != null) {
+                                    for (UnidadMedida unidadM : unidadMedida) {
+                            %>
+                            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No hay unidades de medida disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
                     </div>
                 </div>
             </div>
