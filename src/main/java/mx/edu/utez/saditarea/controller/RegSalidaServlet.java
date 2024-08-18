@@ -15,8 +15,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mx.edu.utez.saditarea.dao.EntradasDao;
+import mx.edu.utez.saditarea.dao.SalidasDao;
 import mx.edu.utez.saditarea.modelo.RegistroEntradas;
 import mx.edu.utez.saditarea.modelo.RegistroProductoEntrada;
+import mx.edu.utez.saditarea.modelo.RegistroProductoSalida;
+import mx.edu.utez.saditarea.modelo.registro_salida;
 
 /*
 import javax.servlet.ServletException;
@@ -27,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 */
-@WebServlet(name = "RegEntradaServlet",value = "/regEntrada")
-public class RegEntradaServlet extends HttpServlet {
+@WebServlet(name = "RegSalidasServlet",value = "/regSalidas")
+public class RegSalidaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +43,9 @@ public class RegEntradaServlet extends HttpServlet {
         // Convertir la cadena JSON a un array de arrays
         Gson gson = new Gson();
         String[][] arrayOfArrays = gson.fromJson(jsonArray, String[][].class);
-        RegistroEntradas regE = new RegistroEntradas();
-        RegistroProductoEntrada regEP = new RegistroProductoEntrada();
-        EntradasDao dao = new EntradasDao();
+        registro_salida regS = new registro_salida();
+        RegistroProductoSalida regSP = new RegistroProductoSalida();
+        SalidasDao dao = new SalidasDao();
 
         int contador = 1;
         int contadorRegistro = 1;
@@ -53,26 +56,16 @@ public class RegEntradaServlet extends HttpServlet {
                 System.out.println(item);
                 switch (contador){
                     case 1:
-                        regE.setFolioEntrada(item);
-                        regEP.setFkFolio(item);
+                        regS.setFolio_salida(item);
+                        regSP.setFk_folio_salida(item);
                         break;
                     case 2:
-                        regE.setFkRFCProveedor(item);
+                        regS.setFk_almacenistaR(item);
                         break;
                     case 3:
-                        regE.setFkEmpleado(item);
+                        regS.setFk_almacenistaE(item);
                         break;
                     case 4:
-                        regEP.setUnidadMedidaE(item);
-                        break;
-                    case 5:
-                        regEP.setPrecioUnitarioProd(Double.parseDouble(item));
-                        break;
-                    case 6:
-                        regE.setNumeroFacturaE(item);
-                        break;
-                    case 7:
-
                         Date fecha = new Date();
                         try {
                             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -80,32 +73,45 @@ public class RegEntradaServlet extends HttpServlet {
                         } catch (ParseException e) {
                             e.printStackTrace(); // Maneja la excepción aquí, por ejemplo, mostrando un mensaje de error.
                         }
-                        regE.setFechasEntrada(fecha);
+                        regS.setFecha_entrada(fecha);
+                        /*regSP.setFk_producto_salida(item);*/
+                        break;
+                    case 5:
+                        regSP.setFk_producto_salida(item);
+                       /*regSP.setPrecio_unitario_prod_salida(Double.parseDouble(item));*/
+                        break;
+                    case 6:
+                        regSP.setUnidadMedidaS(item);
+                        break;
+                    case 7:
+                        regSP.setPrecio_unitario_prod_salida(Double.parseDouble(item));
+
                         break;
                     case 8:
-                        regEP.setFkProducto(item);
+                        regS.setArea(item);
                         break;
                     case 9:
-                        regEP.setCantidad(Integer.parseInt(item));
+                        regSP.setCantidad(Integer.parseInt(item));
                         break;
+                        /*
                     case 10:
-                        regE.setPrecioTotal(Double.parseDouble(item));
+                        regS.setPrecioTotal(Double.parseDouble(item));
                         regEP.setPrecioTotalP(Double.parseDouble(item));
-                        break;
+                        break;*/
                 }
                 contador++;
             }
 
             if(contadorRegistro<=1){
-                boolean sehizo = dao.save2(regE);
+                boolean sehizo = dao.save2(regS);
                 if(sehizo){
                     System.out.println("Si se insertaron los datos correctamente, de la entrada");
-                    ruta = "entradas.jsp";
+                    ruta = "salidas.jsp";
                 }else{
                     System.out.println("No se insertaron los datos correctamente, de la entrada");
                 }
             }
-            dao.save3(regEP);
+            dao.save3(regSP);
             System.out.println("CHECA EN LA BD SI YA SE REGISTRARON LAS ENTRADAS");
 
             contadorRegistro++;
