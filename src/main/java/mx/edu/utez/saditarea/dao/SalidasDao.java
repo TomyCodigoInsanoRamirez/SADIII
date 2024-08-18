@@ -32,24 +32,22 @@ public class SalidasDao {
         return rowInserted;
     }
 
-    public List<Salidas> getAll() {
-        List<Salidas> productosList = new ArrayList<>();
-        String query = "SELECT * FROM Salidas";
+    public List<registro_salida> getAll() {
+        List<registro_salida> productosList = new ArrayList<>();
+        String query = "SELECT * FROM registro_salida";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                String folio_S = rs.getString("folio_S");
-                String fk_empleado_S = rs.getString("fk_empleado_S");
-                String fk_empleado_E = rs.getString("fk_empleado_E");
-                String fk_area = rs.getString("fk_area");
-                Date fecha = rs.getDate("fecha");
-                int cantidad_S = rs.getInt("cantidad_S");
-                String claveProducto = rs.getString("fk_claveProducto");
-                String unidadMedida = rs.getString("fk_unidadMedida");
-                Salidas salida = new Salidas(folio_S,fk_empleado_S,fk_empleado_E,fk_area,fecha,cantidad_S,claveProducto,unidadMedida);
+                String folio_S = rs.getString("folio_salida");
+                Date fecha_entrada = rs.getDate("fecha_entrada");
+                String area = rs.getString("area");
+                String fk_almacenistaR = rs.getString("fk_almacenistaR");
+                String fk_almacenistaE = rs.getString("fk_almacenistaE");
+
+                registro_salida salida = new registro_salida(folio_S,fecha_entrada,area,fk_almacenistaR,fk_almacenistaE);
                 productosList.add(salida);
             }
         } catch (SQLException e) {

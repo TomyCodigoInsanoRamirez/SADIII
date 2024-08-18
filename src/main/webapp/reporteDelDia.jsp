@@ -3,20 +3,17 @@
 <%@ page import="mx.edu.utez.saditarea.dao.*" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!--Extraxion del dao-->
-<%
-    ProveedoresDao dao = new ProveedoresDao();
-    List<Proveedores> proveedores = dao.findAll();
-
-%>
-<%
-    ProductosDao daoProducto = new ProductosDao();
-    List<Productos> productos= daoProducto.getAll();
-
-%>
 <%
     UnidadMedidaDao daoUnidadM = new UnidadMedidaDao();
     List<UnidadMedida> unidadMedida= daoUnidadM.getAll();
+%>
+<%
+    ProductosDao daoProductos = new ProductosDao();
+    List<Productos> Productos= daoProductos.getAll();
+%>
+<%
+    AreasDao daoArea = new AreasDao();
+    List<Areas> Areas= daoArea.getAll();
 
 %>
 <%
@@ -38,11 +35,32 @@
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 </head>
+<style>
+    .table-wrapper {
+        position: relative;
+    }
+    .custom-color {
+        color: #28a745;
+    }
+    .add-button {
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.8rem;
+        border: none;
+    }
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+
+</style>
 
 <body>
-
-
-
 <div id="capa-obscurecer">
 
 </div>
@@ -136,7 +154,7 @@
                 </div>
             </a>
             <div class="tituloSeccion">
-                <h1>ENTRADAS</h1>
+                <h1>INVENTARIO</h1>
             </div>
             <div class="collapse navbar-collapse" id="navbarsExample07XL">
                 <ul class="navbar-nav mr-auto">
@@ -193,7 +211,7 @@
                                     <!--
                                     <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
                                        class="list-group-item list-group-item-action bg-coffee text-light  mb-2">
-                                        <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
+                                      <i class="fa fa-cog mr-3" aria-hidden="true"></i>Acciones
                                     </a>
                                     -->
                                     <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
@@ -236,7 +254,14 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
-                            <form class="d-flex" action="entradas.jsp" method="post">
+                            <!--
+                            <form class="d-flex" role="search">
+                              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                              <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;"><i class="bi bi-search"></i>
+                              </button>
+                            </form>
+                            -->
+                            <form class="d-flex" action="salidas.jsp" method="post">
                                 <div class="form-group">
                                     <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
                                     <input type="date" class="form-control" id="fechaInicio" name="desde">
@@ -255,120 +280,107 @@
                                     </button>
                                 </div>
 
+                                <!--
+                                <span class="ms-auto p-3"></span>
+                                <div class="form-group" style="margin-top: 29px;">
+                                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 200px;">
+                                </div>
+                                <span class="ms-auto p-1"></span>
+
+                                <div class="form-group">
+                                    <button class="btn btn-outline-success" type="submit" style="margin-top: 78%;">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                -->
                             </form>
                         </div>
                         <div style="position: relative;">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">Folio</th>
-                                    <th>Numero de factura</th>
-                                    <th  class="todisable">Almacenista</th>  <!--style="padding-left: 65px;" -->
-                                    <th >Acciones</th> <!--style="padding-left: 45px;"-->
-                                    <th></th>
+                                    <th class="todisable2">Id Producto</th>
+                                    <th>Nombre</th>
+                                    <th  class="todisable">Descripción</th>  <!--style="padding-left: 65px;" -->
+                                    <th>Precio</th>
+                                    <th> Unidad Medida</th>
+                                    <th>Cantidad</th>
+                                    <!--
+                                    <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
+                                        <i class="bi bi-plus-circle-fill custom-color"></i>
+                                    </button></th>
+                                    -->
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
                                 <%
-                                    EntradasDao daoE = new EntradasDao();
-                                    List<RegistroEntradas>  lista = new ArrayList<>();
-                                    List<Entradas>  listaa = new ArrayList<>(); //BORRAR DESPUES DE LAS PRUEBAS
-
+                                    ProductosDao daoE = new ProductosDao();
+                                    //List<Salidas> lista = daoE.getAll();
+                                    List<inventario>  lista = new ArrayList<>();
                                     if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
                                         String desde = request.getParameter("desde");
                                         String hasta = request.getParameter("hasta");
-                                        System.out.println("Desde:"+desde);
-                                        System.out.println("Hasta: "+hasta);
-                                        listaa = daoE.reporteFechas(desde,hasta) ;
+                                        /*lista = daoE.reporteFechasS(desde,hasta) ;*/
                                     }else{
-                                        lista = daoE.getAllEntradas() ;
+                                        lista = daoE.inventario() ;
                                     }
 
-
-                                    int numeroElementos = lista.size();
-                                    double numeroPaginadores = (double) numeroElementos/10;
-                                    int numeroPaginadoreDecimal = numeroElementos/10;
-                                    if(numeroPaginadoreDecimal == 0){
-                                        numeroPaginadoreDecimal = 1;
-                                    }
-                                    System.out.println("Antes de obtener el parametro de la url");
-                                    String paginadorSolicitado = "1";
-                                    if(request.getParameter("value") == null){
-                                        paginadorSolicitado = "1";
-                                    }else{
-                                        paginadorSolicitado = request.getParameter("value");
-                                    }
-                                    int paginadorSolicitadoInt = Integer.parseInt(paginadorSolicitado);
-
-                                    int contador = 0;
-                                    System.out.println("Antes de mequetreque para lo de los paginadores");
-                                    if(numeroPaginadores >= 0 && numeroPaginadores < 1){
-                                        numeroPaginadores = 1;
-                                    } else if (numeroPaginadores > numeroPaginadoreDecimal ) {
-                                        numeroPaginadoreDecimal++;
-                                    }
-                                    if(paginadorSolicitadoInt > numeroPaginadoreDecimal){
-                                        paginadorSolicitadoInt = numeroPaginadoreDecimal;
-                                    }else if (paginadorSolicitadoInt < 1) {
-                                        paginadorSolicitadoInt = 1;
-                                    }
-                                    for(RegistroEntradas u : lista){
-                                        if( contador >= ((paginadorSolicitadoInt * 10)-10) && contador < (paginadorSolicitadoInt * 10)){
-                                            System.out.println("Con el paginador: "+paginadorSolicitadoInt);
-                                            System.out.println(("contador >= "+((paginadorSolicitadoInt * 10)-10) + "&& contador < "+(paginadorSolicitadoInt * 10) ));
-                                %>
+                                    for(inventario u : lista){ %>
                                 <!---Se va a repetir --->
                                 <tr>
-                                    <td class="todisable2"><%=u.getFolioEntrada()%></td>
-                                    <td><%=u.getNumeroFacturaE()%></td>
-                                    <td class="todisable"><%=u.getFkEmpleado()%></td>
-                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                                    <td class="todisable2"><%=u.getClaveProducto()%></td>
+                                    <td><%=u.getNombreProducto()%></td>
+                                    <td class="todisable"><%=u.getDescripcionProducto()%></td>
+                                    <td><%=u.getPrecioUnitario()%></td>
+                                    <td><%=u.getFk_unidadMedidaP()%></td>
+                                    <td><%=u.getCantidad()%></td>
+                                    <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td>
+                                    <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>-->
 
                                 </tr>
-                                <%} contador++;%>
                                 <%} %>
+                                <!--
+                                <tr>
+                                    <td>1</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Enrique Landa</td>
+                                    <td class="todisable"><a href="mailto:20235tn174@utez.edu.mx">20235tn174@utez.edu.mx</a></td>
+                                    <td class="acciones">
+                                        <a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <a href="editar.jsp" style="margin:10px"><i class="bi bi-pencil-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>
+                                        <template>
+                                            <div>
+                                                <b-form-checkbox v-model="checked" name="check-button" switch>
+                                                    Switch Checkbox <b>(Checked: {{ checked }})</b>
+                                                </b-form-checkbox>
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                -->
                                 </tbody>
                             </table>
-                            <nav aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item ">
-                                        <a class="page-link" id="anteriorPaginador" href="entradas.jsp?value=<%=paginadorSolicitadoInt-1%>" >Anterior</a>
-                                    </li>
-                                    <%
-                                        System.out.println("Decimal: "+numeroPaginadores);
-                                        System.out.println("Entero: "+numeroPaginadoreDecimal);
-                                        for(int i =0; i<numeroPaginadoreDecimal; i++){
-                                    %>
-                                    <%
-                                        if((i+1)==paginadorSolicitadoInt){
-                                    %>
-
-                                    <li class="page-item active"><a class="page-link" href="entradas.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
-                                    <%
-                                    } else{
-                                    %>
-                                    <li class="page-item"><a class="page-link" href="entradas.jsp?value=<%=i+1%>" onclick="handleClick(this)"><%=i+1%></a></li>
-                                    <%
-                                        }
-                                    %>
-                                    <%
-                                        }
-                                    %>
-                                    <li class="page-item">
-                                        <a class="page-link" id="siguientePaginador" href="entradas.jsp?value=<%=paginadorSolicitadoInt+1%>"  >Siguiente</a>
-                                    </li>
-
-                                </ul>
-                            </nav>
-
-
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
-                            </button>
+
                         </div>
                     </div>
+
 
                 </div>
             </div>
@@ -397,32 +409,28 @@
 
 
 <!--formulario de registro (add)-->
-    <div class="popup-containerIn" id="popup-container">
+<div class="popup-containerIn" id="popup-container">
     <div class="popup-header">
-        <h2>Registro de Entradas</h2>
+        <h2>Registro de Salidas</h2>
         <button  class="close-btn" id="close">✖</button>
     </div>
-    <form action="registroEntradas" method="post">
+    <form action="registroSalidas" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
-        <div class="contenedorInputs3">
+        <div class="contenedorInputsOut">
             <div class="izquierda3">
-
-                <!--<div class="form-group">
-                     <label for="folio-E">Folio:</label>
-                    <input type="text" id="folio-E" name="folio-E" required>
-                    <input type="hidden" id="folio-E" name="folio-E" required oninput="updateTable(contadorFilas,folio_EG)" readonly>
-
-                </div>-->
-                <input type="hidden" id="folio-E" name="folio-E" required oninput="updateTable(contadorFilas, folio_EG)" readonly style="z-index: -5;">
                 <div class="form-group">
-                    <label for="nombreCompleto">Nombre del proveedor: </label>
-                    <select id="nombreCompleto" name="nombreCompleto" required oninput="updateTable(contadorFilas,folio_EG)">
+                    <label for="folio_S">Folio:</label>
+                    <input type="text" id="folio_S" name="folio_S" oninput="updateTable(contadorFilas,folio_EG)">
+                </div>
+                <div class="form-group">
+                    <label for="empleado_R">Empleado que recibe:</label>
+                    <select id="empleado_R" name="receiver-name" oninput="updateTable(contadorFilas,folio_EG)">
 
                         <%
-                            if (proveedores != null) {
-                                for (Proveedores usuario : proveedores) {
+                            if (userDao != null) {
+                                for (Usuario usuario : userDao) {
                         %>
-                        <option value="<%= usuario.getRFC()%>"><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
+                        <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
                         <%
                             }
                         }else {
@@ -433,36 +441,82 @@
                         %>
 
                     </select>
-
                 </div>
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="nombreCompletoAlmacenista">Nombre del almacenista : </label>
-                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required oninput="updateTable(contadorFilas,folio_EG)">
+                    <label for="fecha">Fecha de Salida:</label>
+                    <input type="date" id="fecha" name="fecha" oninput="updateTable(contadorFilas,folio_EG)">
+                </div>
+                <div class="form-group">
+                    <label for="claveProducto"> Producto:</label>
+                    <select  id="claveProducto" name="claveProducto" oninput="updateTable(contadorFilas,folio_EG)">
+                        <%
+                            if (Productos != null) {
+                                for (Productos Producto: Productos) {
+                        %>
+                        <option value="<%= Producto.getClaveProducto() %>" data-unidad="<%= Producto.getUnidadMedida() %>" ><%= Producto.getNombreProducto()%></option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="">No hay claves disponibles</option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </div>
 
-                            <%
-                                if (userDao != null) {
-                                    for (Usuario usuario : userDao) {
-                            %>
-                            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
-                            <%
-                                }
-                            }else {
-                            %>
-                            <option value="">No hay usuarios disponibles</option>
-                            <%
-                                }
-                            %>
-                        </select>
-                    </div>
+            </div>
+            <div class="derecha3">
+                <!--<button id="close" class="close-btn" >✖</button>-->
+                <div class="form-group">
+                    <label for="empleado_E">Empleado que envía:</label>
+                    <select id="empleado_E" name="empleado_S" oninput="updateTable(contadorFilas,folio_EG)">
+
+                        <%
+                            if (userDao != null) {
+                                for (Usuario usuario : userDao) {
+                        %>
+                        <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                        <%
+                            }
+                        }else {
+                        %>
+                        <option value="">No hay usuarios disponibles</option>
+                        <%
+                            }
+                        %>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="area">Área:</label>
+                    <select id="area" name="area">
+                        <%
+                            if (Areas != null) {
+                                for (Areas areas: Areas) {
+                        %>
+                        <option value="<%= areas.getClaveArea()%>"><%= areas.getNombreArea()%></option>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <option value="">No hay areas disponibles</option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_S">Cantidad:</label>
+                    <input type="number" id="cantidad_S" name="cantidad_S" oninput="updateTable(contadorFilas,folio_EG)">
                 </div>
                 <div class="form-group">
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             function updateUnitMeasure() {
-                                var selectedOption = document.getElementById('product').options[document.getElementById('product').selectedIndex];
+                                var selectedOption = document.getElementById('claveProducto').options[document.getElementById('claveProducto').selectedIndex];
                                 var unidadMedida = selectedOption.getAttribute('data-unidad');
-                                document.getElementById('unit').value = unidadMedida;
+                                document.getElementById('unidadMedida').value = unidadMedida;
                             }
 
                             // Ejecutar la función al cargar la página
@@ -472,86 +526,38 @@
                             document.getElementById('product').addEventListener('change', updateUnitMeasure);
                         });
                     </script>
-                    <label for="unit">Unidad de medida:</label>
-                    <input id="unit" value="" name="unit" readonly oninput="updateTable(contadorFilas,folio_EG)" >
-                </div>
-
-                <div class="form-group">
-                    <label for="unit-price">Precio Unitario :</label>
-                    <input type="number" id="unit-price" name="unit-price" required oninput="updateTable(contadorFilas,folio_EG)">
-                </div>
-
-            </div>
-            <div class="derecha3">
-                <!--<button id="close" class="close-btn" >✖</button>-->
-                <div class="form-group">
-                    <label for="billing-number">Número de facturación:</label>
-                    <input type="text" id="billing-number" name="billing-number"  required oninput="updateTable(contadorFilas,folio_EG)">
+                    <label for="unidadMedida">Unidad de Medida:</label>
+                    <input id="unidadMedida" name="unidadMedida" oninput="updateTable(contadorFilas,folio_EG)" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="entry-date">Fecha de entrada:</label>
-                    <input type="date" id="entry-date" name="entry-date" required oninput="updateTable(contadorFilas,folio_EG)">
+                    <label for="cantidad_S">Precio Unitario:</label>
+                    <input type="number" id="precioU" name="precioU" oninput="updateTable(contadorFilas,folio_EG)">
                 </div>
-
-                <div class="form-group" id="agregar-producto-desde-Entrada">
-                    <label for="product">Producto:</label>
-                    <select id="product" name="product" required oninput="updateTable(contadorFilas,folio_EG)" >
-                        <%
-                            if (productos != null) {
-                                for (Productos producto : productos) {
-                        %>
-                        <option value="<%= producto.getClaveProducto() %>" data-unidad="<%= producto.getUnidadMedida() %>" ><%= producto.getNombreProducto() %></option>
-                        <%
-                            }
-                        } else {
-                        %>
-                        <option value="">No existen productos</option>
-                        <%
-                            }
-                        %>
-                    </select>
-                    <img id="add_desdeEntrada_btn" src="img/add-removebg-preview.png" width="50px">
-                </div>
-
-                <div class="form-group">
-                    <label for="quantity">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity" required oninput="updateTable(contadorFilas,folio_EG)">
-                </div>
-
-                <!--
-                <div class="form-group">
-                     <label for="total-price">Precio total de productos:</label>
-                    <input type="hidden" id="total-price" name="total-price" value="10.00" required oninput="updateTable(contadorFilas,folio_EG)" style="z-index: -5;">
-                </div>
-                -->
-                <input type="hidden" id="total-price" name="total-price" value="10.00" required oninput="updateTable(contadorFilas,folio_EG)" style="z-index: -5;">
 
             </div>
         </div>
-        <!--<button id="btn-enviarr" type="submit" class="btn-to-actions">Agregar</button>-->
-        <!-- <a id="add-desdeEntrada" class="btn-to-actions" href="entradas.jsp"><img src="img/add-removebg-preview.png"width="80px"></a> -->
         <span id="add-entradaa"><img src="img/add-removebg-preview.png"width="80px"></span>
-        <!-- <a id="btn-backl" href="regEntrada?data=" class="btn-to-actions">Registrar Entrada</a> -->
+        <!--<button type="submit">Agregar</button>-->
+        <!--<a href="salidas.jsp">Registrar Salida</a>-->
         <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Entrada</a>
-
     </form>
-
 </div>
+
 <div class="previewEntradas" id="previewEntradas">
 
     <table class="table">
         <thead>
         <tr>
             <th>Folio</th>
-            <th>Nombre Proveedor</th>
-            <th class="todisable2">Nombre Almacenista</th>
-            <th class="todisable">Unidad de medida</th>
-            <th class="todisable">Precio Unitario</th>
-            <th class="todisable2">Numero facturacion</th>
-            <th class="todisable">Fecha de Entrada</th>
-            <th >Producto</th>
+            <th>Empleado (Recibe)</th>
+            <th class="todisable2">Empleado (Envía)</th>
+            <th class="todisable">Fecha</th>
+            <th class="todisable"> Producto</th>
+            <th class="todisable2">Área</th>
             <th class="todisable">Cantidad</th>
-            <th>Total</th>
+            <th >Unidad Medida</th>
+            <th class="todisable">Precio U.</th>
+            <!--<th>Total</th>-->
         </tr>
         </thead>
         <tbody id="tbody-table-preview">
@@ -601,20 +607,20 @@
         -->
     </table>
 </div>
+
 <script>
+
     let folio_EG = null;
 
     function generarCodigo() {
         const numerosAleatorios = Math.floor(1000 + Math.random() * 9000);
         //let uno = 1;
-        return `E-2024-`+numerosAleatorios;
+        return `S-2024-`+numerosAleatorios;
     }
-
 
     let contadorFilas = 0;
     let contador = 1;
-    const add_entradas = document.getElementById("add-entradaa");
-    const previewEmtradas = document.getElementById("previewEntradas")
+    const add_entradas = document.getElementById("add-entradaa");//-----------------------------------------------------------------------------------------------------------------------------------------
     const elemento = document.getElementById("item-responsive");
     const desboardItems = document.getElementById("dashboard-items-responsive");
     const accioness = document.getElementById("setting-items-responsive");
@@ -623,6 +629,7 @@
     const reportess = document.getElementById("profile-items-responsive");
     const hamburguesa = document.getElementById("hbsb");
     const menu = document.getElementById("sidebar-accordion-responsive");
+
     let registro = [];
     let conjuntoRegistros = [];
 
@@ -633,29 +640,45 @@
             folio_EG = generarCodigo();
         }
         contadorGenerarCodigoNone++;
+        console.log("codigo generado: "+folio_EG);
 
         // console.log("Codigo generado en la compu "+folio_E);
         console.log("si hace click añadir entrada");
         if(document.getElementById("previewEntradas").style.display === "block"){
 
-            let folio_E = document.getElementById("folio-E").value = folio_EG;
-            const proveedorId = document.getElementById('nombreCompleto').value;
-            const inputP = document.getElementById('nombreCompleto');
-            const proveedor = inputP.options[inputP.selectedIndex].text;
-            const almacenistaId = document.getElementById("nombreCompletoAlmacenista").value;
+            let folio_S = document.getElementById("folio_S").value = folio_EG;
+            const EmpleadoR = document.getElementById("empleado_R").value;
+            const EmpleadoE = document.getElementById("empleado_E").value;
+            //const proveedorId = document.getElementById('nombreCompleto').value;
+            //const inputP = document.getElementById('nombreCompleto');
+            //const proveedor = inputP.options[inputP.selectedIndex].text;
+            const fecha = document.getElementById("fecha").value;
+            const inputPr = document.getElementById('claveProducto');
+            const productoId = document.getElementById('claveProducto').value;
+            const Producto = inputPr.options[inputPr.selectedIndex].text;
+            const areaIn = document.getElementById("area");
+            const areaId = document.getElementById("area").value;
+            const area = areaIn.options[areaIn.selectedIndex].text;
+            const cantidad = document.getElementById("cantidad_S").value;
+            const umIn = document.getElementById("unidadMedida");
+            const umId = document.getElementById("unidadMedida").value;
+            /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+            const unidadMedida = document.getElementById("unidadMedida").value;
+            const precioU = document.getElementById("precioU").value;
+            /*
             const inputA = document.getElementById("nombreCompletoAlmacenista");
             const almacenista = inputA.options[inputA.selectedIndex].text;
             const unidadMedidaId =  document.getElementById("unit").value;
-            const unidadMedida =  document.getElementById("unit").value;
-            /*const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
+            const inputUM =  document.getElementById("unit");
+            //const unidadMedida = inputUM.options[inputUM.selectedIndex].text;
             const precioUnitario = document.getElementById("unit-price").value;
             const numeroFaturacion = document.getElementById("billing-number").value;
-            const fecha = document.getElementById("entry-date").value;
+
             const productoId = document.getElementById('product').value;
-            const inputPr = document.getElementById('product');
-            const Producto = inputPr.options[inputPr.selectedIndex].text;
-            const cantidad = document.getElementById("quantity").value;
+
+
             const total = document.getElementById("total-price").value;
+            */
             console.log()
             const input = [
                 document.getElementById("folio-E"),
@@ -671,36 +694,41 @@
             ]
 
             const valoresInput = [
-                folio_E,
-                proveedor,
-                almacenista,
-                unidadMedida,
-                precioUnitario,
-                numeroFaturacion,
+                folio_S,
+                EmpleadoR,
+                EmpleadoE,
                 fecha,
                 Producto,
+                area,
                 cantidad,
-                total
+                unidadMedida,
+                precioU
             ]
             let totaLRegistro = 0;
             const valoresInputParaBD = [
-                folio_E,
-                proveedorId,
-                almacenistaId,
-                unidadMedidaId,
-                precioUnitario,
-                numeroFaturacion,
+                folio_S,
+                EmpleadoR,
+                EmpleadoE,
                 fecha,
                 productoId,
-                cantidad,
-                (precioUnitario * cantidad)
+                umId,
+                precioU,
+                areaId,
+                cantidad /*talves debas agregar un espacio blanco ""*/
             ]
 
+            console.log("------------------------------------------------------------------------------------------------")
+            console.log("ECHALEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+            valoresInputParaBD.forEach(col =>{
+                console.log(col)
+            })
             let stop = false;
             stop = valoresInput.some(val => {
+
                 //console.log("El valor del valor es: "+val)
                 if(val == null || val === '' || val === ""){
                     // alert("DEBES TERMINAR DE RESGISTRAR ESTA ENTRADA")
+
                     $('#customAlertModal2').modal('show');
                     return true; // Detiene la iteración cuando se cumple la condición
                 }
@@ -713,7 +741,7 @@
                 const tbody = document.getElementById("tbody-table-preview");
                 let tr = document.createElement("tr");
                 console.log("Ya debieron emezar a crearce mas de 10");
-                for(let i = (contadorFilas * 10); i<(contadorFilas*10+10);i++){
+                for(let i = (contadorFilas * 9); i<(contadorFilas*9+9);i++){
                     const td = document.createElement("td");
                     td.id = "col" + (i + 1);
                     tr.appendChild(td);
@@ -737,7 +765,7 @@
             document.getElementById("previewEntradas").style.display = "block";
             const tbody = document.getElementById("tbody-table-preview");
             let tr = document.createElement("tr");
-            for(let i = 0; i<10;i++){
+            for(let i = 0; i<9;i++){
                 const td = document.createElement("td");
                 td.id = "col" + (i + 1);
                 if(((i+1)>=4 && (i+1)<= 5) || (i+1) == 7 || (i+1) ==9){
@@ -759,46 +787,56 @@
         }
 
         //return folio_EG;
+        console.log("FOLIO ANTES DE ENVIARLO A UPDATE TABLE "+folio_EG)
         updateTable(contadorFilas,folio_EG);
     })
     function updateTable(cont,folio) {
+        console.log("-------------------------------------------------------------------------------------------------------------------")
+        console.log("SI HACE CLICK A SALIDAS UPDATE TABLE")
+        console.log("-------------------------------------------------------------------------------------------------------------------")
         console.log("LO QUE CUANTA LOS REGISTROS ES"+cont);
+        console.log("Folio recibido: "+folio)
         let columns = [];
         //let contadorr = 1;
         let datoImprimir;
         /*data*/
-        let folio_E = folio /*document.getElementById("folio-E").value;*/
-        document.getElementById("folio-E").value = folio_E;
-        const inputP = document.getElementById('nombreCompleto');
-        const proveedor = inputP.options[inputP.selectedIndex].text;
-        const inputA = document.getElementById("nombreCompletoAlmacenista");
-        const almacenista = inputA.options[inputA.selectedIndex].text;
-        /*const inputUM =  document.getElementById("unit");
-        const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
-        const unidadMedida = document.getElementById("unit").value;
-        const precioUnitario = document.getElementById("unit-price").value;
-        const numeroFaturacion = document.getElementById("billing-number").value;
-        const fecha = document.getElementById("entry-date").value;
-
-        const inputPr = document.getElementById('product');
+        let folio_S = document.getElementById("folio_S").value = folio_EG;
+        const EmpleadoR = document.getElementById("empleado_R").value;
+        const EmpleadoRR = document.getElementById("empleado_R");
+        const EmpleadoRTexto = EmpleadoRR.options[EmpleadoRR.selectedIndex].text;
+        const EmpleadoE = document.getElementById("empleado_E").value;
+        const EmpleadoEE = document.getElementById("empleado_E");
+        const EmpleadoETexto = EmpleadoEE.options[EmpleadoEE.selectedIndex].text;
+        //const proveedorId = document.getElementById('nombreCompleto').value;
+        //const inputP = document.getElementById('nombreCompleto');
+        //const proveedor = inputP.options[inputP.selectedIndex].text;
+        const fecha = document.getElementById("fecha").value;
+        const inputPr = document.getElementById('claveProducto');
+        const productoId = document.getElementById('claveProducto').value;
         const Producto = inputPr.options[inputPr.selectedIndex].text;
-        const cantidad = document.getElementById("quantity").value;
-        const total = document.getElementById("total-price").value;
-
+        const areaIn = document.getElementById("area");
+        const areaId = document.getElementById("area").value;
+        const area = areaIn.options[areaIn.selectedIndex].text;
+        const cantidad = document.getElementById("cantidad_S").value;
+        const umIn = document.getElementById("unidadMedida");
+        const umId = document.getElementById("unidadMedida");
+        /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+        const unidadMedida = document.getElementById("unidadMedida").value;
+        const precioU = document.getElementById("precioU").value;
 
         if(cont > 0){
             //console.log("YA SE ANDA CON LOS DE 11-20");
             console.log("colums antes de limpiar: "+columns);
             columns = [];
             console.log("colums despues de limpiar: "+columns)
-            for (let i = 1; i <= 10; i++) {
-                console.log("col" + (contador * 10 + i))
-                columns.push(document.getElementById("col" + (cont * 10 + i)));
+            for (let i = 1; i <= 9; i++) {
+                console.log("col" + (contador * 9 + i))
+                columns.push(document.getElementById("col" + (cont * 9 + i)));
             }
             console.log("columns ahora: "+columns)
         }else{
             //console.log("ANDAN CON LOS DE 1-10");
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 9; i++) {
                 columns.push(document.getElementById("col"  + i));
             }
         }
@@ -806,48 +844,45 @@
         columns.forEach(column => {
             switch (column.id) {
                 case columns[0].id:
-                    datoImprimir =folio_E;
+                    datoImprimir =folio_S;
                     //console.log("col1: "+datoImprimir)
                     break;
                 case columns[1].id:
-                    datoImprimir =proveedor;
+                    datoImprimir = EmpleadoRTexto;
                     // console.log("col2: "+datoImprimir)
                     break;
                 case columns[2].id:
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
-                    datoImprimir =almacenista;
+                    datoImprimir = EmpleadoETexto;
                     //console.log("col2: "+datoImprimir)
                     break;
                 case columns[3].id:
-                    datoImprimir =unidadMedida;
-                    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
-                    break;
-                case columns[4].id:
-                    datoImprimir = precioUnitario;
-                    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
-                    break;
-                case columns[5].id:
-                    datoImprimir = numeroFaturacion;
-                    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
-                    break;
-                case columns[6].id:
                     datoImprimir = fecha;
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
                     break;
-                case columns[7].id:
+                case columns[4].id:
                     datoImprimir = Producto;
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
                     break;
-                case columns[8].id:
+                case columns[5].id:
+                    datoImprimir = area;
+                    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
+                    break;
+                case columns[6].id:
                     datoImprimir = cantidad;
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
                     break;
-                case columns[9].id:
-                    datoImprimir = cantidad*precioUnitario;
-                    console.log("Cantidad:"+cantidad);
-                    console.log("Precio: "+precioUnitario)
-                    console.log("Total: "+datoImprimir);
+                case columns[7].id:
+                    datoImprimir = unidadMedida;
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
+                    break;
+                case columns[8].id:
+                    datoImprimir = precioU;
+                    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
+                    break;
+                case columns[9].id:
+                    datoImprimir = "";
+
                     break;
                 default:
                     console.log("Nadie recibio pibito");
@@ -857,16 +892,6 @@
         });
         //console.log("EL CONTADOR DE UPDATE TABLE: "+contadorr)
         //contadorr++;
-    }
-
-    function hacerFila(){
-        let tr = document.createElement("tr");
-        for(let i = 0; i<10;i++){
-            const td = document.createElement("td");
-            td.id = "col" + (i + 1);
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
     }
 
 
@@ -927,7 +952,6 @@
         }
     })
     document.getElementById("close").addEventListener("click",function (){
-        document.getElementById("previewEntradas").style.display = "none";
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
         //pop.style.display = "none";
@@ -944,45 +968,46 @@
     })
 
     function noScroll() {
-        //window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }
 </script>
 
-<form id="form-reg-entrada" action="regEntrada" method="POST">
+<form id="form-reg-entrada" action="regSalidas" method="POST">
     <input type="hidden" name="data" id="data">
 </form>
+
 <script>
     function checarDataLista(){
-        let folio_E = document.getElementById("folio-E").value;
-        const proveedorId = document.getElementById('nombreCompleto').value;
-        const inputP = document.getElementById('nombreCompleto');
-        const proveedor = inputP.options[inputP.selectedIndex].text;
-        const almacenistaId = document.getElementById("nombreCompletoAlmacenista").value;
-        const inputA = document.getElementById("nombreCompletoAlmacenista");
-        const almacenista = inputA.options[inputA.selectedIndex].text;
-        const unidadMedidaId =  document.getElementById("unit").value;
-        const unidadMedida =  document.getElementById("unit").value;
-        /*const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
-        const precioUnitario = document.getElementById("unit-price").value;
-        const numeroFaturacion = document.getElementById("billing-number").value;
-        const fecha = document.getElementById("entry-date").value;
-        const productoId = document.getElementById('product').value;
-        const inputPr = document.getElementById('product');
+        let folio_S = document.getElementById("folio_S").value = folio_EG;
+        const EmpleadoR = document.getElementById("empleado_R").value;
+        const EmpleadoE = document.getElementById("empleado_E").value;
+        //const proveedorId = document.getElementById('nombreCompleto').value;
+        //const inputP = document.getElementById('nombreCompleto');
+        //const proveedor = inputP.options[inputP.selectedIndex].text;
+        const fecha = document.getElementById("fecha").value;
+        const inputPr = document.getElementById('claveProducto');
+        const productoId = document.getElementById('claveProducto').value;
         const Producto = inputPr.options[inputPr.selectedIndex].text;
-        const cantidad = document.getElementById("quantity").value;
-        const total = document.getElementById("total-price").value;
+        const areaIn = document.getElementById("area");
+        const areaId = document.getElementById("area").value;
+        const area = areaIn.options[areaIn.selectedIndex].text;
+        const cantidad = document.getElementById("cantidad_S").value;
+        const umIn = document.getElementById("unidadMedida");
+        const umId = document.getElementById("unidadMedida");
+        /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+        const unidadMedida = document.getElementById("unidadMedida");
+        const precioU = document.getElementById("precioU");
 
         const valoresInput = [
-            folio_E,
-            proveedor,
-            almacenista,
-            unidadMedida,
-            precioUnitario,
-            numeroFaturacion,
+            folio_S,
+            EmpleadoR,
+            EmpleadoE,
             fecha,
             Producto,
+            area,
             cantidad,
-            total
+            unidadMedida,
+            precioU
         ];
 
         let stop = false;
@@ -1012,8 +1037,8 @@
 
             console.log("DATOS FICTICIOS")
             for(let i = 0; i<arrayOfArrays.length;i++){
-                for (j=0;j<2;j++){
-                    console.log("Registro "+i+" Dato "+j);
+                for (j=0;j<9;j++){
+                    console.log("Registro "+i+" Dato "+arrayOfArrays[i][j]);
                 }
             }
 
@@ -1027,62 +1052,6 @@
 
     }
 </script>
-
-<div id="contenedorFormProductoEntradas">
-    <div id="capa-obscurecer-agregar-desdeEntradas"></div>
-    <div id="formulario-registro-entradas-producto">
-        <div class="popup-header">
-            <h2>Registro de Productos</h2>
-            <button  class="close-btn" id="closeE">✖</button>
-        </div>
-        <form method="post" action="registroProducto">
-            <!-- <button id="close" class="close-btn" >✖</button> -->
-            <div class="contenedorInputs">
-                <div class="izquierda">
-                    <div class="form-group">
-                        <label for="rfc">Clave</label>
-                        <input type="text" id="rfc" name="clave" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre1">Nombre Producto:</label>
-                        <input type="text" id="nombre1" name="nombre" required>
-                    </div>
-
-                </div>
-                <div class="derecha">
-                    <!--<button id="close" class="close-btn" >✖</button>-->
-                    <div class="form-group">
-                        <label for="nombre2A">Descripción:</label>
-                        <input type="text" id="nombre2A" name="descipcion" placeholder="Opcional" required>
-                    </div>
-
-                </div>
-            </div>
-            <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
-        </form>
-    </div>
-    <script>
-        const cerrarFormularioDesdeEntradas = document.getElementById("closeE");
-        const contenedorFormProductoEntradas = document.getElementById("contenedorFormProductoEntradas"); //1
-        const capa_obscurecer_agregar_desdeEntradas = document.getElementById("capa-obscurecer-agregar-desdeEntradas");//2
-        const formulario_registro_entradas_producto = document.getElementById("formulario-registro-entradas-producto");//3
-        const abrirFormularioProductoDesdeEntradas = document.getElementById("agregar-producto-desde-Entrada");
-        /*
-                abrirFormularioProductoDesdeEntradas.addEventListener("click",function (){
-                    contenedorFormProductoEntradas.style.display = "block";
-                    formulario_registro_entradas_producto.style.display = "block";
-                })
-
-                cerrarFormularioDesdeEntradas.addEventListener("click",function (){
-                    contenedorFormProductoEntradas.style.display = "none";
-                    formulario_registro_entradas_producto.style.display = "none";
-                })
-                */
-    </script>
-
-</div>
-
-
 
 <div class="modal fade" id="customAlertModal" tabindex="-1" role="dialog" aria-labelledby="customAlertModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -1129,9 +1098,6 @@
 </div>
 
 
-
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 </script>
@@ -1140,7 +1106,6 @@
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -1,6 +1,7 @@
 package mx.edu.utez.saditarea.dao;
 
 import mx.edu.utez.saditarea.modelo.Productos;
+import mx.edu.utez.saditarea.modelo.inventario;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.*;
@@ -124,5 +125,30 @@ public class ProductosDao {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    public List<inventario> inventario() {
+        List<inventario> productosList = new ArrayList<>();
+        String query = "SELECT * FROM inventario";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String claveProducto = rs.getString("claveProducto");
+                String nombreProducto = rs.getString("nombreProducto");
+                String descripcionProducto = rs.getString("descripcionProducto");
+                Double precioUnitario = rs.getDouble("precioUnitario");
+                int cantidad = rs.getInt("cantidad");
+                String unidadMedida = rs.getString("fk_unidadMedidaP");
+                inventario inventarioo = new inventario(claveProducto, nombreProducto, descripcionProducto, precioUnitario,cantidad,unidadMedida); // Aquí el estado es 1 por defecto
+                productosList.add(inventarioo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
     }
 }

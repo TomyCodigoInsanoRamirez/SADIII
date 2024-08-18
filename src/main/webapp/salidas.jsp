@@ -302,33 +302,34 @@
                   <th class="todisable2">Folio</th>
                   <th>Almacenista (Recibió)</th>
                   <th  class="todisable">Almacenista (Envío)</th>  <!--style="padding-left: 65px;" -->
-                  <th >Acciones</th> <!--style="padding-left: 45px;"-->
+                  <th>Fecha</th>
+                  <th> Área</th>
                   <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
                     <i class="bi bi-plus-circle-fill custom-color"></i>
                   </button></th>
-                  <th></th>
-                  <th></th>
                 </tr>
                 </thead>
                 <tbody id="tabla-body">
                 <%
                   SalidasDao daoE = new SalidasDao();
                   //List<Salidas> lista = daoE.getAll();
-                  List<Salidas>  lista = new ArrayList<>();
+                  List<registro_salida>  lista = new ArrayList<>();
                   if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
                     String desde = request.getParameter("desde");
                     String hasta = request.getParameter("hasta");
-                    lista = daoE.reporteFechasS(desde,hasta) ;
+                    /*lista = daoE.reporteFechasS(desde,hasta) ;*/
                   }else{
                     lista = daoE.getAll() ;
                   }
 
-                  for(Salidas u : lista){ %>
+                  for(registro_salida u : lista){ %>
                 <!---Se va a repetir --->
                 <tr>
-                  <td class="todisable2"><%=u.getFolio()%></td>
-                  <td><%=u.getEmpleado_S()%></td>
-                  <td class="todisable"><%=u.getEmpleado_E()%></td>
+                  <td class="todisable2"><%=u.getFolio_salida()%></td>
+                  <td><%=u.getFk_almacenistaE()%></td>
+                  <td class="todisable"><%=u.getFk_almacenistaR()%></td>
+                  <td><%=u.getFecha_entrada()%></td>
+                  <td><%=u.getArea()%></td>
                   <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
                   <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
 
@@ -448,7 +449,7 @@
               if (Productos != null) {
                 for (Productos Producto: Productos) {
             %>
-            <option value="<%= Producto.getClaveProducto() %>"><%= Producto.getNombreProducto()%></option>
+            <option value="<%= Producto.getClaveProducto() %>" data-unidad="<%= Producto.getUnidadMedida() %>" ><%= Producto.getNombreProducto()%></option>
             <%
               }
             } else {
@@ -506,23 +507,23 @@
           <input type="number" id="cantidad_S" name="cantidad_S" oninput="updateTable(contadorFilas,folio_EG)">
         </div>
         <div class="form-group">
-          <label for="unidadMedida">Unidad de Medida:</label>
-          <select id="unidadMedida" name="unidadMedida" oninput="updateTable(contadorFilas,folio_EG)">
-            <%
-              if (unidadMedida != null) {
-                for (UnidadMedida unidadM : unidadMedida) {
-            %>
-            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
-            <%
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              function updateUnitMeasure() {
+                var selectedOption = document.getElementById('claveProducto').options[document.getElementById('claveProducto').selectedIndex];
+                var unidadMedida = selectedOption.getAttribute('data-unidad');
+                document.getElementById('unidadMedida').value = unidadMedida;
               }
-            } else {
-            %>
-            <option value="">No hay unidades de medida disponibles</option>
-            <%
-              }
-            %>
 
-          </select>
+              // Ejecutar la función al cargar la página
+              updateUnitMeasure();
+
+              // Y también cuando se cambie el select
+              document.getElementById('product').addEventListener('change', updateUnitMeasure);
+            });
+          </script>
+          <label for="unidadMedida">Unidad de Medida:</label>
+          <input id="unidadMedida" name="unidadMedida" oninput="updateTable(contadorFilas,folio_EG)" readonly>
         </div>
         <div class="form-group">
           <label for="cantidad_S">Precio Unitario:</label>
@@ -657,7 +658,8 @@
       const cantidad = document.getElementById("cantidad_S").value;
       const umIn = document.getElementById("unidadMedida");
       const umId = document.getElementById("unidadMedida").value;
-      const unidadMedida = umIn.options[umIn.selectedIndex].text;
+      /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+      const unidadMedida = document.getElementById("unidadMedida").value;
       const precioU = document.getElementById("precioU").value;
       /*
       const inputA = document.getElementById("nombreCompletoAlmacenista");
@@ -814,7 +816,8 @@
     const cantidad = document.getElementById("cantidad_S").value;
     const umIn = document.getElementById("unidadMedida");
     const umId = document.getElementById("unidadMedida");
-    const unidadMedida = umIn.options[umIn.selectedIndex].text;
+    /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+    const unidadMedida = document.getElementById("unidadMedida").value;
     const precioU = document.getElementById("precioU").value;
 
     if(cont > 0){
@@ -987,7 +990,8 @@
     const cantidad = document.getElementById("cantidad_S").value;
     const umIn = document.getElementById("unidadMedida");
     const umId = document.getElementById("unidadMedida");
-    const unidadMedida = umIn.options[umIn.selectedIndex].text;
+    /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
+    const unidadMedida = document.getElementById("unidadMedida");
     const precioU = document.getElementById("precioU");
 
     const valoresInput = [
