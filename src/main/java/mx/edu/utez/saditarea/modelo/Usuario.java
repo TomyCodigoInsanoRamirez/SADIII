@@ -4,7 +4,7 @@ public class Usuario {
 
     private String idUsuario; // Añadir campo idUsuario
 
-    private String id;
+    private int id;
 
     private String correo;
     private String nombre1_U;
@@ -20,8 +20,8 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String idUsuario, String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, int estado, String codigo) {
-        this.idUsuario = idUsuario;
+    public Usuario( String correo, String nombre1_U, String apellido1_U, String nombre2_U, String apellido2_U, String telefono, String contrasena, int estado, String codigo) {
+        /*this.idUsuario = idUsuario;*/
         this.correo = correo;
         this.nombre1_U = nombre1_U;
         this.apellido1_U = apellido1_U;
@@ -33,13 +33,6 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public String getIdUsuario() { // Getter para idUsuario
-        return idUsuario;
-    }
-
-    public void setIdUsuario(String idUsuario) { // Setter para idUsuario
-        this.idUsuario = idUsuario;
-    }
 
     public String getCorreo() {
         return correo;
@@ -81,13 +74,6 @@ public class Usuario {
         this.apellido2_U = apellido2_U;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getRol() {
         return rol;
@@ -131,5 +117,13 @@ public class Usuario {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

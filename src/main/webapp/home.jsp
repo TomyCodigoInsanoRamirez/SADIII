@@ -185,7 +185,7 @@
     }
 %>
 
-<div id="capa-obscurecer">
+<div id="capa-obscurecer-home">
 
 </div>
 <div class="d-flex " >
@@ -296,7 +296,7 @@
                                 <a href="reporteDelDia.jsp"
                                    class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                     <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
-                                    Reporte del día
+                                    Invrentario
                                 </a>
                                 <%
                                     }else{
@@ -374,6 +374,7 @@
                                     </a>
                                     -->
                                     <div id="setting-items" class="collapse" data-parent="#sidebar-accordion">
+
                                         <div class="bg-coffee text-light text-center">Registro</div>
                                         <div class="d-flex flex-row text-center" >
                                             <a href="registrarEntrada.jsp"
@@ -387,7 +388,6 @@
                                                    aria-hidden="true"></i>
                                                 Salida
                                             </a>
-
                                         </div>
                                     </div>
                                     <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
@@ -411,7 +411,7 @@
                                         <a href="reporteDelDia.jsp"
                                            class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                             <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
-                                            Reporte del día
+                                            Inventario
                                         </a>
                                         <%
                                             }
@@ -440,7 +440,7 @@
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
-                                    <th class="todisable2">ID_Usuario</th>
+                                    <th class="todisable2">#</th>
                                     <th>Nombre</th>
                                     <th class="todisable">Correo</th>
                                     <th id="columnaAcciones">Acciones</th>
@@ -728,10 +728,6 @@
         <div class="contenedorInputs">
             <div class="izquierda">
                 <div class="form-group">
-                    <label for="rfc">Número de identificación</label>
-                    <input type="text" class="form-control" id="rfc" name="id" required pattern="[A-Z0-9\-]{3,15}" title="Debe contener entre 3 y 15 caracteres alfanuméricos en mayúsculas, incluyendo '-' si es necesario">
-                </div>
-                <div class="form-group">
                     <label for="nombre1">Nombre</label>
                     <input type="text" class="form-control" id="nombre1" name="nombre1" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
@@ -747,10 +743,7 @@
                     <label for="apellido2">Apellido Materno </label>
                     <input type="text" class="form-control" id="apellido2" name="apellido2" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
-                <div class="form-group">
-                    <label for="telefono">Número de teléfono </label>
-                    <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="[0-9]{10}" title="Debe contener 10 dígitos">
-                </div>
+
             </div>
             <div class="derecha">
                 <div class="form-group">
@@ -764,7 +757,10 @@
                         <option value="Almacenista">Almacenista</option>
                     </select>
                 </div>
-
+                <div class="form-group">
+                    <label for="telefono">Número de teléfono </label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="[0-9]{10}" title="Debe contener 10 dígitos">
+                </div>
             </div>
         </div>
         <div class="form-buttons" style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">

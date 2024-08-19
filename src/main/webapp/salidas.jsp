@@ -183,11 +183,17 @@
                     <i class="bi bi-collection-fill mr-3" aria-hidden="true" ></i>Catálogos
                   </a>
                   <div id="dashboard-items" class="collapse" data-parent="#sidebar-accordion">
+                    <%
+                      if(session.getAttribute("tipoSesion").equals("admin")){
+                    %>
                     <a href="home.jsp"
                        class="list-group-item list-group-item-action bg-coffe text-light pl-5 mb-1">
                       <i class="bi bi-people-fill mr-3" aria-hidden="true"></i>
                       Usuarios
                     </a>
+                    <%
+                      }
+                    %>
                     <a href="productos.jsp"
                        class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                       <i class="bi bi-basket2-fill mr-3" aria-hidden="true"></i>
@@ -246,6 +252,17 @@
                       <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
                       Salida
                     </a>
+                    <%
+                      if(session.getAttribute("tipoSesion").equals("admin")){
+                    %>
+                    <a href="reporteDelDia.jsp"
+                       class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                      <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                      Invrentario
+                    </a>
+                    <%
+                      }
+                    %>
                   </div>
                 </div>
               </div>

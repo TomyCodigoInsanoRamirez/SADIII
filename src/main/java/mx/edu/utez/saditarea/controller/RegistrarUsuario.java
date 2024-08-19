@@ -20,7 +20,7 @@ public class RegistrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Usuario usuario = new Usuario();
         UserDao dao = new UserDao();
-        String idUsuario = req.getParameter("id");
+        /*String idUsuario = req.getParameter("id");*/
         String nombre1 = req.getParameter("nombre1");
         String nombre2 = req.getParameter("nombre2");
         String apellido1 = req.getParameter("apellido1");
@@ -29,7 +29,11 @@ public class RegistrarUsuario extends HttpServlet {
         String telefono = req.getParameter("telefono");
         String rol = req.getParameter("rol");
 
-        usuario.setId(idUsuario);
+        if(nombre2 == null){
+            nombre2 = " ";
+        }
+
+        /*usuario.setId(idUsuario);*/
         usuario.setNombre1_U(nombre1);
         usuario.setNombre2_U(nombre2);
         usuario.setApellido1_U(apellido1);

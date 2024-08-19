@@ -40,7 +40,7 @@ public class ActualizarUsuarioServlet extends HttpServlet {
 
         UserDao dao = new UserDao();
         Usuario usuario = dao.getById(id);
-        usuario.setIdUsuario(id);
+        /*usuario.setId(id);*/
         usuario.setCorreo(correo);
         usuario.setNombre1_U(nombre1_U);
         usuario.setApellido1_U(apellido1_U);

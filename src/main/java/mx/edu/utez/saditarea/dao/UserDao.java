@@ -44,7 +44,7 @@ public class UserDao {
 
             if (rs.next()) {
                 usuario = new Usuario();
-                usuario.setId(String.valueOf(rs.getInt("idUsuario")));
+                usuario.setId(rs.getInt("idUsuario"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setNombre1_U(rs.getString("nombre1_U"));
                 usuario.setApellido1_U(rs.getString("apellido1_U"));
@@ -99,7 +99,7 @@ public class UserDao {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setId(rs.getString("id_empleado"));
+                u.setId(rs.getInt("id_Empleado"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));
@@ -128,7 +128,7 @@ public class UserDao {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setId(rs.getString("id_empleado"));
+                u.setId(rs.getInt("idUsuario"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));
@@ -158,7 +158,7 @@ public class UserDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 u = new Usuario();
-                u.setId(rs.getString("id_empleado"));
+                u.setId(rs.getInt("idUsuario"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));
@@ -192,7 +192,7 @@ public class UserDao {
             pst.setString(8,Integer.toString(usuario.getEstado()));
             pst.setString(9, usuario.getCodigo());
             pst.setString(10, usuario.getRol());
-            pst.setString(11, usuario.getId());
+            pst.setInt(11, usuario.getId());
             isUpdated = pst.executeUpdate() > 0;
             System.out.println("SE EJECUTO LA ACTUALIZACIÓN DE LOS DATOS");
         } catch (SQLException e) {
@@ -249,19 +249,18 @@ public class UserDao {
 
     public boolean insert(Usuario usuario){
         boolean flag = false;
-        String query = "insert into usuarios (id_empleado,correo,nombre1_U,nombre2_U,apellido1_U,apellido2_U,telefono_U,contrasena,rol,estado) values (?,?,?,?,?,?,?,?,?,1)";
+        String query = "insert into usuarios (correo,nombre1_U,nombre2_U,apellido1_U,apellido2_U,telefono_U,contrasena,rol,estado) values (?,?,?,?,?,?,?,?,1)";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, usuario.getId());
-            ps.setString(2,usuario.getCorreo());
-            ps.setString(3,usuario.getNombre1_U());
-            ps.setString(4,usuario.getNombre2_U());
-            ps.setString(5,usuario.getApellido1_U());
-            ps.setString(6,usuario.getApellido2_U());
-            ps.setString(7,usuario.getTelefono());
-            ps.setString(8,usuario.getCorreo());
-            ps.setString(9,usuario.getRol());
+            ps.setString(1,usuario.getCorreo());
+            ps.setString(2,usuario.getNombre1_U());
+            ps.setString(3,usuario.getNombre2_U());
+            ps.setString(4,usuario.getApellido1_U());
+            ps.setString(5,usuario.getApellido2_U());
+            ps.setString(6,usuario.getTelefono());
+            ps.setString(7,usuario.getCorreo());
+            ps.setString(8,usuario.getRol());
 
             if (ps.executeUpdate()>0){
                 System.out.println("Que si se hizo la modificacion o modificaciones");

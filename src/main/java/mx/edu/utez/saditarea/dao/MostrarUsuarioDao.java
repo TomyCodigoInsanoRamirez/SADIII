@@ -22,7 +22,7 @@ public class MostrarUsuarioDao {
 
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getString("idUsuario"));
+                usuario.setId(rs.getInt("idUsuario"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setNombre1_U(rs.getString("nombre1_U"));
 
