@@ -151,4 +151,22 @@ public class ProductosDao {
 
         return productosList;
     }
+
+    public double obtenerPrecio(String claveProducto) {
+        double precio = 0.0;
+        String query = "SELECT precioUnitario FROM detallesproductos WHERE fk_claveProducto = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, claveProducto);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    precio = rs.getDouble("precioUnitario");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return precio;
+    }
 }

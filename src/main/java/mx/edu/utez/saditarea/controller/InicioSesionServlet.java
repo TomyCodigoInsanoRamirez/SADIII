@@ -14,56 +14,6 @@ import mx.edu.utez.saditarea.modelo.Usuario;
 
 import java.io.IOException;
 
-//El parametro de value es la ruta para llega a este servlet, debe comenzar con una diagonal y la ruta que desees
-/*@WebServlet(name = "InicioSesionServlet",value = "/inicioSesion")
-public class InicioSesionServlet extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
-
-    }
-
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //El objeto contiene toda la información que viene del jsp
-        String user = req.getParameter("correo");
-        String contra = req.getParameter("contra"); //aqui cambie pass por contra
-        System.out.println(user);
-        System.out.println(contra);
-        String ruta = "index.jsp";
-        HttpSession sesion = req.getSession();
-        UserDao dao = new UserDao();
-        Usuario usuario = dao.getOne(user,contra);
-        //System.out.println(usuario.getCorreo());
-        //---------------------------------------------------------------------------
-        /*if (usuario.getCorreo() == null){
-            System.out.println("TODO BIEN ");
-            sesion.setAttribute("mensaje","El usuario no existe en la Base de datoa");
-        }else{
-            ruta = "bienvenido.jsp";
-            sesion.removeAttribute("mensaje");
-            sesion.setAttribute("usuario",usuario);
-            System.out.println("No");
-        }
-        resp.sendRedirect(ruta);*/
-    /*    if (usuario.getCorreo() == null) {
-            System.out.println("TODO BIEN ");
-            //sesion.setAttribute("mensaje", "El usuario no existe en la Base de datos");
-            ruta = "index.jsp?error=true";
-        } else {
-            sesion.setAttribute("tipoSesion", "admin");
-            ruta = "home.jsp";
-            sesion.removeAttribute("mensaje");
-            sesion.setAttribute("usuario", usuario);
-            System.out.println("No");
-        }
-        resp.sendRedirect(ruta);
-
-    }
-
-    @Override
-    public void destroy() {
-    }
-}*/
 @WebServlet(name = "InicioSesionServlet", value = "/inicioSesion")
 public class InicioSesionServlet extends HttpServlet {
     @Override
@@ -80,6 +30,7 @@ public class InicioSesionServlet extends HttpServlet {
         // Definimos la ruta por defecto
         String ruta = "index.jsp";
         HttpSession sesion = req.getSession();
+        HttpSession sessio2 = req.getSession();
         UserDao dao = new UserDao();
         Usuario usuario = dao.getOne(user, contra);
 
@@ -92,16 +43,17 @@ public class InicioSesionServlet extends HttpServlet {
             System.out.println("TODO BIEN ");
             ruta = "index.jsp?error=true";
         } else {
-            sesion.setAttribute("usuario", usuario);
+            sessio2.setAttribute("usuario", usuario);
             sesion.removeAttribute("mensaje");
-
+            Object puente = sessio2.getAttribute("usuario");
+            System.out.println("USUARIO INICIANDO SESION EN EL SERVLET: "+puente);
             // Verificamos el tipo de usuario y redirigimos a la página correspondiente
             if ("Administrador".equals(usuario.getRol())) {
                 sesion.setAttribute("tipoSesion", "admin");
                 ruta = "home.jsp";
             } else if ("Almacenista".equals(usuario.getRol())) {
                 sesion.setAttribute("tipoSesion", "almacenista");
-                ruta = "almacenistaHome.jsp";
+                ruta = "entradas.jsp";
             } else {
                 ruta = "index.jsp?error=true";
             }

@@ -22,7 +22,8 @@
 <%
     UserDao daoUser = new UserDao();
     List<Usuario> userDao= daoUser.getAll2();
-
+    Usuario usuarioSes = (Usuario) session.getAttribute("usuario");
+    System.out.println("USUARIOOOO DESDE EL SERVLET LOGIN: "+ usuarioSes.getNombre1_U() );
 %>
 <!DOCTYPE html>
 <html>
@@ -422,7 +423,7 @@
                             if (proveedores != null) {
                                 for (Proveedores usuario : proveedores) {
                         %>
-                        <option value="<%= usuario.getRFC()%>"><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
+                        <option value="<%= usuario.getRFC()%>" title="ID: <%= usuario.getRFC()%> - Nombre: <%= usuario.getNombre1_P()%>" ><%= usuario.getNombre1_P()%> <%= usuario.getNombre2_P()%> <%= usuario.getApellido1_P()%> <%= usuario.getApellido2_P()%></option>
                         <%
                             }
                         }else {
@@ -438,16 +439,18 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="nombreCompletoAlmacenista">Nombre del almacenista : </label>
-                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required oninput="updateTable(contadorFilas,folio_EG)">
+                        <!--<input id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" data-usuarioSesion="<%=usuarioSes.getId()%>" value="<%=usuarioSes.getId()%>" oninput="updateTable(contadorFilas,folio_EG)" readonly required >-->
 
+                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required oninput="updateTable(contadorFilas,folio_EG)">
                             <%
+                                System.out.println("NOMBRE USUARIO SESION: "+usuarioSes.getNombre1_U());
                                 if (userDao != null) {
                                     for (Usuario usuario : userDao) {
                             %>
-                            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+                            <option value="<%= usuario.getId()%>" title="ID: <%= usuario.getId()%> - Nombre: <%= usuario.getNombre1_U()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
                             <%
                                 }
-                            }else {
+                            } else {
                             %>
                             <option value="">No hay usuarios disponibles</option>
                             <%
@@ -461,8 +464,13 @@
                         document.addEventListener('DOMContentLoaded', function() {
                             function updateUnitMeasure() {
                                 var selectedOption = document.getElementById('product').options[document.getElementById('product').selectedIndex];
+                                var selectedOptionU = document.getElementById('nombreCompletoAlmacenista').options[document.getElementById('nombreCompletoAlmacenista').selectedIndex];
                                 var unidadMedida = selectedOption.getAttribute('data-unidad');
+                                let precio = selectedOption.getAttribute('data-precio');
+                                //let almacenistaSesion = selectedOptionU.getAttribute('data-usuarioSesion')
+
                                 document.getElementById('unit').value = unidadMedida;
+                                document.getElementById('unit-price').value = precio;
                             }
 
                             // Ejecutar la función al cargar la página
@@ -478,7 +486,7 @@
 
                 <div class="form-group">
                     <label for="unit-price">Precio Unitario :</label>
-                    <input type="number" id="unit-price" name="unit-price" required oninput="updateTable(contadorFilas,folio_EG)">
+                    <input type="number" id="unit-price" name="unit-price" required  oninput="updateTable(contadorFilas,folio_EG)">
                 </div>
 
             </div>
@@ -500,7 +508,7 @@
                             if (productos != null) {
                                 for (Productos producto : productos) {
                         %>
-                        <option value="<%= producto.getClaveProducto() %>" data-unidad="<%= producto.getUnidadMedida() %>" ><%= producto.getNombreProducto() %></option>
+                        <option value="<%= producto.getClaveProducto() %>" data-unidad="<%= producto.getUnidadMedida() %>" data-precio="<%= daoProducto.obtenerPrecio(producto.getClaveProducto())%>" title="Precio: <%= daoProducto.obtenerPrecio(producto.getClaveProducto())%> "><%= producto.getNombreProducto() %></option>
                         <%
                             }
                         } else {

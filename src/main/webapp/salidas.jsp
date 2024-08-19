@@ -10,6 +10,7 @@
 <%
   ProductosDao daoProductos = new ProductosDao();
   List<Productos> Productos= daoProductos.getAll();
+  Productos producto = new Productos();
 %>
 <%
   AreasDao daoArea = new AreasDao();
@@ -426,7 +427,7 @@
               if (userDao != null) {
                 for (Usuario usuario : userDao) {
             %>
-            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+            <option title="ID: <%= usuario.getId()%> - Nombre: <%= usuario.getNombre1_U()%>" value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
             <%
               }
             }else {
@@ -449,7 +450,7 @@
               if (Productos != null) {
                 for (Productos Producto: Productos) {
             %>
-            <option value="<%= Producto.getClaveProducto() %>" data-unidad="<%= Producto.getUnidadMedida() %>" ><%= Producto.getNombreProducto()%></option>
+            <option value="<%= Producto.getClaveProducto() %>" data-unidad="<%= Producto.getUnidadMedida() %>" data-precio="<%= daoProductos.obtenerPrecio(Producto.getClaveProducto())%>" title="Precio: <%= daoProductos.obtenerPrecio(Producto.getClaveProducto())%> "><%= Producto.getNombreProducto()%></option>
             <%
               }
             } else {
@@ -472,7 +473,7 @@
               if (userDao != null) {
                 for (Usuario usuario : userDao) {
             %>
-            <option value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
+            <option title="ID: <%= usuario.getId()%> - Nombre: <%= usuario.getNombre1_U()%>" value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
             <%
               }
             }else {
@@ -512,14 +513,16 @@
               function updateUnitMeasure() {
                 var selectedOption = document.getElementById('claveProducto').options[document.getElementById('claveProducto').selectedIndex];
                 var unidadMedida = selectedOption.getAttribute('data-unidad');
+                var precio = selectedOption.getAttribute('data-precio');
                 document.getElementById('unidadMedida').value = unidadMedida;
+                document.getElementById('precioU').value = precio;
               }
 
               // Ejecutar la función al cargar la página
               updateUnitMeasure();
 
               // Y también cuando se cambie el select
-              document.getElementById('product').addEventListener('change', updateUnitMeasure);
+              document.getElementById('claveProducto').addEventListener('change', updateUnitMeasure);
             });
           </script>
           <label for="unidadMedida">Unidad de Medida:</label>
@@ -527,7 +530,7 @@
         </div>
         <div class="form-group">
           <label for="cantidad_S">Precio Unitario:</label>
-          <input type="number" id="precioU" name="precioU" oninput="updateTable(contadorFilas,folio_EG)">
+          <input type="number" id="precioU" name="precioU" readonly oninput="updateTable(contadorFilas,folio_EG)">
         </div>
 
       </div>
