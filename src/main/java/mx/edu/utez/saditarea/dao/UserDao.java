@@ -32,19 +32,19 @@ public class UserDao {
     }
 */
 
-    public Usuario getUsuarioById(int idUsuario) {
+    public Usuario getUsuarioById(int id_empleado) {
         Usuario usuario = null;
-        String query = "SELECT idUsuario, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena FROM Usuarios WHERE idUsuario = ?";
+        String query = "SELECT id_empleado, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena FROM Usuarios WHERE idUsuario = ?";
 
         try (Connection conn = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setInt(1, idUsuario);
+            ps.setInt(1, id_empleado);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 usuario = new Usuario();
-                usuario.setId(rs.getInt("idUsuario"));
+                usuario.setId(rs.getInt("id_empleado"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setNombre1_U(rs.getString("nombre1_U"));
                 usuario.setApellido1_U(rs.getString("apellido1_U"));
@@ -128,7 +128,7 @@ public class UserDao {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setId(rs.getInt("idUsuario"));
+                u.setId(rs.getInt("id_empleado"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));
@@ -158,7 +158,7 @@ public class UserDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 u = new Usuario();
-                u.setId(rs.getInt("idUsuario"));
+                u.setId(rs.getInt("id_empleado"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));

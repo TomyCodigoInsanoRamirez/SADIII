@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SADITAREA:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/SADITAREA_war2</output-path>
+    <root id="archive" name="SADITAREA_war.war">
+      <element id="artifact" artifact-name="SADITAREA:war exploded" />
+    </root>
+  </artifact>
+</component>

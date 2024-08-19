@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DatabaseConnectionManager {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/sadi";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/SADI";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
@@ -21,9 +21,9 @@ public class DatabaseConnectionManager {
         config.setUsername(USERNAME);
         config.setPassword(PASSWORD);
         // Ajustes del pool
-        config.setMinimumIdle(5);
-        config.setMaximumPoolSize(10);
-        config.setConnectionTimeout(30000); // 30 seconds
+        config.setMinimumIdle(10);
+        config.setMaximumPoolSize(20);
+        config.setConnectionTimeout(60000); // 60 seconds
         dataSource = new HikariDataSource(config);
     }
 
