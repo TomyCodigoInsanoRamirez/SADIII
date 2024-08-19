@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SADI</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -26,46 +25,59 @@
                 <img src="img/logoSadiSIN_FONDO-removebg-preview.png" alt="SADI" width="150px">
             </a>
             <div class="tituloSeccion">
-                <h1>Perfil de Usuario</h1>
+                <h1></h1>
             </div>
             <div class="log">
                 <a href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
             </div>
         </nav>
-        <section class="p-3">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12 contenedorPrc">
-                        <%
-                            UserDao dao = new UserDao();
-                            ArrayList<Usuario> lista = dao.getAll();
-                            Usuario u = null;
-                            if (!lista.isEmpty()) {
-                                u = lista.get(0); // Mostrar solo el primer usuario como ejemplo
-                        %>
-                        <div class="profile-info text-center">
-                            <div class="profile-details">
-                                <p><strong>Nombre:</strong> <%= u.getNombre1_U() %> <%= u.getNombre2_U() %> <%= u.getApellido1_U() %> <%= u.getApellido2_U() %></p>
-                                <p><strong>Teléfono:</strong> <%= u.getTelefono() %></p>
-                                <p><strong>Correo:</strong> <%= u.getCorreo() %></p>
-                                <p><strong>Contraseña:</strong> ********</p>
+        <%
+            UserDao dao = new UserDao();
+            ArrayList<Usuario> lista = dao.getAll();
+            Usuario u = null;
+            if (!lista.isEmpty()) {
+                u = lista.get(0); // Mostrar solo el primer usuario como ejemplo
+        %>
+        <section class="vh-100">
+            <div class="container py-5 ">
+                <div class="row d-flex justify-content-center align-items-center ">
+                    <div class="col-md-12 col-xl-4">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body text-center">
+                                <div class="mt-3 mb-4">
+                                    <img src="img/LOGINsINfONDO-removebg-preview.png"
+                                         class="rounded-circle img-fluid" style="width: 100px;" />
+                                </div>
+                                <h4 class="mb-2"><%= u.getNombre1_U() %> <%= u.getNombre2_U() %> <%= u.getApellido1_U() %> <%= u.getApellido2_U() %></h4>
+
+                                <p class="text-muted mb-4">Teléfono: <span class="mx-2">|</span> <%= u.getTelefono() %></p>
+
+                                <p class="text-muted mb-4">Correo: <span class="mx-2">|</span><%= u.getCorreo() %></p>
+
+                                <p class="text-muted mb-4">Contraseña: <span class="mx-2">|</span>
+                                        ********</p>
+
+                                <div class="profile-buttons mt-3">
+                                    <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
+                                    <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editProfileModal">Editar Información</a>
+                                </div>
+
                             </div>
-                            <div class="profile-buttons mt-3">
-                                <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
-                                <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editProfileModal">Editar Información</a>
-                            </div>
+                            <%
+                            } else {
+                            %>
+                            <p>No se encontraron usuarios.</p>
+                            <%
+                                }
+                            %>
                         </div>
-                        <%
-                        } else {
-                        %>
-                        <p>No se encontraron usuarios.</p>
-                        <%
-                            }
-                        %>
+
                     </div>
                 </div>
             </div>
         </section>
+
+
     </div>
 </div>
 
@@ -110,11 +122,11 @@
                         <input type="email" class="form-control" id="correo" name="correo" value="<%= u.getCorreo() %>" required>
                     </div>
                     <div class="form-group">
-                        <label for="nuevaContrasena">Nueva Contraseña:</label>
-                        <input type="password" class="form-control" id="nuevaContrasena" name="nuevaContrasena">
+                        <label for="nuevaContrasena">Contraseña antigua:</label>
+                        <input type="password" class="form-control" id="nuevaContrasena" name="nuevaContrasena" value="<%= u.getContrasena()%>">
                     </div>
                     <div class="form-group">
-                        <label for="confirmarContrasena">Confirmar Nueva Contraseña:</label>
+                        <label for="confirmarContrasena">Nueva Contraseña:</label>
                         <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena">
                     </div>
                 </form>
@@ -123,7 +135,7 @@
                 %>
             </div>
             <div class="modal-footer">
-                <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
+                <a href="Profile.jsp" class="btn btn-danger">Cancelar</a>
                 <button type="submit" class="btn btn-primary" form="editProfileForm">Guardar Cambios</button>
             </div>
         </div>

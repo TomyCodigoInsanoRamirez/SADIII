@@ -26,16 +26,17 @@
         String apellido2_U = request.getParameter("apellido2_U");
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
-        String contrasena = request.getParameter("contrasena");
-        String confirmarContrasena = request.getParameter("confirmarContrasena");
+        String contrasenaAntigua = request.getParameter("nuevaContrasena");
+        String nuevaContrasena = request.getParameter("confirmarContrasena");
 
         // Inicializar el DAO y obtener el usuario
         UserDao dao = new UserDao();
 
-        // Asegúrate de que el userId se maneje como String
+        // Obtener el usuario desde la base de datos usando su ID (como String, sin conversión a Integer)
         Usuario usuario = dao.getById(userId);
 
         if (usuario != null) {
+            // Actualizar los datos del usuario
             usuario.setNombre1_U(nombre1_U);
             usuario.setNombre2_U(nombre2_U);
             usuario.setApellido1_U(apellido1_U);
@@ -43,30 +44,35 @@
             usuario.setTelefono(telefono);
             usuario.setCorreo(correo);
 
-            // Verifica si se ha cambiado la contraseña
-            if (contrasena != null && !contrasena.isEmpty()) {
-                if (contrasena.equals(confirmarContrasena)) {
-                    dao.updatePassword(userId, contrasena);
+            // Verificar si la contraseña antigua es correcta
+            if (contrasenaAntigua != null && !contrasenaAntigua.isEmpty()) {
+                if (usuario.getContrasena().equals(contrasenaAntigua)) {
+                    // Si la contraseña antigua es correcta y hay una nueva contraseña
+                    if (nuevaContrasena != null && !nuevaContrasena.isEmpty()) {
+                        usuario.setContrasena(nuevaContrasena);
+                        dao.updatePassword(usuario.getId(), nuevaContrasena);
+                    }
                 } else {
-                    // Manejo de error para contraseñas no coincidentes
-
+                    // Mostrar error si la contraseña antigua no coincide
+                    request.setAttribute("error", "La contraseña antigua no coincide.");
+                    request.getRequestDispatcher("actualizarInformacion.jsp").forward(request, response);
+                    return;
                 }
             }
 
-            // Actualiza la información del usuario sin cambiar la contraseña
+            // Actualizar los datos del usuario en la base de datos
             dao.update(usuario);
 
-            // Redirigir a una página de éxito o al perfil del usuario
+            // Redirigir a la página de perfil
             response.sendRedirect("Profile.jsp");
         } else {
             // Manejo de error si el usuario no se encuentra
-
+            request.setAttribute("error", "Usuario no encontrado.");
+            request.getRequestDispatcher("actualizarInformacion.jsp").forward(request, response);
         }
     %>
-
-
 </div>
-response.sendRedirect(ruta);
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

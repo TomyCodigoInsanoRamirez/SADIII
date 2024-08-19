@@ -494,15 +494,16 @@
                                     <td><%=u.getNombre1_U()%></td>
                                     <td class="todisable"><%=u.getCorreo()%></td>
                                     <td id="acc" class="acc">
-                                        <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getId() %>">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= usuario.getId() %>">
                                             <img class="act" src="img/visibility_24dp.png"  >
                                         </a>
                                     </td>
                                     <td class="acc">
-                                        <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getId() %>">
+                                        <a href="UserServlet?id=<%= u.getId() %>" class="acc" data-toggle="modal" data-target="#editModal<%= u.getId() %>">
                                             <img class="act" src="img/iconolapiz-removebg-preview.png" alt="Editar">
                                         </a>
                                     </td>
+
                                     <td class="acc">
                                         <label class="switch small">
                                             <a href="updateUsuarioE?id=<%=u.getId()%>&estado=<%=u.isEstado()%>" class="delete-link" style="display: none;">Eliminar</a>
@@ -666,6 +667,34 @@
                                         <!--<button type="submit">Guardar Cambios</button>-->
                                         <input type="submit" value="enviar">
                                     </form>
+                                </div>
+                            </div>
+                            <!-- Modal que solo muestra los datos del usuario -->
+                            <div class="modal fade" id="viewModal<%= usuario.getId() %>" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="viewModalLabel">Detalles del Usuario</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p><strong>Correo:</strong> <%= usuario.getCorreo()%></p>
+                                            <p><strong>Primer Nombre:</strong> <%= usuario.getNombre1_U() %></p>
+                                            <p><strong>Segundo Nombre:</strong> <%= usuario.getNombre2_U() %></p>
+                                            <p><strong>Primer Apellido:</strong> <%= usuario.getApellido1_U() %></p>
+                                            <p><strong>Segundo Apellido:</strong> <%= usuario.getApellido2_U() %></p>
+                                            <p><strong>Teléfono:</strong> <%= usuario.getTelefono() %></p>
+                                            <p><strong>Rol:</strong> <%= usuario.getRol() %></p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

@@ -31,6 +31,38 @@ public class UserDao {
         return u;
     }
 */
+
+    public Usuario getUsuarioById(int idUsuario) {
+        Usuario usuario = null;
+        String query = "SELECT idUsuario, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena FROM Usuarios WHERE idUsuario = ?";
+
+        try (Connection conn = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(String.valueOf(rs.getInt("idUsuario")));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setNombre1_U(rs.getString("nombre1_U"));
+                usuario.setApellido1_U(rs.getString("apellido1_U"));
+                usuario.setNombre2_U(rs.getString("nombre2_U"));
+                usuario.setApellido2_U(rs.getString("apellido2_U"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setContrasena(rs.getString("contrasena"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+
+
+
     public Usuario getOne(String correo, String contrasena) {
         Usuario usuario = new Usuario();
         String sql = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";

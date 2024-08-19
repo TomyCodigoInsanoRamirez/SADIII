@@ -16,7 +16,7 @@
     }
 
     // Redirigir al usuario a la página de inicio de sesión
-    response.sendRedirect("home.jsp");
+    response.sendRedirect("index.jsp");
 %>
 
 <script>
