@@ -24,6 +24,8 @@
     List<Usuario> userDao= daoUser.getAll2();
     Usuario usuarioSes = (Usuario) session.getAttribute("usuario");
     System.out.println("USUARIOOOO DESDE EL SERVLET LOGIN: "+ usuarioSes.getNombre1_U() );
+
+    String nombtr = request.getParameter("desde");
 %>
 <!DOCTYPE html>
 <html>
