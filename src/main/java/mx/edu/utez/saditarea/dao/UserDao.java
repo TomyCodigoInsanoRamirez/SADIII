@@ -309,4 +309,36 @@ public class UserDao {
         return flag;
     }
 
+
+    public String getName(int id ) {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuarios WHERE id_empleado = ?";
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection();// obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setContrasena(rs.getString("contrasena"));
+                usuario.setNombre1_U(rs.getString("nombre1_U"));
+                usuario.setApellido1_U(rs.getString("apellido1_U"));
+                usuario.setNombre2_U(rs.getString("nombre2_U"));
+                usuario.setApellido2_U(rs.getString("apellido2_U"));
+                usuario.setTelefono(rs.getString("telefono_U"));
+                usuario.setRol(rs.getString("rol")); // Obtenemos el tipo de usuario
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario.getNombre1_U() +" "+ usuario.getNombre2_U() +" "+ usuario.getApellido1_U() +" "+ usuario.getApellido2_U();
+    }
+
 }

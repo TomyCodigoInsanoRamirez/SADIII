@@ -315,6 +315,7 @@
                                 <tbody id="tabla-body">
                                 <%
                                     EntradasDao daoE = new EntradasDao();
+                                    UserDao uSS = new UserDao();
                                     List<RegistroEntradas>  lista = new ArrayList<>();
                                     List<Entradas>  listaa = new ArrayList<>(); //BORRAR DESPUES DE LAS PRUEBAS
 
@@ -365,7 +366,7 @@
                                 <tr>
                                     <td class="todisable2"><%=u.getFolioEntrada()%></td>
                                     <td><%=u.getNumeroFacturaE()%></td>
-                                    <td class="todisable"><%=u.getFkEmpleado()%></td>
+                                    <td class="todisable"><%=uSS.getName(Integer.parseInt(u.getFkEmpleado()))%></td>
                                     <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
                                     <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
 

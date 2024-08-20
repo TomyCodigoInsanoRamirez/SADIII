@@ -1,6 +1,7 @@
 package mx.edu.utez.saditarea.dao;
 
 import mx.edu.utez.saditarea.modelo.Areas;
+import mx.edu.utez.saditarea.modelo.Usuario;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -103,5 +104,29 @@ public class AreasDao {
             e.printStackTrace();
         }
         return rowUpdated;
+    }
+
+    public String getNameArea(String id){
+        Areas area = new Areas();
+        String sql = "SELECT * FROM Areas WHERE claveArea = ?";
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection();// obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                area.setNombreArea(rs.getString("nombreArea"));
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return area.getNombreArea();
     }
 }
