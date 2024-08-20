@@ -421,6 +421,21 @@
                             </form>
                             -->
                         </div>
+
+                        <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
+                            <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
+
+                            <form class="d-flex" role="search">
+
+                                <input class="form-control me-2" type="text" placeholder="Buscar" aria-label="Search" style="width: 200px;" id="searchInput"  onkeyup="searchName()">
+
+                                <label class="btn btn-outline-success"  style="margin-left: 5px;"><i class="bi bi-search"></i>
+                                </label>
+
+                            </form>
+
+                        </div>
+
                         <div style="position: relative; display: block">
 
                             <table class="table table-hover tab">
@@ -668,6 +683,27 @@
                                 <% } %>
                                 </tbody>
                             </table>
+                            <script>
+                                function searchName() {
+                                    // Obtener el valor del campo de búsqueda
+                                    let input = document.getElementById('searchInput').value.toLowerCase();
+
+                                    // Obtener las filas de la tabla
+                                    let rows = document.querySelectorAll('#tabla-body tr');
+
+                                    // Iterar sobre las filas y comparar los nombres
+                                    rows.forEach(row => {
+                                        let nombre = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+                                        // Mostrar u ocultar las filas según si el nombre coincide
+                                        if (nombre.includes(input)) {
+                                            row.style.display = '';
+                                        } else {
+                                            row.style.display = 'none';
+                                        }
+                                    });
+                                }
+                            </script>
                             <nav aria-label="...">
                                 <ul class="pagination">
                                     <li class="page-item ">

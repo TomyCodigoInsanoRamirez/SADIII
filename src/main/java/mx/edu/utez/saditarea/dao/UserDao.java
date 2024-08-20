@@ -202,6 +202,43 @@ public class UserDao {
         return isUpdated;
     }
 
+
+    public ArrayList<Usuario> buscarUsuariosPorNombre(String nombre) {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        String query = "SELECT * FROM usuarios WHERE nombre1_U LIKE ? OR nombre2_U LIKE ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, "%" + nombre + "%");
+            ps.setString(2, "%" + nombre + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id_empleado"));
+                u.setNombre1_U(rs.getString("nombre1_U"));
+                u.setNombre2_U(rs.getString("nombre2_U"));
+                u.setApellido1_U(rs.getString("apellido1_U"));
+                u.setApellido2_U(rs.getString("apellido2_U"));
+                u.setTelefono(rs.getString("telefono_U"));
+                u.setRol(rs.getString("rol"));
+                u.setCorreo(rs.getString("correo"));
+                u.setContrasena(rs.getString("contrasena"));
+                u.setCodigo(rs.getString("codigo"));
+                u.setEstado(rs.getInt("estado"));
+
+                lista.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
+
     // Actualizar la contraseña del usuario
     public void updatePassword(String id, String nuevaContrasena) {
         String query = "UPDATE usuarios SET contrasena = ? WHERE id_empleado = ?";
