@@ -62,6 +62,38 @@
     }
 </style>
 
+<%
+    String message = (String) session.getAttribute("message");
+    if ("success".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'La unidad de medida  se ha registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+    session.removeAttribute("message");
+} else if ("error_medida_existente".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La unidad de medida ya existe en la base de datos.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+        session.removeAttribute("message");
+    }
+%>
 <script>
 
     let apagados = 0;
@@ -454,7 +486,7 @@
                                     <td><%= u.getAbreviacionUndidadMedida() %></td>
                                     <td><%= u.getNombreUnidadMedida() %></td>
                                     <td>
-                                        <a href="visualizarUnidad.jsp" class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= u.getAbreviacionUndidadMedida() %>">
                                             <img class="act" src="img/visibility_24dp.png" alt="Ver">
                                         </a>
                                     </td>
@@ -470,6 +502,33 @@
                                             <span class="slider"></span>
                                         </label>                                    </td>
                                 </tr>
+
+                                <div class="modal fade" id="viewModal<%= u.getAbreviacionUndidadMedida() %>" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel<%= u.getAbreviacionUndidadMedida() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="viewModalLabel<%= u.getAbreviacionUndidadMedida() %>">Información de la Unidad de Medida</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="abrum<%= u.getAbreviacionUndidadMedida() %>">Abreviación Unidad de Medida:</label>
+                                                    <p class="form-control-static"><%= u.getAbreviacionUndidadMedida() %></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>">Nombre Unidad de Medida:</label>
+                                                    <p class="form-control-static"><%= u.getNombreUnidadMedida() %></p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="justify-content:center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <!-- Modal para Editar Información -->
                                 <div class="modal fade" id="editModal<%= u.getAbreviacionUndidadMedida() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getAbreviacionUndidadMedida() %>" aria-hidden="true">
@@ -492,10 +551,11 @@
                                                         <label for="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>">Nombre Unidad de Medida:</label>
                                                         <input type="text" class="form-control" id="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>" name="nombreUnidadMedida" value="<%= u.getNombreUnidadMedida() %>" required>
                                                     </div>
+
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary" form="editForm<%= u.getAbreviacionUndidadMedida() %>">Guardar Cambios</button>
                                             </div>
                                         </div>

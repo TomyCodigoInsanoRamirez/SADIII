@@ -48,6 +48,38 @@
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
 </style>
+<%
+    String message = (String) session.getAttribute("message");
+    if ("success".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'El provedor se ha registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+    session.removeAttribute("message");
+} else if ("error_provedor_existente".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El provedor ya existe en la base de datos.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+        session.removeAttribute("message");
+    }
+%>
 <script>
 
     let apagados = 0;
@@ -447,11 +479,8 @@
                                     <td class="todisable2"><%= u.getRFC() %></td>
                                     <td><%= u.getNombre1_P() %></td>
                                     <td class="todisable"><%= u.getTelefono_P() %></td>
-                                    <td id="acc" class="acc">
-                                        <a href="visualizar.jsp" class="acc">
-                                            <img class="act" src="img/visibility_24dp.png">
-                                        </a>
-                                    </td>
+                                    <td id="acc"class="acc"><a href="#" class="acc" data-toggle="modal" data-target="#visualizar<%= u.getRFC() %>">
+                                        <img class="act" src="img/visibility_24dp.png"></a></td>
                                     <td class="acc">
                                         <a href="#" class="acc" data-toggle="modal" data-target="#editModal<%= u.getRFC() %>">
                                             <img class="act" src="img/iconolapiz-removebg-preview.png">
@@ -465,6 +494,96 @@
                                         </label>
                                     </td>
                                 </tr>
+
+                                <div class="modal fade" id="visualizar<%= u.getRFC() %>" tabindex="-1" role="dialog" aria-labelledby="visualizarProveedorLabel<%= u.getRFC() %>" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content rounded-3 border-0 shadow-lg" style="background-color: #f6f8fa; max-width: 600px;">
+                                            <div class="modal-header border-bottom-0">
+                                                <h5 class="modal-title font-weight-bold" id="visualizarProveedorLabel<%= u.getRFC() %>" style="color: #333;">Información del Proveedor</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #aaa; font-size: 1.5rem;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <!-- Columna izquierda -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">RFC:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getRFC() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Razón Social:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getRazon_social() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Primer Nombre:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombre1_P() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Segundo Nombre:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombre2_P() %></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Columna derecha -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Primer Apellido:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getApellido1_P() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Segundo Apellido:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getApellido2_P() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Teléfono:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getTelefono_P() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Dirección:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getDireccion() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Código Postal:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getCodigo_postal() %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <!-- Contacto Adicional -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Primer Nombre(Contacto Adicional):</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombre1_Adicional() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Segundo Nombre(Contacto Adicional):</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombre2_Adicional() %></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Primer Apellido(Contacto Adicional):</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getApellido1_Adicional() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Segundo Apellido(Contacto Adicional):</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getApellido2_Adicional() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Teléfono (Contacto Adicional):</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getTelefono_Adicional() %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-top-0" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <!-- Modal para Editar Información -->
                                 <div class="modal fade" id="editModal<%= u.getRFC() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getRFC() %>" aria-hidden="true">
@@ -538,8 +657,8 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary" form="editForm<%= u.getRFC() %>">Guardar Cambios</button>
                                             </div>
                                         </div>

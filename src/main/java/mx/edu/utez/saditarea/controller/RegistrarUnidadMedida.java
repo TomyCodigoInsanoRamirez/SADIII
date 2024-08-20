@@ -27,12 +27,16 @@ public class RegistrarUnidadMedida extends HttpServlet {
             UnidadMedida unidadMedida = new UnidadMedida(abreviacionUnidadMedida, nombreUnidadMedida, 1);
             boolean isSaved = unidadMedidaDao.save(unidadMedida);
 
-            if (isSaved) {
-                //response.sendRedirect("unidadMedidaList"); // Redirige al servlet que muestra la lista
-                response.sendRedirect("unidadMedida.jsp");
-            } else {
-                System.out.println("no se escribio ela unidad de medida en la bd");
-            }
+        String ruta = "unidadMedida.jsp";
+        if (isSaved) {
+            request.getSession().setAttribute("message", "success");
+            ruta = "unidadMedida.jsp?success=true";
+        } else {
+            request.getSession().setAttribute("message", "error_medida_existente");
+            ruta = "unidadMedida.jsp?error=medida_existente";
+        }
+
+        response.sendRedirect(ruta);
 
     }
 }

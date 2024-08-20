@@ -87,6 +87,39 @@
     }
 
 </style>
+<%
+    String message = (String) session.getAttribute("message");
+    if ("success".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'El usuario se ha registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+    session.removeAttribute("message");
+} else if ("error_usuario_existente".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El producto ya existe en la base de datos.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+        session.removeAttribute("message");
+    }
+%>
+
 <script>
 
     let apagados = 0;
@@ -196,7 +229,7 @@
                 <a id="loginImg" href="Profile.jsp"><img src="img/LOGINsINfONDO-removebg-preview.png" width="70px"></a>
                 <div class="hbs"><a href="" id="hbsb"><img src="img/hbs.png" width="50px"></a></div>
                 <div class="tituloSeccion">
-                    <h1 class="custom-title">USUARIOS</h1>
+                    <h1>USUARIOS</h1>
                 </div>
                 <div id="sidebar-responsive" class="h-100">
                     <!--<div class="hbs"><img src="img/hbs.png" width="50px"></div>-->
@@ -494,8 +527,8 @@
                                     <td><%=u.getNombre1_U()%></td>
                                     <td class="todisable"><%=u.getCorreo()%></td>
                                     <td id="acc" class="acc">
-                                        <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= usuario.getId() %>">
-                                            <img class="act" src="img/visibility_24dp.png"  >
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= u.getId() %>">
+                                            <img class="act" src="img/visibility_24dp.png">
                                         </a>
                                     </td>
                                     <td class="acc">
@@ -565,8 +598,8 @@
 
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary" form="editForm<%= u.getId() %>">Guardar Cambios</button>
                                             </div>
                                         </div>
@@ -574,6 +607,39 @@
                                 </div>
 
                                 <!-- modal solo para mostrar info-->
+                                <div class="modal fade" id="viewModal<%= u.getId() %>" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel<%= u.getId() %>" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="viewModalLabel<%= u.getId() %>">Detalles del Usuario</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><strong>ID_usuario:</strong> <%= u.getId() %></p>
+                                                        <p><strong>Correo:</strong> <%= u.getCorreo() %></p>
+                                                        <p><strong>Primer Nombre:</strong> <%= u.getNombre1_U() %></p>
+                                                        <p><strong>Segundo Nombre:</strong> <%= u.getNombre2_U() %></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><strong>Primer Apellido:</strong> <%= u.getApellido1_U() %></p>
+                                                        <p><strong>Segundo Apellido:</strong> <%= u.getApellido2_U() %></p>
+                                                        <p><strong>Teléfono:</strong> <%= u.getTelefono() %></p>
+                                                        <p><strong>Rol:</strong> <%= u.getRol() %></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <%} contador++;%>
@@ -670,33 +736,6 @@
                                 </div>
                             </div>
                             <!-- Modal que solo muestra los datos del usuario -->
-                            <div class="modal fade" id="viewModal<%= usuario.getId() %>" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel">Detalles del Usuario</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <p><strong>Correo:</strong> <%= usuario.getCorreo()%></p>
-                                            <p><strong>Primer Nombre:</strong> <%= usuario.getNombre1_U() %></p>
-                                            <p><strong>Segundo Nombre:</strong> <%= usuario.getNombre2_U() %></p>
-                                            <p><strong>Primer Apellido:</strong> <%= usuario.getApellido1_U() %></p>
-                                            <p><strong>Segundo Apellido:</strong> <%= usuario.getApellido2_U() %></p>
-                                            <p><strong>Teléfono:</strong> <%= usuario.getTelefono() %></p>
-                                            <p><strong>Rol:</strong> <%= usuario.getRol() %></p>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 
 
@@ -723,6 +762,7 @@
         </div>
         <i class="bi bi-x-circle-fill icon-hover" id="close-br" style="color: #df1616; font-size: 3rem;  " ></i>
     </div>
+
 
     <form action="usuarioo" method="post" onsubmit="return validateForm()">
         <div class="contenedorInputs">

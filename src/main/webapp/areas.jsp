@@ -34,7 +34,7 @@
 
     function toggleSlider(element) {
         const isChecked = element.checked;
-        const action = isChecked ? 'activar' : 'desactivar';
+        const action = isChecked ? 'activado' : 'desactivado';
         const title = isChecked ? '¿Estás seguro de activar el producto?' : '¿Estás seguro de desactivar el producto?';
         const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
         const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
@@ -84,7 +84,7 @@
         const action = '<%= action != null ? action : "" %>';
         if (action !== '') {
             Swal.fire({
-                title: action === "activado" ? "Activado!" : "Desactivado!",
+                title: action === "activado" ? "Desactivado!" : "Activado!",
                 text: 'El producto ha sido ' + action + '.',
                 icon: 'success'
             }).then(() => {
@@ -357,8 +357,8 @@
                                     <td><%= u.getNombreArea() %></td>
                                     <td class="todisable"><%= u.getDescripcionArea() %></td>
                                     <td id="acc" class="acc">
-                                        <a href="#" class="acc" data-toggle="modalv" data-target="#editModal<%= u.getClaveArea() %>">
-                                            <img class="act" src="img/visibility_24dp.png"  width="70px">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= u.getClaveArea() %>">
+                                            <img class="act" src="img/visibility_24dp.png" width="70px">
                                         </a>
                                     </td>
                                     <td class="acc">
@@ -391,6 +391,42 @@
                                     </td>
                                 </tr>
 
+                                <div class="modal fade" id="viewModal<%= u.getClaveArea() %>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content rounded-3 border-0 shadow-lg" style="background-color: #f6f8fa; max-width: 500px;">
+                                            <div class="modal-header border-bottom-0">
+                                                <h5 class="modal-title font-weight-bold" style="color: #333;">Información del Área</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #aaa; font-size: 1.5rem;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Clave Área:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getClaveArea() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Nombre Área:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombreArea() %></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Descripción Área:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getDescripcionArea() %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-top-0" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #df1616;">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Modal para Editar Información -->
                                 <div class="modal fade" id="editModal<%= u.getClaveArea() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getClaveArea() %>" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -414,8 +450,8 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary" form="editForm<%= u.getClaveArea() %>">Guardar Cambios</button>
                                             </div>
                                         </div>
@@ -473,39 +509,44 @@
 <!-- Modal -->
 <!-- Formulario de registro (add) -->
 <div class="popup-container" id="popup-container">
-    <div class="popup-header">
-        <h2>Registro de Áreas</h2>
-        <button class="close-btn" id="close">✖</button>
+    <div class="popup-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <h2 style="margin: 0; text-align: center;">Registro de Áreas</h2>
+        </div>
+        <i class="bi bi-x-circle-fill icon-hover" id="close-br" style="color: #df1616; font-size: 3rem;"></i>
     </div>
+
     <form action="AreaServlet" method="post">
         <input type="hidden" name="action" value="agregar">
-        <div class="contenedorInputs">
-            <div class="izquierda">
+        <div class="contenedorInputs" style="display: flex;">
+            <div class="izquierda" style="flex: 1;">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
-                    <input type="text" id="claveArea" name="claveArea" required>
+                    <input type="text" class="form-control" id="claveArea" name="claveArea" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
                 <div class="form-group">
                     <label for="nombreArea">Nombre del Área:</label>
-                    <input type="text" id="nombreArea" name="nombreArea" required>
+                    <input type="text" class="form-control" id="nombreArea" name="nombreArea" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
+            </div>
+            <div class="derecha" style="flex: 1;">
                 <div class="form-group">
                     <label for="descripcionArea">Descripción:</label>
-                    <input type="text" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
+                    <input type="text" class="form-control" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="font-size: 15px; padding: 8px; width: 100%; box-sizing: border-box;">
                     <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" name="estadoAr" required>
+                    <select id="estadoAr" class="form-control" name="estadoAr" required style="width: 100%; max-width: 100%; box-sizing: border-box;">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
                 </div>
             </div>
-            <div class="derecha">
-                <!-- Puedes añadir más campos aquí si es necesario -->
-            </div>
         </div>
-        <button id="btn-enviar" type="submit" class="add-btn">Agregar</button>
+        <div class="form-buttons" style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">
+            <button id="btn-enviar" type="submit" class="btn btn-primary add-btn" style="width: 150px; outline: none;">Agregar</button>
+            <button type="button" class="btn btn-primary add-btn" onclick="cancelForm()" style="background-color: #df1616; border-color: #df1616; color: white; width: 150px; outline: none;">Cancelar</button>
+        </div>
     </form>
 </div>
 
@@ -535,6 +576,14 @@
         }
 
     })
+    document.getElementById("close-br").addEventListener("click", function () {
+        let pop = document.getElementById("popup-container");
+        pop.style.display = "none";
+        document.body.style.overflow = "auto"; // Restaura el scroll de la página principal
+        let capaa = document.getElementById("capa-obscurecer");
+        capaa.style.display = "none";
+    });
+
     acciones.addEventListener("click", function (){
         if(accioness.getAttribute("class") === "collapse"){
             accioness.removeAttribute("class","collapse");
@@ -595,6 +644,9 @@
 
     function noScroll() {
         window.scrollTo(0, 0);
+    }
+    function cancelForm() {
+        document.getElementById('popup-container').style.display = 'none';
     }
 </script>
 

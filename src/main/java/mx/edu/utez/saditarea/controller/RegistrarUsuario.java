@@ -5,51 +5,54 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import mx.edu.utez.saditarea.dao.AreasDao;
 import mx.edu.utez.saditarea.dao.UserDao;
-import mx.edu.utez.saditarea.modelo.Areas;
 import mx.edu.utez.saditarea.modelo.Usuario;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "RegistrarUsuario", value = "/usuarioo")
 public class RegistrarUsuario extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Usuario usuario = new Usuario();
-        UserDao dao = new UserDao();
-        /*String idUsuario = req.getParameter("id");*/
-        String nombre1 = req.getParameter("nombre1");
-        String nombre2 = req.getParameter("nombre2");
-        String apellido1 = req.getParameter("apellido1");
-        String apellido2 = req.getParameter("apellido2");
-        String email = req.getParameter("email");
-        String telefono = req.getParameter("telefono");
-        String rol = req.getParameter("rol");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserDao userDao = new UserDao();
 
-        if(nombre2 == null){
+        // Registro de usuario
+        String nombre1 = request.getParameter("nombre1");
+        String nombre2 = request.getParameter("nombre2");
+        String apellido1 = request.getParameter("apellido1");
+        String apellido2 = request.getParameter("apellido2");
+        String email = request.getParameter("email");
+        String telefono = request.getParameter("telefono");
+        String rol = request.getParameter("rol");
+
+        // Manejo del caso en que nombre2 puede ser null
+        if (nombre2 == null) {
             nombre2 = " ";
         }
 
-        /*usuario.setId(idUsuario);*/
+        // Usa el constructor para nuevos registros
+        Usuario usuario = new Usuario();
         usuario.setNombre1_U(nombre1);
         usuario.setNombre2_U(nombre2);
         usuario.setApellido1_U(apellido1);
         usuario.setApellido2_U(apellido2);
         usuario.setCorreo(email);
-        usuario.setContrasena(email);
+        usuario.setContrasena(email); // Considera usar una contraseña encriptada
         usuario.setTelefono(telefono);
         usuario.setRol(rol);
 
+        boolean isSaved = userDao.insert(usuario);
 
-
-        if(dao.insert(usuario)){
-            System.out.println("Si se insertó el usuario");
-            resp.sendRedirect("home.jsp");
-        }else{
-            System.out.println("Nel padrino, NO SE INSERTO EL USUARIO");
+        String ruta = "home.jsp";
+        if (isSaved) {
+            request.getSession().setAttribute("message", "success");
+            ruta = "home.jsp?success=true";
+        } else {
+            request.getSession().setAttribute("message", "error_usuario_existente");
+            ruta = "home.jsp?error=usuario_existente";
         }
+
+        response.sendRedirect(ruta);
     }
 }

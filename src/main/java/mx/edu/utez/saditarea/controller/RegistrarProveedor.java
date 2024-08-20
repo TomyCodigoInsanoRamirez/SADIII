@@ -38,22 +38,22 @@ public class RegistrarProveedor extends HttpServlet {
 
 
             // Crear el objeto Proveedores
-            Proveedores proveedor = new Proveedores(rfc, razonSocial, codigoPostal, direccion, nombre1, nombre2, apellido1, apellido2, telefono, nombre1A, nombre2A, apellido1A, apellido2A, telefonoA, 1);
+        Proveedores proveedor = new Proveedores(rfc, razonSocial, codigoPostal, direccion, nombre1, nombre2, apellido1, apellido2, telefono, nombre1A, nombre2A, apellido1A, apellido2A, telefonoA, 1);
 
-            // Guardar el proveedor en la base de datos
-            boolean resultado = proveedoresDao.save(proveedor);
+        // Guardar el proveedor en la base de datos
+        boolean resultado = proveedoresDao.save(proveedor);
 
-            String ruta = "index.jsp";
-            if (resultado) {
-                //req.getSession().setAttribute("mensaje", "Proveedor registrado correctamente");
-                ruta = "proveedores.jsp.jsp";
-            } else {
-                //req.getSession().setAttribute("mensaje", "Error al registrar el proveedor");
-                System.out.println("Algo pasa qie no se registra");
-                ruta = "index.jsp?error=true";
-            }
+        String ruta = "index.jsp";
+        if (resultado) {
+            req.getSession().setAttribute("message", "success");
+            ruta = "provedores.jsp?success=true";
+        } else {
+            //req.getSession().setAttribute("mensaje", "Error al registrar el proveedor");
+            req.getSession().setAttribute("message", "error_provedor_existente");
+            ruta = "provedores.jsp?error=provedor_existente";
+        }
 
-            resp.sendRedirect(ruta);
+        resp.sendRedirect(ruta);
 
     }
 }

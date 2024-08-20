@@ -77,24 +77,32 @@
 %>
 
 
-<div id="alert-success" class="alert alert-success alert-dismissible fade show alert-center" style="background-color: #4CAF50" role="alert">
-    <strong>Éxito:</strong>  El producto se ha registrado correctamente.
-    <button type="button" class="close" data-dismiss="alert1" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'El producto se ha registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
 <%
     // Elimina el atributo de sesión después de mostrar la alerta
     session.removeAttribute("message");
 }
 else if ("error_producto_existente".equals(message)) {
 %>
-<div id="alert-error" class="alert alert-danger alert-dismissible fade show alert-center" style="background-color: #c12b2b" role="alert">
-    <strong>Error:</strong> El producto ya existe en la base de datos.
-    <button type="button" class="close" data-dismiss="alert1" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El producto ya existe en la base de datos.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
 <%
         // Elimina el atributo de sesión después de mostrar la alerta
         session.removeAttribute("message");
@@ -469,7 +477,7 @@ else if ("error_producto_existente".equals(message)) {
                                     <td><%= u.getNombreProducto() %></td>
                                     <td class="todisable"><%= u.getDescripcionProducto() %></td>
                                     <td id="acc" class="acc">
-                                        <a href="visualizar.jsp" class="acc">
+                                        <a href="#" class="acc" data-toggle="modal" data-target="#visualizarProductosModal<%= u.getClaveProducto() %>">
                                             <img class="act" src="img/visibility_24dp.png">
                                         </a>
                                     </td>
@@ -511,13 +519,54 @@ else if ("error_producto_existente".equals(message)) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary" form="editForm<%= u.getClaveProducto() %>">Guardar Cambios</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal fade" id="visualizarProductosModal<%= u.getClaveProducto() %>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content rounded-3 border-0 shadow-lg" style="background-color: #f6f8fa; max-width: 500px;">
+                                            <div class="modal-header border-bottom-0">
+                                                <h5 class="modal-title font-weight-bold" style="color: #333;">Información del Producto</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #aaa; font-size: 1.5rem;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Clave Producto:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getClaveProducto() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Nombre Producto:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getNombreProducto() %></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Descripción Producto:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%= u.getDescripcionProducto() %></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" style="color: #333;">Unidad Medida:</label>
+                                                            <p class="form-control-static" style="color: #555;"><%=u.getUnidadMedida()%></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-top-0" style="justify-content: center">
+                                                <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="background-color: #df1616;">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <%} contador++;%>
                                 <% } %>
                                 </tbody>
