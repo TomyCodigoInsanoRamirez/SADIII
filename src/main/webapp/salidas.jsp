@@ -346,7 +346,7 @@
                   if(!(request.getParameter("desde") == null) || !(request.getParameter("hasta") == null)) {
                     String desde = request.getParameter("desde");
                     String hasta = request.getParameter("hasta");
-                    /*lista = daoE.reporteFechasS(desde,hasta) ;*/
+                    lista = daoE.reporteFechasS(desde,hasta) ;
                   }else{
                     lista = daoE.getAll() ;
                   }

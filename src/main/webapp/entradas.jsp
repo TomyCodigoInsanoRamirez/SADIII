@@ -323,7 +323,7 @@
                                         String hasta = request.getParameter("hasta");
                                         System.out.println("Desde:"+desde);
                                         System.out.println("Hasta: "+hasta);
-                                        listaa = daoE.reporteFechas(desde,hasta) ;
+                                        lista = daoE.reporteFechas(desde,hasta) ;
                                     }else{
                                         lista = daoE.getAllEntradas() ;
                                     }

@@ -135,6 +135,7 @@ public class EntradasDao {
     }
 */
 
+    /*
     public List<Entradas> reporteFechas(String fecha1, String fecha2) {
         List<Entradas> productosList = new ArrayList<>();
         String sql = "{CALL GetRecordsBetweenDates(?, ?)}";
@@ -172,7 +173,7 @@ public class EntradasDao {
 
         return productosList;
     }
-
+    */
     public boolean save2(RegistroEntradas regE) {
         boolean rowInserted = false;
         String query = "INSERT INTO registro_entrada (folio_Entrada, numero_factura_e, fechas_entrada, fk_RFC_Proveedor, precioTotal, fk_empleado) VALUES (?, ?, ?, ?, ?,?    )";
@@ -245,5 +246,39 @@ public class EntradasDao {
 
         return productosList;
     }
+
+    public List<RegistroEntradas> reporteFechas(String fecha1, String fecha2) {
+        List<RegistroEntradas> productosList = new ArrayList<>();
+        String sql = "SELECT * FROM registro_entrada WHERE fechas_entrada BETWEEN ? AND ?";
+
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection(); // obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1);
+            ps.setString(2, fecha2);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                RegistroEntradas u = new RegistroEntradas();
+                u.setFolioEntrada(rs.getString("folio_Entrada"));
+                u.setNumeroFacturaE(rs.getString("numero_factura_e"));
+                u.setFechasEntrada(rs.getDate("fechas_entrada"));
+                u.setFkRFCProveedor(rs.getString("fk_RFC_Proveedor"));
+                u.setPrecioTotal(rs.getDouble("precioTotal"));
+                u.setFkEmpleado(rs.getString("fk_empleado"));
+                productosList.add(u);
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
+
 }
 

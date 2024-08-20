@@ -57,7 +57,7 @@ public class SalidasDao {
         return productosList;
     }
 
-
+/*
     public List<Salidas> reporteFechasS(String fecha1, String fecha2) {
         List<Salidas> productosList = new ArrayList<>();
         String sql = "{CALL fechasSalidas(?, ?)}";
@@ -94,7 +94,7 @@ public class SalidasDao {
 
         return productosList;
     }
-
+*/
 
     public boolean save2(registro_salida regS) {
         boolean rowInserted = false;
@@ -162,6 +162,37 @@ public class SalidasDao {
                 productosList.add(entradaa);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
+
+    public List<registro_salida> reporteFechasS(String fecha1, String fecha2) {
+        List<registro_salida> productosList = new ArrayList<>();
+        String sql = "SELECT * FROM registro_salida WHERE fecha_entrada BETWEEN ? AND ?";
+
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection(); // obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1);
+            ps.setString(2, fecha2);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                registro_salida u = new registro_salida();
+                u.setFolio_salida(rs.getString("folio_salida"));
+                u.setFecha_entrada(rs.getDate("fecha_entrada"));
+                u.setArea(rs.getString("area"));
+                u.setFk_almacenistaR(rs.getString("fk_almacenistaR"));
+                u.setFk_almacenistaE(rs.getString("fk_almacenistaE"));
+                productosList.add(u);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
