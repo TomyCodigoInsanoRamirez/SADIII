@@ -608,7 +608,7 @@ else if ("error_producto_existente".equals(message)) {
                                 }
                             </script>
                             <nav aria-label="...">
-                                <ul class="pagination">
+                                <ul id ="pagination" class="pagination">
                                     <li class="page-item ">
                                         <a class="page-link" id="anteriorPaginador" href="productos.jsp?value=<%=paginadorSolicitadoInt-1%>" >Anterior</a>
                                     </li>
@@ -766,15 +766,20 @@ else if ("error_producto_existente".equals(message)) {
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
+        let paginador = document.getElementById("pagination");
         if(pop.style.display === "none"){
             pop.style.display = "block";
             capa.style.zIndex = 1;
             pop.style.zIndex = 2;
             capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+            paginador.style.position = "absolute";
+            paginador.style.zIndex = -5;
             window.addEventListener('scroll', noScroll);
         }else{
             pop.style.display = "none";
             todoLoQueEstorba.style.zIndex = 0;
+            paginador.style.position = "absolute";
+            paginador.style.zIndex = 3;
         }
     })
     document.getElementById("close-br").addEventListener("click", function () {
