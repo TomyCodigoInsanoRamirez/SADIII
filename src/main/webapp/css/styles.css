@@ -101,6 +101,8 @@ body{
     background-color: #765e42;
     border-radius: 30px;
     color: #ecf0f1;
+
+
 }
 
 #sidebar-accordion .list-group-item:hover {
@@ -194,7 +196,11 @@ tr{
 }
 
 #sidebar-responsive{
-    display: none;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 300px;
 }
 #sidebar-accordion-responsive{
     position: absolute;
@@ -305,6 +311,11 @@ input:checked + .slider:before {
     #sidebar-accordion-responsive .list-group-item{
         background-color: #765e42 ;
         border-radius: 30px;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        width: 300px;
     }
 }
 @media (max-width: 490px){

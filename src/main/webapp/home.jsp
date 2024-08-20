@@ -333,7 +333,7 @@
                                 <a href="reporteDelDia.jsp"
                                    class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
                                     <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
-                                    Invrentario
+                                    Inventario
                                 </a>
                                 <%
                                     }else{
@@ -451,7 +451,9 @@
                                             Inventario
                                         </a>
                                         <%
+
                                             }
+
                                         %>
                                     </div>
                                 </div>

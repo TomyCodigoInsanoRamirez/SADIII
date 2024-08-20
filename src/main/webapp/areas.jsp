@@ -186,6 +186,19 @@
                                     <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
                                     Salida
                                 </a>
+
+                                <%
+                                    if(session.getAttribute("tipoSesion").equals("admin")){
+                                %>
+                                <a href="reporteDelDia.jsp"
+                                   class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                    <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                    Inventario
+                                </a>
+                                <%
+                                    }
+                                %>
+
                             </div>
                         </div>
                     </div>
@@ -270,6 +283,19 @@
                                                    aria-hidden="true"></i>
                                                 Salida
                                             </a>
+                                            <%
+                                                if(session.getAttribute("tipoSesion").equals("admin")){
+                                            %>
+                                            <a href="reporteDelDia.jsp"
+                                               class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                                <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                                Invrentario
+                                            </a>
+                                            <%
+                                                }else{
+                                                    System.out.println("No se pinta patrón");
+                                                }
+                                            %>
                                         </div>
                                     </div>
                                     <a href="#profile-items" data-toggle="collapse" aria-expanded="false"
@@ -287,6 +313,19 @@
                                             <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
                                             Salida
                                         </a>
+                                        <%
+                                            if(session.getAttribute("tipoSesion").equals("admin")){
+                                        %>
+                                        <a href="reporteDelDia.jsp"
+                                           class="list-group-item list-group-item-action bg-coffee text-light pl-5 mb-1">
+                                            <i class="bi bi-clipboard-check-fill mr-3" aria-hidden="true"></i>
+                                            Inventario
+                                        </a>
+                                        <%
+                                            }else{
+                                                System.out.println("No se pinta patrón");
+                                            }
+                                        %>
                                     </div>
                                 </div>
                             </div>
