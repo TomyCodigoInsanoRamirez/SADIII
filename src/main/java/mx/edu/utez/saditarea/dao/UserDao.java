@@ -78,6 +78,14 @@ public class UserDao {
                 usuario = new Usuario();
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
+                usuario.setNombre1_U(rs.getString("nombre1_U"));
+                usuario.setNombre2_U(rs.getString("nombre2_U"));
+                usuario.setApellido1_U(rs.getString("apellido1_U"));
+                usuario.setApellido2_U(rs.getString("apellido2_U"));
+                usuario.setTelefono(rs.getString("telefono_U"));
+                usuario.setRol(rs.getString("rol"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setContrasena(rs.getString("contrasena"));
                 usuario.setRol(rs.getString("rol")); // Obtenemos el tipo de usuario
             }
 

@@ -595,7 +595,7 @@
             <div class="izquierda" style="flex: 1;">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
-                    <input type="text" class="form-control" id="claveArea" name="claveArea" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                    <input type="text" class="form-control" id="claveArea" name="claveArea" required  title="Solo se permiten letras y espacios">
                 </div>
                 <div class="form-group">
                     <label for="nombreArea">Nombre del Área:</label>

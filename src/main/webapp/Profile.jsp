@@ -1,6 +1,7 @@
 <%@ page import="mx.edu.utez.saditarea.modelo.Usuario" %>
 <%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.reflect.Array" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -32,11 +33,13 @@
             </div>
         </nav>
         <%
-            UserDao dao = new UserDao();
-            ArrayList<Usuario> lista = dao.getAll();
-            Usuario u = null;
-            if (!lista.isEmpty()) {
-                u = lista.get(0); // Mostrar solo el primer usuario como ejemplo
+
+
+            // Recuperar el usuario de la sesión
+            Usuario u = (Usuario) session.getAttribute("usuario");
+
+            // Verificar si el usuario está en la sesión
+            if (u != null) {
         %>
         <section class="vh-100">
             <div class="container py-5 ">
@@ -55,92 +58,102 @@
                                 <p class="text-muted mb-4">Correo: <span class="mx-2">|</span><%= u.getCorreo() %></p>
 
                                 <p class="text-muted mb-4">Contraseña: <span class="mx-2">|</span>
-                                        ********</p>
+                                    ********</p>
 
                                 <div class="profile-buttons mt-3">
                                     <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
-                                    <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editProfileModal">Editar Información</a>
+                                    <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editModal<%= u.getId() %>">Editar Información</a>
                                 </div>
 
                             </div>
-                            <%
-                            } else {
-                            %>
-                            <p>No se encontraron usuarios.</p>
-                            <%
-                                }
-                            %>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
-
-
+        <%
+        } else {
+        %>
+        <p>No se encontró el usuario en la sesión.</p>
+        <%
+            }
+        %>
     </div>
+
+</div>
+</div>
+</div>
+</section>
+
+
+</div>
 </div>
 
 <!-- Modal para Editar Información -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal<%= u.getId() %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= u.getId() %>" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editProfileModalLabel">Editar Información del Perfil</h5>
+                <h5 class="modal-title" id="editModalLabel<%= u.getId() %>">Editar Información del Usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <%
-                    if (u != null) {
-                %>
-                <form id="editProfileForm" action="actualizarInformacion.jsp" method="post">
-                    <input type="hidden" name="userId" value="<%= u.getId() %>">
+                <form id="editForm<%= u.getId() %>" action="ActualizarUsuario2Servlet" method="post">
+                    <input type="hidden" name="id" value="<%= u.getId() %>">
+
                     <div class="form-group">
-                        <label for="nombre1_U">Nombre 1:</label>
-                        <input type="text" class="form-control" id="nombre1_U" name="nombre1_U" value="<%= u.getNombre1_U() %>" required>
+                        <label for="nombre1_U<%= u.getId() %>">Nombre 1</label>
+                        <input type="text" class="form-control" id="nombre1_U<%= u.getId() %>" name="nombre1_U" value="<%= u.getNombre1_U() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="nombre2_U">Nombre 2:</label>
-                        <input type="text" class="form-control" id="nombre2_U" name="nombre2_U" value="<%= u.getNombre2_U() %>">
+                        <label for="nombre2_U<%= u.getId() %>">Nombre 2</label>
+                        <input type="text" class="form-control" id="nombre2_U<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="apellido1_U">Apellido 1:</label>
-                        <input type="text" class="form-control" id="apellido1_U" name="apellido1_U" value="<%= u.getApellido1_U() %>" required>
+                        <label for="apellido1_U<%= u.getId() %>">Apellido 1</label>
+                        <input type="text" class="form-control" id="apellido1_U<%= u.getId() %>" name="apellido1_U" value="<%= u.getApellido1_U() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="apellido2_U">Apellido 2:</label>
-                        <input type="text" class="form-control" id="apellido2_U" name="apellido2_U" value="<%= u.getApellido2_U() %>">
+                        <label for="apellido2_U<%= u.getId() %>">Apellido 2</label>
+                        <input type="text" class="form-control" id="apellido2_U<%= u.getId() %>" name="apellido2_U" value="<%= u.getApellido2_U() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="telefono">Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" value="<%= u.getTelefono() %>" required>
+                        <label for="correo<%= u.getId() %>">Correo</label>
+                        <input type="email" class="form-control" id="correo<%= u.getId() %>" name="correo" value="<%= u.getCorreo() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="correo">Correo:</label>
-                        <input type="email" class="form-control" id="correo" name="correo" value="<%= u.getCorreo() %>" required>
+                        <label for="telefono<%= u.getId() %>">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono<%= u.getId() %>" name="telefono" value="<%= u.getTelefono() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="nuevaContrasena">Contraseña antigua:</label>
-                        <input type="password" class="form-control" id="nuevaContrasena" name="nuevaContrasena" value="<%= u.getContrasena()%>">
+                        <label for="contrasena<%= u.getId() %>">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena<%= u.getId() %>" name="contrasena" value="<%= u.getContrasena() %>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="confirmarContrasena">Nueva Contraseña:</label>
-                        <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena">
+                        <label for="rol<%= u.getId() %>">Rol</label>
+                        <input type="text" class="form-control" id="rol<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
                     </div>
+
                 </form>
-                <%
-                    }
-                %>
             </div>
-            <div class="modal-footer">
-                <a href="Profile.jsp" class="btn btn-danger">Cancelar</a>
-                <button type="submit" class="btn btn-primary" form="editProfileForm">Guardar Cambios</button>
+            <div class="modal-footer" style="justify-content: center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #df1616;">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="editForm<%= u.getId() %>">Guardar Cambios</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

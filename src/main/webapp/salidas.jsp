@@ -37,6 +37,12 @@
 
 </head>
 <style>
+  .popup-header h2 {
+    flex: 1; /* Permite que el título ocupe el espacio disponible */
+    text-align: center; /* Centra el texto dentro del h2 */
+    margin: 0; /* Elimina el margen predeterminado */
+  }
+
   .table-wrapper {
     position: relative;
   }
@@ -114,7 +120,7 @@
                 </a>
               </div>
               <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                  id="acciones">
+                 id="acciones">
 
               </a>
               <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
@@ -333,7 +339,9 @@
                   <th  class="todisable">Almacenista (Envío)</th>  <!--style="padding-left: 65px;" -->
                   <th>Fecha</th>
                   <th> Área</th>
-                  <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
+                  <th id="columnaAcciones">Acciones
+                  <th></th>
+                  <button id="agregar-fila" type="button" class="btn add-button">
                     <i class="bi bi-plus-circle-fill custom-color"></i>
                   </button></th>
                 </tr>
@@ -437,7 +445,7 @@
 <div class="popup-containerIn" id="popup-container">
   <div class="popup-header">
     <h2>Registro de Salidas</h2>
-    <button  class="close-btn" id="close">✖</button>
+    <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem; cursor: pointer;" id="close-br"></i>
   </div>
   <form action="registroSalidas" method="post">
     <!-- <button id="close" class="close-btn" >✖</button> -->
@@ -563,10 +571,11 @@
 
       </div>
     </div>
-    <span id="add-entradaa"><img src="img/add-removebg-preview.png"width="80px"></span>
     <!--<button type="submit">Agregar</button>-->
     <!--<a href="salidas.jsp">Registrar Salida</a>-->
-    <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Entrada</a>
+    <button style="background-color: #306AFE; border-color: #306AFE" id="add-entradaa" type="button" class="btn btn-primary">Agregar salida</button>
+    <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Salida</a>
+
   </form>
 </div>
 
@@ -1078,6 +1087,64 @@
 
 
   }
+  function submitForm() {
+    console.log("SI SE LLAMA A LA FUNCIÓN DE SALIDA ENVIAR")
+    if(checarDataLista()){
+      $(document).ready(function() {
+        $('#customAlertModal').modal('show');
+      });
+      //alert("NO PUEDES REGISTRAR UNA ENTRADA INCOMPLETA");
+    }else{
+      add_entradas.click();
+      let arrayOfArrays = conjuntoRegistros;
+
+      console.log("DATOS FICTICIOS")
+      for(let i = 0; i<arrayOfArrays.length;i++){
+        for (j=0;j<2;j++){
+          console.log("Registro "+i+" Dato "+j);
+        }
+      }
+
+      // Convertir el arreglo de arreglos a JSON
+      document.getElementById('data').value = JSON.stringify(arrayOfArrays);
+
+      // Enviar el formulario
+      document.getElementById('form-reg-entrada').submit();
+    }
+
+
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Cerrar el popup al hacer clic en el ícono de cierre
+    document.getElementById('close-br').addEventListener('click', function() {
+      var popup = document.getElementById('popup-container');
+      popup.style.display = 'none'; // Oculta el popup
+      var capa = document.getElementById('capa-obscurecer');
+      capa.style.zIndex = -1;
+      capa.style.backgroundColor = 'rgba(255,255,255,0)';
+    });
+
+    // Función para cerrar el popup cuando se cancela el formulario
+    function cancelForm() {
+      var popup = document.getElementById('popup-container');
+      popup.style.display = 'none'; // Oculta el popup
+      var capa = document.getElementById('capa-obscurecer');
+      capa.style.zIndex = -1;
+      capa.style.backgroundColor = 'rgba(255,255,255,0)';
+    }
+
+    // Asignar la función de cancelar al botón correspondiente
+    document.getElementById('btn-backl').addEventListener('click', submitForm);
+  });
+  document.getElementById('close-br').addEventListener('click', function() {
+    var popup = document.getElementById('popup-container');
+    var previewEntradas = document.getElementById('previewEntradas');
+
+    // Oculta el popup
+    popup.style.display = 'none';
+    // Oculta el contenedor de vistas previas
+    previewEntradas.style.display = 'none';
+  });
 </script>
 
 <div class="modal fade" id="customAlertModal" tabindex="-1" role="dialog" aria-labelledby="customAlertModalLabel" aria-hidden="true">

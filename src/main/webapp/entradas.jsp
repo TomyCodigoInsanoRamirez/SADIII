@@ -41,7 +41,50 @@
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 </head>
+<style>
+    .custom-color {
+        color: #28a745;
+    }
 
+    .add-button:hover {
+        background-color: #e6f9ea; /* Color verde brillante al pasar el cursor */
+        box-shadow: 0 0 10px 5px #e6f9ea;/* Color verde brillante al pasar el cursor */
+    }
+    #popup-container {
+        display: none; /* Asegúrate de que esté oculto por defecto */
+        /* Otros estilos para el modal */
+    }
+    #close-br {
+        background: none; /* Elimina el fondo */
+        border: none; /* Elimina el borde */
+        padding: 0; /* Elimina el padding */
+        margin: 0; /* Elimina el margin si es necesario */
+        cursor: pointer; /* Muestra el cursor pointer cuando se pasa sobre el ícono */
+    }
+    .popup-header {
+        display: flex; /* Usa flexbox para el contenedor */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Alinea los elementos verticalmente */
+        position: relative; /* Para posicionar el botón correctamente */
+        padding: 10px; /* Espacio alrededor del contenido */
+    }
+
+    .popup-header h2 {
+        flex: 1; /* Permite que el título ocupe el espacio disponible */
+        text-align: center; /* Centra el texto dentro del h2 */
+        margin: 0; /* Elimina el margen predeterminado */
+    }
+
+    #close-br {
+        position: absolute; /* Posiciona el botón en una ubicación específica */
+        right: 10px; /* Ajusta la distancia desde el borde derecho */
+        top: 50%; /* Centra verticalmente en relación con el encabezado */
+        transform: translateY(-50%); /* Ajusta la posición para centrar verticalmente */
+    }
+
+
+
+</style>
 <body>
 
 
@@ -310,6 +353,9 @@
                                     <th  class="todisable">Almacenista</th>  <!--style="padding-left: 65px;" -->
                                     <th >Acciones</th> <!--style="padding-left: 45px;"-->
                                     <th></th>
+                                    <th style="text-align: right; ">
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem; margin-top: -0.5%"></i>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -410,8 +456,7 @@
 
                             <!--<button id="agregar-fila" class="btn btn-primary btn-circular" style="border-radius: 100%; border: 0; position: absolute; top: -15px; right: -15px; background-color: #1e863f;">
                                 <i class="bi bi-plus-lg"></i>-->
-                            <img src="img/add-removebg-preview.png" width="90px" id="agregar-fila">
-                            </button>
+
                         </div>
                     </div>
 
@@ -439,14 +484,80 @@
         </div>
     </div>
 </div>
+<div class="popup-container" id="popup-container255">
+    <div class="popup-header text-center">
+        <h2>Registro de Productos</h2>
+        <div>
+            <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem;" id="close-br1"></i>
+        </div>
+    </div>
+    <form method="post" action="registroProducto">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rfc">Clave</label>
+                        <input type="text" class="form-control" id="rfc" name="clave" required>
+                    </div>
+
+                    <div class="form-group mt-6">
+                        <label for="nombre2A">Descripción:</label>
+                        <input style="width: 100%;"  type="text" class="form-control" id="nombre2A" name="descipcion" placeholder="Opcional" >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mt-0">
+                        <label for="nombre1">Nombre Producto:</label>
+                        <input type="text" class="form-control" id="nombre1" name="nombre" required>
+                    </div>
+                    <div class="form-group mt-0">
+                        <label for="unidadMedida">Unidad de Medida:</label>
+                        <select id="unidadMedida" name="unidadMedida" oninput="updateTable(contadorFilas,folio_EG)">
+                            <%
+                                if (unidadMedida != null) {
+                                    for (UnidadMedida unidadM : unidadMedida) {
+                            %>
+                            <option value="<%= unidadM.getAbreviacionUndidadMedida() %>"><%= unidadM.getNombreUnidadMedida()%></option>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No hay unidades de medida disponibles</option>
+                            <%
+                                }
+                            %>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3" >
+            <button id="btn-enviarr1" type="submit" class="btn btn-primary">Agregar</button>
+            <button  style="background-color:#df1616;   background-color: #df1616;  border-color: #df1616;color: white; width: 90px; outline: none;" id="btn-cancelar1" type="button" class="btn btn-primary" onclick="cancelForm()">Cancelar</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById('close-br1').addEventListener('click', function() {
+        var popup = document.getElementById('popup-container255');
+        popup.style.display = 'none'; // Oculta el popup
+    });
+
+    function cancelForm() {
+        var popup = document.getElementById('popup-container255');
+        popup.style.display = 'none'; // Oculta el popup
+    }
+</script>
 
 
 <!--formulario de registro (add)-->
-    <div class="popup-containerIn" id="popup-container">
+<div class="popup-containerIn" id="popup-container">
     <div class="popup-header">
         <h2>Registro de Entradas</h2>
-        <button  class="close-btn" id="close">✖</button>
+        <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem; cursor: pointer;" id="close-br"></i>
     </div>
+
     <form action="registroEntradas" method="post">
         <!-- <button id="close" class="close-btn" >✖</button> -->
         <div class="contenedorInputs3">
@@ -480,12 +591,16 @@
                     </select>
 
                 </div>
+
                 <div class="form-group">
+
                     <div class="form-group">
                         <label for="nombreCompletoAlmacenista">Nombre del almacenista : </label>
                         <!--<input id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" data-usuarioSesion="<%=usuarioSes.getId()%>" value="<%=usuarioSes.getId()%>" oninput="updateTable(contadorFilas,folio_EG)" readonly required >-->
 
+
                         <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required oninput="updateTable(contadorFilas,folio_EG)">
+
                             <%
                                 System.out.println("NOMBRE USUARIO SESION: "+usuarioSes.getNombre1_U());
                                 if (userDao != null) {
@@ -501,6 +616,7 @@
                                 }
                             %>
                         </select>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -528,12 +644,14 @@
                     <input id="unit" value="" name="unit" readonly oninput="updateTable(contadorFilas,folio_EG)" >
                 </div>
 
+
                 <div class="form-group">
                     <label for="unit-price">Precio Unitario :</label>
                     <input type="number" id="unit-price" name="unit-price" required  oninput="updateTable(contadorFilas,folio_EG)">
                 </div>
 
             </div>
+
             <div class="derecha3">
                 <!--<button id="close" class="close-btn" >✖</button>-->
                 <div class="form-group">
@@ -562,7 +680,6 @@
                             }
                         %>
                     </select>
-                    <img id="add_desdeEntrada_btn" src="img/add-removebg-preview.png" width="50px">
                 </div>
 
                 <div class="form-group">
@@ -582,8 +699,10 @@
         </div>
         <!--<button id="btn-enviarr" type="submit" class="btn-to-actions">Agregar</button>-->
         <!-- <a id="add-desdeEntrada" class="btn-to-actions" href="entradas.jsp"><img src="img/add-removebg-preview.png"width="80px"></a> -->
-        <span id="add-entradaa"><img src="img/add-removebg-preview.png"width="80px"></span>
+
         <!-- <a id="btn-backl" href="regEntrada?data=" class="btn-to-actions">Registrar Entrada</a> -->
+        <button  style="background-color: #306AFE; border-color: #306AFE" id="agregar-fila2" type="button" class="btn btn-primary" >Agregar producto</button>
+        <button style="background-color: #306AFE; border-color: #306AFE" id="add-entradaa" type="button" class="btn btn-primary">Agregar entrada</button>
         <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Entrada</a>
 
     </form>
@@ -593,6 +712,7 @@
 
     <table class="table">
         <thead>
+
         <tr>
             <th>Folio</th>
             <th>Nombre Proveedor</th>
@@ -620,6 +740,7 @@
         </tbody>
         <!--
         <script>
+
             function updateTable() {
                 let contadorr = 1;
                 let datoImprimir;
@@ -649,11 +770,14 @@
                     column.value = values[index];
                 });
             }
+
         </script>
         -->
+
     </table>
 </div>
 <script>
+
     let folio_EG = null;
 
     function generarCodigo() {
@@ -963,6 +1087,53 @@
         }
 
     })
+
+    document.getElementById("agregar-fila2").addEventListener("click",function (){ /*add*/
+        // alert("si se da clic");
+        let pop = document.getElementById("popup-container255");
+        // let capa = document.getElementById("capa-obscurecer");
+        let paginador = document.getElementById("pagination");
+        if(pop.style.display === "none"){
+            pop.style.display = "block";
+            capa.style.zIndex = 5;
+            pop.style.zIndex = 6;
+            capa.style.backgroundColor = "rgba(0,0,0,0.7)";
+            paginador.style.position = "absolute";
+            paginador.style.zIndex = -5;
+            window.addEventListener('scroll', noScroll);
+        }else{
+            pop.style.display = "none";
+            todoLoQueEstorba.style.zIndex = 0;
+            paginador.style.position = "absolute";
+            paginador.style.zIndex = 3;
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     document.getElementById("agregar-fila").addEventListener("click",function (){ /*add*/
         // alert("si se da clic");
         let pop = document.getElementById("popup-container");
@@ -1002,6 +1173,7 @@
 
     function noScroll() {
         //window.scrollTo(0, 0);
+
     }
 </script>
 
@@ -1083,8 +1255,41 @@
 
 
     }
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cerrar el popup al hacer clic en el ícono de cierre
+        document.getElementById('close-br').addEventListener('click', function() {
+            var popup = document.getElementById('popup-container');
+            popup.style.display = 'none'; // Oculta el popup
+            var capa = document.getElementById('capa-obscurecer');
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = 'rgba(255,255,255,0)';
+        });
 
+        // Función para cerrar el popup cuando se cancela el formulario
+        function cancelForm() {
+            var popup = document.getElementById('popup-container');
+            popup.style.display = 'none'; // Oculta el popup
+            var capa = document.getElementById('capa-obscurecer');
+            capa.style.zIndex = -1;
+            capa.style.backgroundColor = 'rgba(255,255,255,0)';
+        }
+
+        // Asignar la función de cancelar al botón correspondiente
+        document.getElementById('btn-backl').addEventListener('click', submitForm);
+    });
+    document.getElementById('close-br').addEventListener('click', function() {
+        var popup = document.getElementById('popup-container');
+        var previewEntradas = document.getElementById('previewEntradas');
+
+        // Oculta el popup
+        popup.style.display = 'none';
+        // Oculta el contenedor de vistas previas
+        previewEntradas.style.display = 'none';
+    });
+
+
+</script>
+<!--
 <div id="contenedorFormProductoEntradas">
     <div id="capa-obscurecer-agregar-desdeEntradas"></div>
     <div id="formulario-registro-entradas-producto">
@@ -1093,7 +1298,6 @@
             <button  class="close-btn" id="closeE">✖</button>
         </div>
         <form method="post" action="registroProducto">
-            <!-- <button id="close" class="close-btn" >✖</button> -->
             <div class="contenedorInputs">
                 <div class="izquierda">
                     <div class="form-group">
@@ -1107,7 +1311,6 @@
 
                 </div>
                 <div class="derecha">
-                    <!--<button id="close" class="close-btn" >✖</button>-->
                     <div class="form-group">
                         <label for="nombre2A">Descripción:</label>
                         <input type="text" id="nombre2A" name="descipcion" placeholder="Opcional" required>
@@ -1118,27 +1321,28 @@
             <button id="btn-enviarr" type="submit" class="add-btn">Agregar</button>
         </form>
     </div>
-    <script>
-        const cerrarFormularioDesdeEntradas = document.getElementById("closeE");
-        const contenedorFormProductoEntradas = document.getElementById("contenedorFormProductoEntradas"); //1
-        const capa_obscurecer_agregar_desdeEntradas = document.getElementById("capa-obscurecer-agregar-desdeEntradas");//2
-        const formulario_registro_entradas_producto = document.getElementById("formulario-registro-entradas-producto");//3
-        const abrirFormularioProductoDesdeEntradas = document.getElementById("agregar-producto-desde-Entrada");
-        /*
-                abrirFormularioProductoDesdeEntradas.addEventListener("click",function (){
-                    contenedorFormProductoEntradas.style.display = "block";
-                    formulario_registro_entradas_producto.style.display = "block";
-                })
+    -->
+<script>
+    const cerrarFormularioDesdeEntradas = document.getElementById("closeE");
+    const contenedorFormProductoEntradas = document.getElementById("contenedorFormProductoEntradas"); //1
+    const capa_obscurecer_agregar_desdeEntradas = document.getElementById("capa-obscurecer-agregar-desdeEntradas");//2
+    const formulario_registro_entradas_producto = document.getElementById("formulario-registro-entradas-producto");//3
+    const abrirFormularioProductoDesdeEntradas = document.getElementById("agregar-producto-desde-Entrada");
+    /*
+            abrirFormularioProductoDesdeEntradas.addEventListener("click",function (){
+                contenedorFormProductoEntradas.style.display = "block";
+                formulario_registro_entradas_producto.style.display = "block";
+            })
 
-                cerrarFormularioDesdeEntradas.addEventListener("click",function (){
-                    contenedorFormProductoEntradas.style.display = "none";
-                    formulario_registro_entradas_producto.style.display = "none";
-                })
-                */
-    </script>
+            cerrarFormularioDesdeEntradas.addEventListener("click",function (){
+                contenedorFormProductoEntradas.style.display = "none";
+                formulario_registro_entradas_producto.style.display = "none";
+            })
+            */
+</script>
 
 </div>
-
+-->
 
 
 <div class="modal fade" id="customAlertModal" tabindex="-1" role="dialog" aria-labelledby="customAlertModalLabel" aria-hidden="true">
