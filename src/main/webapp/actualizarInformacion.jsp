@@ -50,7 +50,7 @@
                     // Si la contraseña antigua es correcta y hay una nueva contraseña
                     if (nuevaContrasena != null && !nuevaContrasena.isEmpty()) {
                         usuario.setContrasena(nuevaContrasena);
-                        dao.updatePassword(usuario.getId(), nuevaContrasena);
+                        dao.updatePassword(String.valueOf(usuario.getId()), nuevaContrasena);
                     }
                 } else {
                     // Mostrar error si la contraseña antigua no coincide
