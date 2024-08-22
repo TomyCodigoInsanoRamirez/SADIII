@@ -35,7 +35,6 @@ public class ActualizarUnidadMedida extends HttpServlet {
         unidadMedida.setNombreUnidadMedida(nombreUnidadMedida);
 
         if(dao.updatee(unidadMedida,claveFija)){
-            //resp.getWriter().println("unidadMedida.jsp");
             resp.sendRedirect("unidadMedida.jsp");
         }
         else{

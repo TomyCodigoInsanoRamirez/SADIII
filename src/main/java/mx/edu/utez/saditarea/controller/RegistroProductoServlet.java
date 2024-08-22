@@ -1,5 +1,6 @@
 package mx.edu.utez.saditarea.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,12 +8,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mx.edu.utez.saditarea.dao.ProductosDao;
 import mx.edu.utez.saditarea.modelo.Productos;
+import mx.edu.utez.saditarea.modelo.RegistroProductoEntrada;
 
 import java.io.IOException;
 import java.util.UUID;
 
 @WebServlet(name = "RegistroProductoServlet", value = "/registroProducto")
 public class RegistroProductoServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String folio = request.getParameter("folio");
+        ProductosDao dao = new ProductosDao();
+        RegistroProductoEntrada regE = (RegistroProductoEntrada) dao.producByFolio(folio);
+
+        request.setAttribute("regE", regE);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vistaEntrada.jsp");
+        dispatcher.forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

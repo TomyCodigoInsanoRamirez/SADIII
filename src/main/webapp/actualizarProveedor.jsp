@@ -4,6 +4,7 @@
 <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 
 <%
+    // Obtener parámetros del formulario
     String RFC = request.getParameter("RFC");
     String razonSocial = request.getParameter("razonSocial");
     String nombreProveedor1 = request.getParameter("nombreProveedor1");
@@ -19,7 +20,7 @@
     String direccionProveedor = request.getParameter("direccion");
     String cp = request.getParameter("cp");
 
-    ProveedoresDao dao = new ProveedoresDao();
+    // Crear un objeto Proveedores y asignar valores
     Proveedores proveedor = new Proveedores();
     proveedor.setRFC(RFC);
     proveedor.setRazon_social(razonSocial);
@@ -27,19 +28,22 @@
     proveedor.setNombre2_P(nombreProveedor2);
     proveedor.setApellido1_P(apellidoProveedor1);
     proveedor.setApellido2_P(apellidoProveedor2);
+    proveedor.setTelefono_P(telefonoProveedor);
+    proveedor.setTelefono_Adicional(telefonoAdicional);
     proveedor.setNombre1_Adicional(nombreA1);
     proveedor.setNombre2_Adicional(nombreA2);
     proveedor.setApellido1_Adicional(apellidoA1);
     proveedor.setApellido2_Adicional(apellidoA2);
     proveedor.setDireccion(direccionProveedor);
     proveedor.setCodigo_postal(cp);
-    proveedor.setTelefono_P(telefonoProveedor);
-    proveedor.setTelefono_Adicional(telefonoAdicional);
 
+    // Llamar al DAO para actualizar el proveedor
+    ProveedoresDao dao = new ProveedoresDao();
     boolean actualizado = dao.update(proveedor);
 
+    // Redireccionar o mostrar mensaje de error
     if (actualizado) {
-        response.sendRedirect("provedores.jsp");
+        response.sendRedirect("provedores.jsp"); // Cambiar a la página que muestra la lista de proveedores
     } else {
         System.out.println("<script>alert('Error al actualizar el proveedor.'); window.location.href='index.jsp';</script>");
     }

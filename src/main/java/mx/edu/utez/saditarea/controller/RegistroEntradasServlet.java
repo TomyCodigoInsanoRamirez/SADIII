@@ -1,5 +1,6 @@
 package mx.edu.utez.saditarea.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,19 +8,40 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saditarea.dao.EntradasDao;
+import mx.edu.utez.saditarea.dao.ProductosDao;
 import mx.edu.utez.saditarea.modelo.Entradas;
+import mx.edu.utez.saditarea.modelo.RegistroEntradas;
+import mx.edu.utez.saditarea.modelo.RegistroProductoEntrada;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "RegistroEntradasServlet", value = "/registroEntradas")
-public class RegistroEntradasServlet extends HttpServlet {
+public class    RegistroEntradasServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
 
     }
+    public class RegistroProductoServlet extends HttpServlet {
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String folio = request.getParameter("folio");
+            ProductosDao dao = new ProductosDao();
+
+            // Obtener la lista de RegistroEntradas
+            List<RegistroEntradas> entradasList = dao.producByFolio0(folio);
+
+            // Pasar la lista al JSP
+            request.setAttribute("entradasList", entradasList);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("vistaEntrada.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
+
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener los parámetros del formulario

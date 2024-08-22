@@ -1,6 +1,8 @@
 package mx.edu.utez.saditarea.dao;
 
 import mx.edu.utez.saditarea.modelo.Productos;
+import mx.edu.utez.saditarea.modelo.RegistroEntradas;
+import mx.edu.utez.saditarea.modelo.RegistroProductoEntrada;
 import mx.edu.utez.saditarea.modelo.inventario;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
@@ -79,14 +81,16 @@ public class ProductosDao {
 
     public boolean update(Productos producto) {
         boolean rowUpdated = false;
-        String query = "UPDATE Productos SET nombreProducto = ?, descripcionProducto = ?, estado = ? WHERE claveProducto = ?";
+        String query = "UPDATE Productos SET nombreProducto = ?, descripcionProducto = ?, estado = ?, fk_unidadMedidaProd = ? WHERE claveProducto = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, producto.getNombreProducto());
             ps.setString(2, producto.getDescripcionProducto());
             ps.setInt(3, producto.getEstadoProducto());
-            ps.setString(4, producto.getClaveProducto());
+            ps.setString(4, producto.getUnidadMedida());
+            ps.setString(5, producto.getClaveProducto());
+
 
             rowUpdated = ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -169,4 +173,82 @@ public class ProductosDao {
         }
         return precio;
     }
+
+
+    public List<RegistroProductoEntrada> producByFolio(String folio) {
+        List<RegistroProductoEntrada> productosList = new ArrayList<>();
+        String query = "SELECT fk_producto, precio_unitario_prod, precioTotalP, cantidad, unidadMedidaE " +
+                "FROM registro_producto_entrada rp " +
+                "JOIN productos p ON rp.fk_producto = p.claveProducto " +
+                "WHERE rp.fk_folio = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            System.out.println("Ejecutando consulta con folio: " + folio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.isBeforeFirst()) {  // Verificar si el ResultSet está vacío
+                    System.out.println("No se encontraron resultados para el folio: " + folio);
+                } else {
+                    System.out.println("Se encontraron resultados para el folio.");
+                }
+                while (rs.next()) {
+                    RegistroProductoEntrada producto = new RegistroProductoEntrada();
+                    producto.setFkProducto(rs.getString("fk_producto"));
+                    producto.setPrecioUnitarioProd(rs.getDouble("precio_unitario_prod"));
+                    producto.setPrecioTotalP(rs.getDouble("precioTotalP"));
+                    producto.setCantidad(rs.getInt("cantidad"));
+                    producto.setUnidadMedidaE(rs.getString("unidadMedidaE"));
+
+                    productosList.add(producto);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productosList;
+    }
+    public List<RegistroEntradas> producByFolio0(String folio) {
+        List<RegistroEntradas> entradasList = new ArrayList<>();
+        String query = "SELECT re.folio_Entrada, re.numero_factura_e, re.fechas_entrada, re.fk_RFC_Proveedor, re.precioTotal, re.fk_empleado " +
+                "FROM registro_entrada re " +
+                "JOIN registro_producto_entrada pe ON re.folio_Entrada = pe.fk_folio " +
+                "WHERE re.folio_Entrada = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            System.out.println("Ejecutando consulta con folio: " + folio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.isBeforeFirst()) {  // Verificar si el ResultSet está vacío
+                    System.out.println("No se encontraron resultados para el folio: " + folio);
+                } else {
+                    System.out.println("Se encontraron resultados para el folio.");
+                }
+                while (rs.next()) {
+                    RegistroEntradas entrada = new RegistroEntradas();
+                    entrada.setFolioEntrada(rs.getString("folio_Entrada"));
+                    entrada.setNumeroFacturaE(rs.getString("numero_factura_e"));
+                    entrada.setFechasEntrada(rs.getDate("fechas_entrada"));
+                    entrada.setFkRFCProveedor(rs.getString("fk_RFC_Proveedor"));
+                    entrada.setPrecioTotal(rs.getDouble("precioTotal"));
+                    entrada.setFkEmpleado(rs.getString("fk_empleado"));
+
+                    entradasList.add(entrada);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return entradasList;
+    }
+
 }

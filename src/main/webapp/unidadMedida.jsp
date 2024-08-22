@@ -595,11 +595,11 @@
                                                     <input type="hidden" name="claveFija" value="<%= u.getAbreviacionUndidadMedida() %>">
                                                     <div class="form-group">
                                                         <label for="abrum<%= u.getAbreviacionUndidadMedida() %>">Abreviación Unidad de Medida:</label>
-                                                        <input type="text" class="form-control" id="abrum<%= u.getAbreviacionUndidadMedida() %>" name="abrum" value="<%= u.getAbreviacionUndidadMedida() %>" required>
+                                                        <input type="text" class="form-control" id="abreviacion<%= u.getAbreviacionUndidadMedida() %>" name="abreviacion" value="<%= u.getAbreviacionUndidadMedida() %>" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>">Nombre Unidad de Medida:</label>
-                                                        <input type="text" class="form-control" id="nombreUnidadMedida<%= u.getAbreviacionUndidadMedida() %>" name="nombreUnidadMedida" value="<%= u.getNombreUnidadMedida() %>" required>
+                                                        <input type="text" class="form-control" id="nombre<%= u.getAbreviacionUndidadMedida() %>" name="nombreUnidadMedida" value="<%= u.getNombreUnidadMedida() %>" required>
                                                     </div>
 
                                                 </form>

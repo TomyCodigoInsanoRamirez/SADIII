@@ -305,6 +305,7 @@
                                     <th>Precio</th>
                                     <th> Unidad Medida</th>
                                     <th>Cantidad</th>
+                                    <th id="columnaAcciones">Acciones</th>
                                     <!--
                                     <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
                                         <i class="bi bi-plus-circle-fill custom-color"></i>
@@ -334,6 +335,9 @@
                                     <td><%=u.getPrecioUnitario()%></td>
                                     <td><%=u.getFk_unidadMedidaP()%></td>
                                     <td><%=u.getCantidad()%></td>
+                                    <td>  <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= u.getClaveProducto() %>">
+                                        <img class="act" src="img/visibility_24dp.png">
+                                    </a></td>
                                     <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td>
                                     <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>-->
 

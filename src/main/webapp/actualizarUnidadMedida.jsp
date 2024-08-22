@@ -4,11 +4,11 @@
 
 <%
     // Obtener datos del formulario
-    String abreviacion = request.getParameter("abreviacion");
-    String nombre = request.getParameter("nombre");
+    String abreviacionUnidadMedida = request.getParameter("abreviacion");
+    String nombreUnidadMeidida = request.getParameter("nombre");
 
     // Crear objeto UnidadMedida con los datos del formulario
-    UnidadMedida unidadMedida = new UnidadMedida(abreviacion, nombre);
+    UnidadMedida unidadMedida = new UnidadMedida(abreviacionUnidadMedida, nombreUnidadMeidida);
 
     // Crear instancia del DAO para actualizar la unidad de medida
     UnidadMedidaDao dao = new UnidadMedidaDao();

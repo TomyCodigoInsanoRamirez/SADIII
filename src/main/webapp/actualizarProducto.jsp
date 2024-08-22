@@ -9,12 +9,13 @@
     String nombreProducto = request.getParameter("nombreProducto");
     String descripcionProducto = request.getParameter("descripcionProducto");
     String estadoProductoStr = request.getParameter("estadoProducto");
+    String unidadMedida = request.getParameter("unidadMedida");
 
     // Maneja el caso en que el estadoProducto no se proporciona en el formulario
     int estadoProducto = estadoProductoStr != null ? Integer.parseInt(estadoProductoStr) : 1;
 
     // Crea el objeto Productos con todos los parámetros
-    Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estadoProducto);
+    Productos producto = new Productos(claveProducto, nombreProducto, descripcionProducto, estadoProducto,unidadMedida);
 
     // Obtén el DAO y actualiza el producto
     ProductosDao dao = new ProductosDao();

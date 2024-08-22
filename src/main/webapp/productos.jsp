@@ -555,6 +555,10 @@ else if ("error_producto_existente".equals(message)) {
                                                         <label for="descripcionProducto<%= u.getClaveProducto() %>">Descripción Producto:</label>
                                                         <input type="text" class="form-control" id="descripcionProducto<%= u.getClaveProducto() %>" name="descripcionProducto" value="<%= u.getDescripcionProducto() %>" required>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="unidadMedida<%= u.getUnidadMedida() %>"> Unidad de medida:</label>
+                                                        <input type="text" class="form-control" id="unidadMedida<%= u.getClaveProducto() %>" name="unidadMedida" value="<%= u.getUnidadMedida() %>" required>
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer" style="justify-content: center">
@@ -564,7 +568,7 @@ else if ("error_producto_existente".equals(message)) {
                                         </div>
                                     </div>
                                 </div>
-
+                                <!--Modal para ver la información-->
                                 <div class="modal fade" id="visualizarProductosModal<%= u.getClaveProducto() %>" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content rounded-3 border-0 shadow-lg" style="background-color: #f6f8fa; max-width: 500px;">

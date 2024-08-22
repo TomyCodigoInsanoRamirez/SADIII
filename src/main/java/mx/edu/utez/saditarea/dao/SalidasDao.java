@@ -198,4 +198,45 @@ public class SalidasDao {
 
         return productosList;
     }
+
+    //consulta para salidas
+    public List<RegistroEntradas> producByFolio0(String folio) {
+        List<RegistroEntradas> entradasList = new ArrayList<>();
+        String query = "SELECT re.folio_Entrada, re.numero_factura_e, re.fechas_entrada, re.fk_RFC_Proveedor, re.precioTotal, re.fk_empleado " +
+                "FROM registro_entrada re " +
+                "JOIN registro_producto_entrada pe ON re.folio_Entrada = pe.fk_folio " +
+                "WHERE re.folio_Entrada = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            System.out.println("Ejecutando consulta con folio: " + folio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.isBeforeFirst()) {  // Verificar si el ResultSet está vacío
+                    System.out.println("No se encontraron resultados para el folio: " + folio);
+                } else {
+                    System.out.println("Se encontraron resultados para el folio.");
+                }
+                while (rs.next()) {
+                    RegistroEntradas entrada = new RegistroEntradas();
+                    entrada.setFolioEntrada(rs.getString("folio_Entrada"));
+                    entrada.setNumeroFacturaE(rs.getString("numero_factura_e"));
+                    entrada.setFechasEntrada(rs.getDate("fechas_entrada"));
+                    entrada.setFkRFCProveedor(rs.getString("fk_RFC_Proveedor"));
+                    entrada.setPrecioTotal(rs.getDouble("precioTotal"));
+                    entrada.setFkEmpleado(rs.getString("fk_empleado"));
+
+                    entradasList.add(entrada);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return entradasList;
+    }
+
 }
