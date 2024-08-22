@@ -239,4 +239,109 @@ public class SalidasDao {
         return entradasList;
     }
 
+
+    public List<RegistroProductoSalida> producByFolio2(String folio) {
+        List<RegistroProductoSalida> salidaList = new ArrayList<>();
+        String query = "select fk_producto,precio_unitario_prod,precioTotalP,cantidad,unidadMedidaE,fk_folio  from registro_entrada re join registro_producto_entrada pe on re.folio_Entrada = pe.fk_folio where re.folio_Entrada = ? ";
+        RegistroProductoSalida salida = new RegistroProductoSalida();
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            System.out.println("Ejecutando consulta con folio: " + folio);
+            //ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            {
+                while (rs.next()) {
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return salidaList;
+    }
+
+    /*
+    public ArrayList<RegistroProductoSalida> producByFolio(String folio) {
+        ArrayList<RegistroProductoSalida> dataSalida = new ArrayList<>();
+        String query = "select fk_producto,precio_unitario_prod,precioTotalP,cantidad,unidadMedidaE,fk_folio  from registro_entrada re join registro_producto_entrada pe on re.folio_Entrada = pe.fk_folio where re.folio_Entrada = ?";
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ps.setString(1,folio);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                RegistroProductoSalida salida = new RegistroProductoSalida();
+                salida.setFk_producto_salida(rs.getString("fk_producto"));
+                salida.setPrecio_unitario_prod_salida(rs.getDouble("precio_unitario_prod"));
+                salida.setPrecioTotalS(rs.getDouble("precioTotalP"));
+                salida.setCantidad(rs.getInt("cantidad"));
+                salida.setUnidadMedidaS(rs.getString("unidadMedidaE"));
+                salida.setFk_folio_salida(rs.getString("fk_folio"));
+
+                dataSalida.add(salida);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSalida;
+    } */
+    public ArrayList<RegistroProductoSalida> producByFolio(String folio) {
+        ArrayList<RegistroProductoSalida> dataSalida = new ArrayList<>();
+        String query = "SELECT fk_producto_salida, precio_unitario_prod_salida, cantidad, unidadMedidaS, fk_folio_salida FROM registro_salida re JOIN registro_producto_salida pe ON re.folio_salida = pe.fk_folio_salida WHERE re.folio_salida = ?";
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println("YA SE ESTA LLENANDO EL ARRAY LIST");
+                    RegistroProductoSalida salida = new RegistroProductoSalida();
+                    salida.setFk_producto_salida(rs.getString("fk_producto_salida"));
+                    salida.setPrecio_unitario_prod_salida(rs.getDouble("precio_unitario_prod_salida"));
+                    //salida.setPrecioTotalS(rs.getDouble("precioTotalP"));
+                    salida.setCantidad(rs.getInt("cantidad"));
+                    salida.setUnidadMedidaS(rs.getString("unidadMedidaS"));
+                    salida.setFk_folio_salida(rs.getString("fk_folio_salida"));
+
+                    dataSalida.add(salida);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSalida;
+    }
+
+
+    public registro_salida datosSalida(String folio) {
+        registro_salida salidaList = new registro_salida();
+        String query = "select * from registro_salida where folio_salida = ?";
+        registro_salida salida = new registro_salida();
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, folio);
+            System.out.println("Ejecutando consulta con folio: " + folio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+
+                    salida.setFolio_salida(rs.getString("folio_salida"));
+                    salida.setFecha_entrada(rs.getDate("fecha_entrada"));
+                    salida.setArea(rs.getString("area"));
+                    salida.setFk_almacenistaR(rs.getString("fk_almacenistaR"));
+                    salida.setFk_almacenistaE(rs.getString("fk_almacenistaE"));
+                    //salidaList.add(salida);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return salida;
+    }
 }

@@ -369,7 +369,7 @@
                   <td><%=u.getFecha_entrada()%></td>
                   <td><%=daoArea.getNameArea(u.getArea())%></td>
                   <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td> -->
-                  <td id="acc" class="acc"><a href="ojoSalidas.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
+                  <td id="acc" class="acc"><a href="ojoSalidas.jsp?folio=<%=u.getFolio_salida()%>"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>
 
                 </tr>
                 <%} %>

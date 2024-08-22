@@ -1,9 +1,6 @@
 package mx.edu.utez.saditarea.dao;
 
-import mx.edu.utez.saditarea.modelo.Productos;
-import mx.edu.utez.saditarea.modelo.RegistroEntradas;
-import mx.edu.utez.saditarea.modelo.RegistroProductoEntrada;
-import mx.edu.utez.saditarea.modelo.inventario;
+import mx.edu.utez.saditarea.modelo.*;
 import mx.edu.utez.saditarea.utils.DatabaseConnectionManager;
 
 import java.sql.*;
@@ -249,6 +246,30 @@ public class ProductosDao {
         }
 
         return entradasList;
+    }
+
+    public String getNameProd(String id ) {
+        Productos p = new Productos();
+        String sql = "SELECT nombreProducto FROM Productos WHERE claveProducto = ?";
+        try {
+            // Conexión y consulta a la base de datos
+            Connection con = DatabaseConnectionManager.getConnection();// obtener conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                p.setNombreProducto(rs.getString("nombreProducto"));
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return p.getNombreProducto();
     }
 
 }

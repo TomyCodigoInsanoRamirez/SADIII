@@ -1,5 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="mx.edu.utez.saditarea.modelo.RegistroEntradas" %>
+<%@ page import="mx.edu.utez.saditarea.dao.SalidasDao" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.registro_salida" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saditarea.modelo.RegistroProductoSalida" %>
+<%@ page import="mx.edu.utez.saditarea.dao.ProductosDao" %>
+<%@ page import="mx.edu.utez.saditarea.dao.UserDao" %>
+<%@ page import="mx.edu.utez.saditarea.dao.AreasDao" %>
 
 <html lang="es">
 
@@ -21,6 +28,18 @@
         }
     </style>
 </head>
+
+<%
+    String folio = request.getParameter("folio");
+    System.out.println("OBTENER FOLIOOOOOOOOOOOOOOOOOOO: "+folio);
+    SalidasDao salidaa = new SalidasDao();
+    registro_salida salida = salidaa.datosSalida(folio);
+    List<RegistroProductoSalida> producByFolio = salidaa.producByFolio(folio);
+    //registro_salida a =new registro_salida();
+    ProductosDao productosDao = new ProductosDao();
+    UserDao userDao = new UserDao();
+    AreasDao areasDao = new AreasDao();
+%>
 <body>
 <div class="d-flex">
     <div class="content w-100">
@@ -60,11 +79,11 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Dato 1</td>
-                        <td>Dato 2</td>
-                        <td>Dato 3</td>
-                        <td>Dato 4</td>
-                        <td>Dato 5</td>
+                        <td><%=salida.getFolio_salida()%></td>
+                        <td><%=salida.getFecha_entrada()%></td>
+                        <td><%=areasDao.getNameArea(salida.getArea())%></td>
+                        <td><%=userDao.getName(Integer.parseInt(salida.getFk_almacenistaR()))%></td>
+                        <td><%=userDao.getName(Integer.parseInt(salida.getFk_almacenistaR()))%></td>
                     </tr>
                     </tbody>
                 </table>
@@ -76,19 +95,27 @@
                 <table class="table table-bordered table-striped" style="margin-top: -0.1%">
                     <thead>
                     <tr>
-                        <th>Clave del producto</th>
-                        <th>Precio unitario</th>
-                        <th>Cantidad</th>
+                        <th>Producto</th>
                         <th>Unidad de medida</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Precio Total</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <%
+                        for(RegistroProductoSalida a : producByFolio){
+                    %>
                     <tr>
-                        <td>Dato 1</td>
-                        <td>Dato 2</td>
-                        <td>Dato 3</td>
-                        <td>Dato 4</td>
+                        <td><%=productosDao.getNameProd(a.getFk_producto_salida())%></td>
+                        <td><%=a.getUnidadMedidaS()%></td>
+                        <td><%=a.getCantidad()%></td>
+                        <td><%=a.getPrecio_unitario_prod_salida()%></td>
+                        <td><%=a.getCantidad() * a.getPrecio_unitario_prod_salida()%></td>
                     </tr>
+                    <%
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>
