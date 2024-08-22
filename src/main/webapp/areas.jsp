@@ -94,20 +94,20 @@
             allowOutsideClick: false,
             allowEscapeKey: false,
             allowEnterKey: false
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Enviar solicitud al servidor para actualizar el estado
-            window.location.href = element.parentElement.querySelector('a').href;
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Revertir el estado del checkbox si el usuario cancela
-            element.checked = !isChecked;
-            Swal.fire({
-                title: 'Cancelado',
-                text: 'La acción ha sido cancelada.',
-                icon: 'error'
-            });
-        }
-    });
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar solicitud al servidor para actualizar el estado
+                window.location.href = element.parentElement.querySelector('a').href;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Revertir el estado del checkbox si el usuario cancela
+                element.checked = !isChecked;
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La acción ha sido cancelada.',
+                    icon: 'error'
+                });
+            }
+        });
     }
 </script>
 <body>

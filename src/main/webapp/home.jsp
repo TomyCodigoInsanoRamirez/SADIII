@@ -280,7 +280,7 @@
                             </div>
 
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
+                               id="acciones">
 
                             </a>
 
@@ -301,12 +301,12 @@
                                     <%
                                         if(session.getAttribute("tipoSesion").equals("admin")){
                                     %>
-                                        <a href="reporteDelDia.jsp"
-                                           class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
-                                            <i class="bi bi-arrow-right-square-fill mr-3"
-                                               aria-hidden="true"></i>
-                                            Reporte del día
-                                        </a>
+                                    <a href="reporteDelDia.jsp"
+                                       class="list-group-item list-group-item-action bg-coffee text-light  mb-1" style="border-radius: 0;">
+                                        <i class="bi bi-arrow-right-square-fill mr-3"
+                                           aria-hidden="true"></i>
+                                        Reporte del día
+                                    </a>
                                     <%
                                         }else{
                                             System.out.println("No se pinta patrón");
@@ -490,7 +490,7 @@
                                     <th></th>
                                     <th style="text-align: right; ">
                                         <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
-                                </th>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -571,39 +571,43 @@
                                                     <input type="hidden" name="id" value="<%= u.getId() %>">
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Nombre 1</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Primer nombre:*</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre1_U" value="<%= u.getNombre1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Nombre 2</label>
-                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" required>
+                                                        <label for="nombreArea<%= u.getId() %>">Segundo nombre: </label>
+                                                        <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" >
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Apellido 1</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido paterno:*</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido1_U" value="<%= u.getApellido1_U() %>" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="nombreArea<%= u.getId() %>">Apellido 2</label>
+                                                        <label for="nombreArea<%= u.getId() %>">Apellido materno:*</label>
                                                         <input type="text" class="form-control" id="nombreArea<%= u.getId() %>" name="apellido2_U" value="<%= u.getApellido2_U() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Correo</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Correo:*</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="correo" value="<%= u.getCorreo() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Telefono</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Telefono:*</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="telefono" value="<%= u.getTelefono() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Contraseña</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Contraseña:*</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="contrasena" value="<%= u.getContrasena() %>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="descripcionArea<%= u.getId() %>">Rol</label>
+                                                        <label for="descripcionArea<%= u.getId() %>">Rol:*</label>
                                                         <input type="text" class="form-control" id="descripcionArea<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
+                                                        <select id="descripcionArea<%= u.getId() %>" name="rol" required>
+                                                            <option value="Almacenista">Almacenista</option>
+                                                            <option value="Administrador">Administrador</option>
+                                                        </select>
                                                     </div>
 
                                                 </form>

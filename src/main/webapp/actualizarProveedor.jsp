@@ -19,6 +19,8 @@
     String apellidoA2 = request.getParameter("apellidoA2");
     String direccionProveedor = request.getParameter("direccion");
     String cp = request.getParameter("cp");
+    String estadoS = request.getParameter("estado");
+    int estado = Integer.parseInt(estadoS);
 
     // Crear un objeto Proveedores y asignar valores
     Proveedores proveedor = new Proveedores();
@@ -36,6 +38,7 @@
     proveedor.setApellido2_Adicional(apellidoA2);
     proveedor.setDireccion(direccionProveedor);
     proveedor.setCodigo_postal(cp);
+    proveedor.setEstado_usu(estado);
 
     // Llamar al DAO para actualizar el proveedor
     ProveedoresDao dao = new ProveedoresDao();

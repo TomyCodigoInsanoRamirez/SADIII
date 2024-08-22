@@ -281,7 +281,7 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
+                               id="acciones">
 
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
@@ -712,9 +712,9 @@
 <!--formulario de registro (add)-->
 <div class="popup-container" id="popup-container">
     <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-    <div style="flex: 1; display: flex; justify-content: center;">
-        <h2 style="text-align:center; margin: 0;" >Registro de Unidad de Medida</h2>
-    </div>
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <h2 style="text-align:center; margin: 0;" >Registro de Unidad de Medida</h2>
+        </div>
         <i class="bi bi-x-circle-fill icon-hover
 " style="color: #df1616; font-size: 3rem;" id="close-br"></i>
     </div>

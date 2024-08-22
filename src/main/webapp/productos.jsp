@@ -557,7 +557,16 @@ else if ("error_producto_existente".equals(message)) {
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="unidadMedida<%= u.getUnidadMedida() %>"> Unidad de medida:</label>
-                                                        <input type="text" class="form-control" id="unidadMedida<%= u.getClaveProducto() %>" name="unidadMedida" value="<%= u.getUnidadMedida() %>" required>
+                                                        <!--<input type="text" class="form-control" id="unidadMedida<%= u.getClaveProducto() %>" name="unidadMedida" value="<%= u.getUnidadMedida() %>" required>-->
+                                                        <select id="unidadMedida<%= u.getClaveProducto() %>" name="unidadMedida">
+                                                            <%
+                                                                for(UnidadMedida uu : unidadMedida){
+                                                            %>
+                                                            <option value="<%=uu.getAbreviacionUndidadMedida()%>"><%=uu.getNombreUnidadMedida()%></option>
+                                                            <%
+                                                                }
+                                                            %>
+                                                        </select>
                                                     </div>
                                                 </form>
                                             </div>

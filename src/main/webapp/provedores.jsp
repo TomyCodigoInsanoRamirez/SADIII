@@ -269,7 +269,7 @@
                                 </a>
                             </div>
                             <a href="#setting-items" data-toggle="collapse" aria-expanded="false"
-                                id="acciones">
+                               id="acciones">
 
                             </a>
                             <div id="setting-items-responsive" class="collapse" data-parent="#sidebar-accordion">
@@ -649,23 +649,35 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rfc<%= u.getRFC() %>">RFC:</label>
-                                                                <input type="text" class="form-control" id="rfc<%= u.getRFC() %>" name="RFC" value="<%= u.getRFC() %>" >
+                                                                <input type="text" class="form-control" id="rfc<%= u.getRFC() %>" name="RFC" value="<%= u.getRFC() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="nombreProveedor1<%= u.getRFC() %>">Primer Nombre Proveedor:</label>
-                                                                <input type="text" class="form-control" id="nombreProveedor1<%= u.getRFC() %>" name="nombreProveedor1" value="<%= u.getNombre1_P() %>" >
+                                                                <input type="text" class="form-control" id="nombreProveedor1<%= u.getRFC() %>" name="nombreProveedor1" value="<%= u.getNombre1_P() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="apellido1<%= u.getRFC() %>">Primer Apellido Proveedor:</label>
-                                                                <input type="text" class="form-control" id="apellido1<%= u.getRFC() %>" name="apellido1" value="<%= u.getApellido1_P() %>" >
+                                                                <input type="text" class="form-control" id="apellido1<%= u.getRFC() %>" name="apellido1" value="<%= u.getApellido1_P() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="nombreA1<%= u.getRFC() %>">Primer Nombre (Contacto Adicional):</label>
-                                                                <input type="text" class="form-control" id="nombreA1<%= u.getRFC() %>" name="nombreA1" value="<%= u.getNombre1_Adicional() %>" >
+                                                                <input type="text" class="form-control" id="nombreA1<%= u.getRFC() %>" name="nombreA1" value="<%= u.getNombre1_Adicional() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="apellido1<%= u.getRFC() %>">Primer Apellido (Contacto Adicional):</label>
-                                                                <input type="text" class="form-control" id="apellido1<%= u.getRFC() %>" name="apellidoA1" value="<%= u.getApellido1_Adicional() %>" >
+                                                                <input type="text" class="form-control" id="apellido1<%= u.getRFC() %>" name="apellidoA1" value="<%= u.getApellido1_Adicional() %>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="cp<%= u.getRFC() %>">Código Postal:</label>
+                                                                <input type="text" class="form-control" id="cp<%= u.getRFC() %>" name="cp" value="<%= u.getCodigo_postal() %>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="direccion<%= u.getRFC() %>">Dirección:</label>
+                                                                <input type="text" class="form-control" id="direccion<%= u.getRFC() %>" name="direccion" value="<%= u.getDireccion() %>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="telefonoP<%= u.getRFC() %>">Telefono de proveedor:</label>
+                                                                <input type="text" class="form-control" id="telefonoP<%= u.getRFC() %>" name="telefonoProveedor" value="<%= u.getTelefono_Adicional() %>" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -675,20 +687,26 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="apellido2<%= u.getRFC() %>">Segundo Apellido Proveedor:</label>
-                                                                <input type="text" class="form-control" id="apellido2<%= u.getRFC() %>" name="apellido2" value="<%= u.getApellido2_P() %>" >
+                                                                <input type="text" class="form-control" id="apellido2<%= u.getRFC() %>" name="apellido2" value="<%= u.getApellido2_P() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="nombreA2<%= u.getRFC() %>">Segundo Nombre (Contacto Adicional):</label>
                                                                 <input type="text" class="form-control" id="nombreA2<%= u.getRFC() %>" name="nombreA2" value="<%= u.getNombre2_Adicional() %>" >
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="telefonoA<%= u.getRFC() %>">Teléfono (Contacto adicional):</label>
-                                                                <input type="text" class="form-control" id="telefonoA<%= u.getRFC() %>" name="telefonoA" value="<%= u.getTelefono_Adicional() %>" >
+                                                                <label for="razon<%= u.getRFC() %>">Razon Social:</label>
+                                                                <input type="text" class="form-control" id="razon<%= u.getRFC() %>" name="razonSocial" value="<%= u.getRazon_social() %>" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="cp<%= u.getRFC() %>">Código Postal:</label>
-                                                                <input type="text" class="form-control" id="cp<%= u.getRFC() %>" name="cp" value="<%= u.getCodigo_postal() %>" >
+                                                                <label for="segundoA<%= u.getRFC() %>">Apellido Materno (Contacto Adicional):</label>
+                                                                <input type="text" class="form-control" id="SegundoA<%= u.getRFC() %>" name="apellidoA2" value="<%= u.getApellido2_Adicional() %>" >
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="telefonoA<%= u.getRFC() %>">Teléfono (Contacto adicional):</label>
+                                                                <input type="text" class="form-control" id="telefonoA<%= u.getRFC() %>" name="telefonoA" value="<%= u.getTelefono_Adicional() %>" required>
+                                                            </div>
+                                                            <input type="hidden" class="form-control" id="estado<%= u.getRFC() %>" name="estado" value="<%= u.getEstado_usu() %>" required>
+
                                                         </div>
                                                     </div>
                                                 </form>
@@ -776,11 +794,11 @@
 <div class="popup-container" id="popup-container">
     <div class="popup-header text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
         <div style="flex: 1; display: flex; justify-content: center;">
-        <h2 style="margin: 0; text-align: center;">Registro de Proveedores</h2>
-    </div>
-    <i class="bi bi-x-circle-fill icon-hover
+            <h2 style="margin: 0; text-align: center;">Registro de Proveedores</h2>
+        </div>
+        <i class="bi bi-x-circle-fill icon-hover
 " style="color: #df1616; font-size: 3rem;" id="close-br"></i>
-</div>
+    </div>
     <form action="RegistrarProveedor" method="post">
         <div class="form-row">
             <div class="col-md-6">
