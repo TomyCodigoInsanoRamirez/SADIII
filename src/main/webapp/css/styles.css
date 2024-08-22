@@ -458,23 +458,8 @@ textarea {
     margin-bottom: 40px;
 }
 
-.derecha {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
 
-.izquierda {
-    width: 50%;
-    padding-right: 20px;
-}
-.izquierda2 {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
+
 input {
     width: 200px;
     height: 30px;
@@ -666,7 +651,7 @@ input {
     background-color: rgba(0,0,0,0.7);
 }
 .contenedorInputsOut {
-    display: block;
+    display: inline-block;
 }
 
 #capa-obscurecer-home{

@@ -90,6 +90,27 @@
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
 
+    .derecha {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: initial
+    }
+
+    .izquierda {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: initial
+
+    }
+    .izquierda2 {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: initial;
+    }
+
 </style>
 <%
     String message = (String) session.getAttribute("message");
@@ -820,7 +841,7 @@
                     <label for="email">Correo</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <div class="form-group" style="font-size: 15px; padding: 8px; width: 100%; box-sizing: border-box;">
+                <div class="form-group" >
                     <label for="role">Rol</label>
                     <select id="role" class="form-control" name="rol" required style="width: 100%; max-width: 100%; box-sizing: border-box;">
                         <option value="Administrador">Administrador</option>

@@ -591,8 +591,9 @@
 
     <form action="AreaServlet" method="post">
         <input type="hidden" name="action" value="agregar">
-        <div class="contenedorInputs" style="display: flex;">
-            <div class="izquierda" style="flex: 1;">
+        <div class="contenedorInputs" >
+
+            <div class="izquierda">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
                     <input type="text" class="form-control" id="claveArea" name="claveArea" required  title="Solo se permiten letras y espacios">
@@ -602,14 +603,15 @@
                     <input type="text" class="form-control" id="nombreArea" name="nombreArea" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
             </div>
-            <div class="derecha" style="flex: 1;">
+
+            <div class="derecha">
                 <div class="form-group">
                     <label for="descripcionArea">Descripción:</label>
                     <input type="text" class="form-control" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
                 </div>
-                <div class="form-group" style="font-size: 15px; padding: 8px; width: 100%; box-sizing: border-box;">
+                <div class="form-group" >
                     <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" class="form-control" name="estadoAr" required style="width: 100%; max-width: 100%; box-sizing: border-box;">
+                    <select id="estadoAr" class="form-control" name="estadoAr" required >
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
