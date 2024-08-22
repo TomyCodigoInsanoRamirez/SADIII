@@ -22,9 +22,62 @@
         .custom-color {
             color: #28a745;
         }
+        .derecha {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: initial
+        }
+
+        .izquierda {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: initial
+
+        }
+        .izquierda2 {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: initial;
+        }
     </style>
+
 </head>
 
+<%
+    String message = (String) session.getAttribute("message");
+    if ("success".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'El usuario se ha registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+    session.removeAttribute("message");
+} else if ("error_usuario_existente".equals(message)) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El producto ya existe en la base de datos.',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+</script>
+<%
+        session.removeAttribute("message");
+    }
+%>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Establecer el estado del slider al cargar la página
@@ -77,6 +130,68 @@
     }
 </script>
 <body>
+<!--Modal que se muesta al slider -->
+
+
+
+<script>
+    function toggleSlider(element) {
+        clikis++;
+        console.log("Si se hace click en el de activar o no")
+        const isChecked = element.checked;
+        const action = isChecked ? 'activar' : 'desactivar';
+        const title = isChecked ? '¿Estás seguro de activar el usuario?' : '¿Estás seguro de desactivar el usuario?';
+        const confirmButtonText = isChecked ? 'Sí, activar!' : 'Sí, desactivar!';
+        const cancelButtonText = isChecked ? 'No, cancelar!' : 'No, cancelar!';
+
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            title: title,
+            text: "Esta acción se puede revertir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false, // Evita cerrar la alerta al hacer clic fuera de ella
+            allowEscapeKey: false, // Evita cerrar la alerta con la tecla Escape
+            allowEnterKey: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                element.previousElementSibling.click();
+                const actionText = isChecked ? 'activado' : 'desactivado'; // Crear el texto en base al estado del checkbox
+                //if(clikis>(document.querySelectorAll(".inn").length)-apagados){element.previousElementSibling.click();}
+                // Aquí puedes realizar la acción adicional como enviar una solicitud al servidor
+
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Revertir el estado del checkbox si el usuario cancela
+                element.checked = !isChecked;
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La acción ha sido cancelada.',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Simular el estado inicial del slider
+        document.querySelectorAll('.inn').forEach(input => {
+            if (input.dataset.estado == 1) {
+                input.checked = true;
+                document.querySelector('.slider').classList.add('active');
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </script><!--Alert para la desactivacion de productos-->
 <%
