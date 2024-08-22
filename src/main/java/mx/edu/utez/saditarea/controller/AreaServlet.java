@@ -25,14 +25,16 @@ public class AreaServlet extends HttpServlet {
             String claveArea = request.getParameter("claveArea");
             String nombreArea = request.getParameter("nombreArea");
             String descripcionArea = request.getParameter("descripcionArea");
-            int estadoAr = Integer.parseInt(request.getParameter("estadoAr"));
 
+            System.out.println("ANTES DE IMPRIMIR EL MENSAJE DESCRIPCIÓN ÁREA");
+            System.out.println(descripcionArea);
+            System.out.println("DESPUES DEEE");
             // Crear un nuevo objeto Areas
             Areas nuevaArea = new Areas();
             nuevaArea.setClaveArea(claveArea);
             nuevaArea.setNombreArea(nombreArea);
             nuevaArea.setDescripcionArea(descripcionArea);
-            nuevaArea.setEstadoAr(estadoAr);
+            nuevaArea.setEstadoAr(1);
             String rutaaa = "";
             // Agregar la nueva área
             //areasDao.save(nuevaArea);

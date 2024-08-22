@@ -846,6 +846,7 @@
                     <select id="role" class="form-control" name="rol" required style="width: 100%; max-width: 100%; box-sizing: border-box;">
                         <option value="Administrador">Administrador</option>
                         <option value="Almacenista">Almacenista</option>
+                        <option value="Almacenista">Almacenista</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -18,7 +18,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="icon" href="img/apple-touch-icon.png" type="image/png">
-
+    <style>
+        .custom-color {
+            color: #28a745;
+        }
+    </style>
 </head>
 
 <script>
@@ -356,14 +360,20 @@
                             </form>
 
                         </div>
-                        <div style="position: relative;">
+                        <div style="position: relative; display: block">
                             <table class="table table-hover tab">
                                 <thead>
                                 <tr>
                                     <th class="todisable2">Clave área</th>
                                     <th>Nombre área</th>
                                     <th class="todisable">Descripción área</th>
-                                    <th>Acciones <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA"></th>
+                                    <th id="columnaAcciones">Acciones </th>
+                                    <th></th>
+                                    <th style="text-align: right; ">
+                                        <i id="agregar-fila" class="bi bi-plus-circle-fill custom-color" style="font-size: 2.5rem;"></i>
+                                    </th>
+                                    <!--<th>
+                                    <img src="img/add-removebg-preview.png" width="90px" id="agregar-filaA"></th>-->
                                 </tr>
                                 </thead>
                                 <tbody id="tabla-body">
@@ -591,9 +601,8 @@
 
     <form action="AreaServlet" method="post">
         <input type="hidden" name="action" value="agregar">
-        <div class="contenedorInputs" >
-
-            <div class="izquierda">
+        <div class="contenedorInputs" style="display: flex;">
+            <div class="izquierda" style="flex: 1;">
                 <div class="form-group">
                     <label for="claveArea">Clave del Área:</label>
                     <input type="text" class="form-control" id="claveArea" name="claveArea" required  title="Solo se permiten letras y espacios">
@@ -602,21 +611,14 @@
                     <label for="nombreArea">Nombre del Área:</label>
                     <input type="text" class="form-control" id="nombreArea" name="nombreArea" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
                 </div>
-            </div>
-
-            <div class="derecha">
                 <div class="form-group">
                     <label for="descripcionArea">Descripción:</label>
-                    <input type="text" class="form-control" id="descripcionArea" name="descripcionArea" placeholder="Opcional">
+                    <textarea class="form-group"  id="descripcionArea" name="descripcionArea" rows="10" cols="50" placeholder="Descripción">
+                 </textarea>
                 </div>
-                <div class="form-group" >
-                    <label for="estadoAr">Estado:</label>
-                    <select id="estadoAr" class="form-control" name="estadoAr" required >
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
-                </div>
+
             </div>
+
         </div>
         <div class="form-buttons" style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">
             <button id="btn-enviar" type="submit" class="btn btn-primary add-btn" style="width: 150px; outline: none;">Agregar</button>
@@ -686,26 +688,13 @@
         }
 
     })
-    document.getElementById("agregar-filaA").addEventListener("click",function (){ /*add*/
-        // alert("si se da clic");
+    document.getElementById("agregar-fila").addEventListener("click", function () {
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
-        let paginador = document.getElementById("pagination");
-        if(pop.style.display === "none"){
-            pop.style.display = "block";
-            capa.style.zIndex = 1;
-            pop.style.zIndex = 2;
-            capa.style.backgroundColor = "rgba(0,0,0,0.7)";
-            paginador.style.position = "absolute";
-            paginador.style.zIndex = -5;
-            window.addEventListener('scroll', noScroll);
-        }else{
-            pop.style.display = "none";
-            todoLoQueEstorba.style.zIndex = 0;
-            paginador.style.position = "absolute";
-            paginador.style.zIndex = 3;
-        }
-    })
+        pop.style.display = "block";
+        capa.style.display = "block";
+        document.body.style.overflow = "hidden"; // Evita el scroll de la página principal
+    });
     document.getElementById("close").addEventListener("click",function (){
         let pop = document.getElementById("popup-container");
         let capa = document.getElementById("capa-obscurecer");
