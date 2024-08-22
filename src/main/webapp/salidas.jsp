@@ -443,7 +443,7 @@
 
 
 <!--formulario de registro (add)-->
-<div class="popup-containerIn" id="popup-container">
+<div class="popup-containerIn2" id="popup-container">
   <div class="popup-header">
     <h2>Registro de Salidas</h2>
     <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem; cursor: pointer;" id="close-br"></i>
@@ -497,6 +497,12 @@
               }
             %>
           </select>
+        </div>
+        <div class="form-group">
+          <input type="hidden" disabled >
+        </div>
+        <div class="form-group">
+          <input type="hidden" disabled >
         </div>
 
       </div>
@@ -572,10 +578,12 @@
 
       </div>
     </div>
+    <br>
     <!--<button type="submit">Agregar</button>-->
     <!--<a href="salidas.jsp">Registrar Salida</a>-->
     <button style="background-color: #306AFE; border-color: #306AFE" id="add-entradaa" type="button" class="btn btn-primary">Agregar salida</button>
-    <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Salida</a>
+    <button style="background-color: green; border-color: green" id="btn-backl" type="button" class="btn btn-primary" onclick="submitForm()">Registrar salida</button>
+
 
   </form>
 </div>

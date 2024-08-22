@@ -90,26 +90,7 @@
         transform: scale(1.2); /* Aumenta el tamaño del icono al pasar el cursor */
     }
 
-    .derecha {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: initial
-    }
 
-    .izquierda {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: initial
-
-    }
-    .izquierda2 {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: initial;
-    }
 
 </style>
 <%
@@ -817,7 +798,7 @@
 
     <form action="usuarioo" method="post" onsubmit="return validateForm()">
         <div class="contenedorInputs">
-            <div class="izquierda">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="nombre1">Nombre</label>
                     <input type="text" class="form-control" id="nombre1" name="nombre1" required pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
@@ -836,7 +817,7 @@
                 </div>
 
             </div>
-            <div class="derecha">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Correo</label>
                     <input type="email" class="form-control" id="email" name="email" required>

@@ -555,7 +555,7 @@
 
 
 <!--formulario de registro (add)-->
-<div class="popup-containerIn" id="popup-container">
+<div class="popup-containerIn2" id="popup-container">
     <div class="popup-header">
         <h2>Registro de Entradas</h2>
         <i class="bi bi-x-circle-fill icon-hover" style="color: #df1616; font-size: 3rem; cursor: pointer;" id="close-br"></i>
@@ -704,9 +704,10 @@
         <!-- <a id="add-desdeEntrada" class="btn-to-actions" href="entradas.jsp"><img src="img/add-removebg-preview.png"width="80px"></a> -->
 
         <!-- <a id="btn-backl" href="regEntrada?data=" class="btn-to-actions">Registrar Entrada</a> -->
-        <button  style="background-color: #306AFE; border-color: #306AFE" id="agregar-fila2" type="button" class="btn btn-primary" >Agregar producto</button>
-        <button style="background-color: #306AFE; border-color: #306AFE" id="add-entradaa" type="button" class="btn btn-primary">Agregar entrada</button>
-        <a id="btn-backl" href="#" class="btn-to-actions" onclick="submitForm()">Registrar Entrada</a>
+        <button  style="background-color: #306AFE; border-color: #306AFE" id="agregar-fila2" type="button" class="btn btn-primary btn-8m" >Agregar producto</button>
+        <button style="background-color: #306AFE; border-color: #306AFE" id="add-entradaa" type="button" class="btn btn-primary btn-8m">Agregar entrada</button>
+        <button style="background-color: green; border-color: green; padding-inline: initial" id="btn-backl" type="button" class="btn btn-primary btn-8m" onclick="submitForm()">Registrar Entrada</button>
+
 
     </form>
 

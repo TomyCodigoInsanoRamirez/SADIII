@@ -22,26 +22,7 @@
         .custom-color {
             color: #28a745;
         }
-        .derecha {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: initial
-        }
 
-        .izquierda {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: initial
-
-        }
-        .izquierda2 {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: initial;
-        }
     </style>
 
 </head>
