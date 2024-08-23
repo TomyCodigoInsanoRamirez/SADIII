@@ -323,7 +323,7 @@
                     <div class="col-md-9 contenedorPrc">
                         <div class="d-flex justify-content-between align-items-center " style="margin: 15px;">
                             <div></div> <!-- Espacio para centrar el formulario de búsqueda a la derecha -->
-                            <form class="d-flex" action="entradas.jsp" method="post">
+                            <form class="d-flex" action="entradas.jsp" method="post" onsubmit="return validarFechas();">
                                 <div class="form-group">
                                     <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
                                     <input type="date" class="form-control" id="fechaInicio" name="desde">
@@ -1415,6 +1415,33 @@
 
 
 
+<!--Funcion de la alerta en registro de fecha -->
+<script>
+    function validarFechas() {
+        const fechaInicio = document.getElementById('fechaInicio').value;
+        const fechaFin = document.getElementById('fechaFin').value;
+        const hoy = new Date().toISOString().split('T')[0];
+        if (fechaInicio === '' || fechaFin === '') {
+            Swal.fire("Por favor, seleccione ambas fechas.");
+            return false;
+        }
+
+        if (fechaInicio > fechaFin) {
+            Swal.fire("La fecha de inicio no puede ser mayor que la fecha de fin.");
+            return false;
+        }
+
+        if (fechaInicio < fechaActual || fechaFin < fechaActual) {
+            Swal.fire("No se pueden seleccionar fechas anteriores al día actual.");
+            return false;
+        }
+
+        return true;
+    }
+
+
+</script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -1431,6 +1458,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>
