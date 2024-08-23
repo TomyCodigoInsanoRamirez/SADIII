@@ -27,31 +27,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 */
-@WebServlet(name = "RegEntradaServlet",value = "/regEntrada")
+@WebServlet(name = "RegEntradaServlet", value = "/regEntrada")
 public class RegEntradaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Obtener la cadena JSON desde el formulario
         String jsonArray = request.getParameter("data");
-        //System.out.println("NUEVO SERVLET");
-        // Convertir la cadena JSON a un array de arrays
         Gson gson = new Gson();
         String[][] arrayOfArrays = gson.fromJson(jsonArray, String[][].class);
         RegistroEntradas regE = new RegistroEntradas();
-        RegistroProductoEntrada regEP = new RegistroProductoEntrada();
         EntradasDao dao = new EntradasDao();
 
         int contador = 1;
         int contadorRegistro = 1;
-       // int contadorrrrr = 0;
         String ruta = "";
-        // Imprimir los elementos en consola
-        /*
-        for(String[] array : arrayOfArrays){
-            for(String item : array){
+
+        for (String[] array : arrayOfArrays) {
+            RegistroProductoEntrada regEP = new RegistroProductoEntrada();
+            contador = 1;
+            for (String item : array) {
                 switch (contador) {
                     case 1:
                         regE.setFolioEntrada(item);
@@ -73,74 +69,12 @@ public class RegEntradaServlet extends HttpServlet {
                         regE.setNumeroFacturaE(item);
                         break;
                     case 7:
-
                         Date fecha = new Date();
                         try {
                             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                             fecha = formatoFecha.parse(item);
                         } catch (ParseException e) {
-                            e.printStackTrace(); // Maneja la excepción aquí, por ejemplo, mostrando un mensaje de error.
-                        }
-                        regE.setFechasEntrada(fecha);
-                        break;
-                    case 8:
-                        regEP.setFkProducto(item);
-                        break;
-                    case 9:
-                        regEP.setCantidad(Integer.parseInt(item));
-                        break;
-                    case 10:
-                        regE.setPrecioTotal(Double.parseDouble(item));
-                        regEP.setPrecioTotalP(Double.parseDouble(item));
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if(contadorRegistro<=1){
-                boolean sehizo = dao.save2(regE);
-                if(sehizo){
-                    //System.out.println("Si se insertaron los datos correctamente, de la entrada");
-                    ruta = "entradas.jsp";
-                }else{
-                    //System.out.println("No se insertaron los datos correctamente, de la entrada");
-                }
-            }
-            contadorRegistro++;
-            dao.save3(regEP);
-            contador++;
-        }*/
-
-        for(String[] array : arrayOfArrays) {
-            for (String item : array) {
-                System.out.println(item);
-                switch (contador){
-                    case 1:
-                        regE.setFolioEntrada(item);
-                        regEP.setFkFolio(item);
-                        break;
-                    case 2:
-                        regE.setFkRFCProveedor(item);
-                        break;
-                    case 3:
-                        regE.setFkEmpleado(item);
-                        break;
-                    case 4:
-                        regEP.setUnidadMedidaE(item);
-                        break;
-                    case 5:
-                        regEP.setPrecioUnitarioProd(Double.parseDouble(item));
-                        break;
-                    case 6:
-                        regE.setNumeroFacturaE(item);
-                        break;
-                    case 7:
-                        Date fecha = new Date();
-                        try {
-                            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                            fecha = formatoFecha.parse(item);
-                        } catch (ParseException e) {
-                            e.printStackTrace(); // Maneja la excepción aquí, por ejemplo, mostrando un mensaje de error.
+                            e.printStackTrace();
                         }
                         regE.setFechasEntrada(fecha);
                         break;
@@ -157,22 +91,19 @@ public class RegEntradaServlet extends HttpServlet {
                 }
                 contador++;
             }
-            if(contadorRegistro<=1){
+
+            if (contadorRegistro == 1) {
                 boolean sehizo = dao.save2(regE);
-                if(sehizo){
-                    //System.out.println("Si se insertaron los datos correctamente, de la entrada");
+                if (sehizo) {
                     ruta = "entradas.jsp";
-                }else{
-                    //System.out.println("No se insertaron los datos correctamente, de la entrada");
+                } else {
                 }
             }
             contadorRegistro++;
-            dao.save3(regEP);
 
+            dao.save3(regEP);
         }
 
         response.sendRedirect(ruta);
-        contador = 0;
     }
-
 }

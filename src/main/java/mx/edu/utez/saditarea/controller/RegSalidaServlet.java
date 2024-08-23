@@ -44,7 +44,7 @@ public class RegSalidaServlet extends HttpServlet {
         Gson gson = new Gson();
         String[][] arrayOfArrays = gson.fromJson(jsonArray, String[][].class);
         registro_salida regS = new registro_salida();
-        RegistroProductoSalida regSP = new RegistroProductoSalida();
+        RegistroProductoSalida regSoP = new RegistroProductoSalida();
         SalidasDao dao = new SalidasDao();
 
         int contador = 1;
@@ -52,6 +52,8 @@ public class RegSalidaServlet extends HttpServlet {
         String ruta = "";
         // Imprimir los elementos en consola
         for (String[] array : arrayOfArrays) {
+            RegistroProductoSalida  regSP = new RegistroProductoSalida();
+            contador = 1;
             for (String item : array) {
                 System.out.println(item);
                 switch (contador){
@@ -93,11 +95,7 @@ public class RegSalidaServlet extends HttpServlet {
                     case 9:
                         regSP.setCantidad(Integer.parseInt(item));
                         break;
-                        /*
-                    case 10:
-                        regS.setPrecioTotal(Double.parseDouble(item));
-                        regEP.setPrecioTotalP(Double.parseDouble(item));
-                        break;*/
+
                 }
                 contador++;
             }

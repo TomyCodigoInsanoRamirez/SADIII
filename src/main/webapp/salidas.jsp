@@ -988,7 +988,6 @@
     return stop;
   }
 
-
   function submitForm() {
     console.log("SI SE LLAMA A LA FUNCIÓN DE SALIDA ENVIAR")
     if(checarDataLista()){
@@ -1016,7 +1015,7 @@
       document.getElementById('data').value = JSON.stringify(arrayOfArrays);
 
       // Enviar el formulario
-      //document.getElementById('form-reg-entrada').submit();
+      document.getElementById('form-reg-entrada').submit();
     }
 
 

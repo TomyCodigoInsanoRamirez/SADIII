@@ -82,8 +82,11 @@
                     <tbody>
                     <%
                         List<RegistroEntradas> entradasList = (List<RegistroEntradas>) request.getAttribute("entradasList");
+                        int contadorMayor1 = 0;
                         if (entradasList != null && !entradasList.isEmpty()) {
                             for (RegistroEntradas entrada : entradasList) {
+
+                                if(contadorMayor1 < 1){
                     %>
                     <tr>
                         <td><%= entrada.getFolioEntrada() %></td>
@@ -94,6 +97,8 @@
                         <td><%= entrada.getFkEmpleado() %></td>
                     </tr>
                     <%
+                        }
+                            contadorMayor1++;
                         }
                     } else {
                     %>
