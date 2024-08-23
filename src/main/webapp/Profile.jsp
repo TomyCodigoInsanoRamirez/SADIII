@@ -18,6 +18,8 @@
 
 </head>
 <body>
+
+
 <div id="capa-obscurecer"></div>
 <div class="d-flex">
     <div class="content w-100">
@@ -62,7 +64,7 @@
 
                                 <div class="profile-buttons mt-3">
                                     <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
-                                    <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editModal<%= u.getId() %>">Editar Información</a>
+                                    <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editModal<%= u.getId() %>" >Editar Información</a>
                                 </div>
 
                             </div>
@@ -101,7 +103,7 @@
             </div>
             <div class="modal-body">
                 <form id="editForm<%= u.getId() %>" action="ActualizarUsuario2Servlet" method="post">
-                    <input type="hidden" name="id" value="<%= u.getId() %>">
+                    <input type="hidden" name="id" value="<%=u.getId()%>">
 
                     <div class="form-group">
                         <label for="nombre1_U<%= u.getId() %>">Nombre 1</label>
@@ -110,7 +112,7 @@
 
                     <div class="form-group">
                         <label for="nombre2_U<%= u.getId() %>">Nombre 2</label>
-                        <input type="text" class="form-control" id="nombre2_U<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" required>
+                        <input type="text" class="form-control" id="nombre2_U<%= u.getId() %>" name="nombre2_U" value="<%= u.getNombre2_U() %>" >
                     </div>
 
                     <div class="form-group">
@@ -140,7 +142,11 @@
 
                     <div class="form-group">
                         <label for="rol<%= u.getId() %>">Rol</label>
-                        <input type="text" class="form-control" id="rol<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
+
+                        <select type="text" class="form-control" id="rol<%= u.getId() %>" name="rol" value="<%= u.getRol() %>" required>
+                            <option value="Almacenista">Almacenista</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
                     </div>
 
                 </form>

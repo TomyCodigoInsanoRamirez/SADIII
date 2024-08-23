@@ -54,6 +54,9 @@ public class UserDao {
                 usuario.setContrasena(rs.getString("contrasena"));
             }
 
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +79,7 @@ public class UserDao {
 
             if (rs.next()) {
                 usuario = new Usuario();
+                usuario.setId(rs.getInt("id_empleado"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
                 usuario.setNombre1_U(rs.getString("nombre1_U"));
@@ -120,7 +124,11 @@ public class UserDao {
                 u.setEstado(rs.getInt("estado"));
 
                 lista.add(u);
+
             }
+            rs.close();
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

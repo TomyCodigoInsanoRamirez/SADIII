@@ -20,6 +20,7 @@
 <%
   UserDao daoUser = new UserDao();
   List<Usuario> userDao= daoUser.getAll2();
+  Usuario usuarioSes = (Usuario) session.getAttribute("usuario");
 
 %>
 <!DOCTYPE html>
@@ -510,23 +511,7 @@
         <!--<button id="close" class="close-btn" >✖</button>-->
         <div class="form-group">
           <label for="empleado_E">Empleado que envía:</label>
-          <select id="empleado_E" name="empleado_S" oninput="updateTable(contadorFilas,folio_EG)">
-
-            <%
-              if (userDao != null) {
-                for (Usuario usuario : userDao) {
-            %>
-            <option title="ID: <%= usuario.getId()%> - Nombre: <%= usuario.getNombre1_U()%>" value="<%= usuario.getId()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
-            <%
-              }
-            }else {
-            %>
-            <option value="">No hay usuarios disponibles</option>
-            <%
-              }
-            %>
-
-          </select>
+          <input type="text" id="empleado_E" readonly  value="<%=usuarioSes.getNombre1_U()+" " + usuarioSes.getApellido2_U()+" " + usuarioSes.getApellido1_U()+" " + usuarioSes.getApellido2_U()%>">
         </div>
         <div class="form-group">
           <label for="area">Área:</label>

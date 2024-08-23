@@ -600,25 +600,7 @@
                     <div class="form-group">
                         <label for="nombreCompletoAlmacenista">Nombre del almacenista : </label>
                         <!--<input id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" data-usuarioSesion="<%=usuarioSes.getId()%>" value="<%=usuarioSes.getId()%>" oninput="updateTable(contadorFilas,folio_EG)" readonly required >-->
-
-
-                        <select id="nombreCompletoAlmacenista" name="nombreCompletoAlmacenista" required oninput="updateTable(contadorFilas,folio_EG)">
-
-                            <%
-                                System.out.println("NOMBRE USUARIO SESION: "+usuarioSes.getNombre1_U());
-                                if (userDao != null) {
-                                    for (Usuario usuario : userDao) {
-                            %>
-                            <option value="<%= usuario.getId()%>" title="ID: <%= usuario.getId()%> - Nombre: <%= usuario.getNombre1_U()%>"><%= usuario.getNombre1_U()%> <%= usuario.getNombre2_U()%> <%= usuario.getApellido1_U()%> <%= usuario.getApellido2_U()%></option>
-                            <%
-                                }
-                            } else {
-                            %>
-                            <option value="">No hay usuarios disponibles</option>
-                            <%
-                                }
-                            %>
-                        </select>
+                        <input type="text" readonly id="nombreCompletoAlmacenista" value="<%=usuarioSes.getNombre1_U()+" " + usuarioSes.getApellido2_U()+" " + usuarioSes.getApellido1_U()+" " + usuarioSes.getApellido2_U()%>">
 
                     </div>
                 </div>
