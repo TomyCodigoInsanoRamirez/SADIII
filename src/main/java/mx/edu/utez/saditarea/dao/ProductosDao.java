@@ -155,7 +155,7 @@ public class ProductosDao {
 
     public double obtenerPrecio(String claveProducto) {
         double precio = 0.0;
-        String query = "SELECT precioUnitario FROM detallesproductos WHERE fk_claveProducto = ?";
+        String query = "SELECT precioUnitario FROM detallesProductos WHERE fk_claveProducto = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
@@ -176,7 +176,7 @@ public class ProductosDao {
         List<RegistroProductoEntrada> productosList = new ArrayList<>();
         String query = "SELECT fk_producto, precio_unitario_prod, precioTotalP, cantidad, unidadMedidaE " +
                 "FROM registro_producto_entrada rp " +
-                "JOIN productos p ON rp.fk_producto = p.claveProducto " +
+                "JOIN Productos p ON rp.fk_producto = p.claveProducto " +
                 "WHERE rp.fk_folio = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();

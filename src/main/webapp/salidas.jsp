@@ -606,50 +606,9 @@
     </tr>
     </thead>
     <tbody id="tbody-table-preview">
-    <!--
-    <tr>
-        <td id="col1">
 
-        </td>
-        <td>
-            Data del dato2
-        </td>
-    </tr>
-    -->
     </tbody>
-    <!--
-    <script>
-        function updateTable() {
-            let contadorr = 1;
-            let datoImprimir;
-            const folio_E = document.getElementById("folio-E").value;
-            const inputP = document.getElementById('nombreCompleto');
-            const Proveedor = inputP.options[inputP.selectedIndex].text;
 
-            const values = [
-                document.getElementById("folio-E").value,
-                (document.getElementById("nombreCompleto")).options[inputP.selectedIndex].text
-                // ... agrega los otros valores aquí
-            ];
-
-            const columns = [
-                document.getElementById("col1"),
-                document.getElementById("col2"),
-                document.getElementById("col3"),
-                document.getElementById("col4"),
-                document.getElementById("col5"),
-                document.getElementById("col6"),
-                document.getElementById("col7"),
-                document.getElementById("col8"),
-                document.getElementById("col9"),
-                document.getElementById("col10")
-            ];
-            columns.forEach((column, index) => {
-                column.value = values[index];
-            });
-        }
-    </script>
-    -->
   </table>
 </div>
 
@@ -685,99 +644,20 @@
       folio_EG = generarCodigo();
     }
     contadorGenerarCodigoNone++;
-    console.log("codigo generado: "+folio_EG);
-
-    // console.log("Codigo generado en la compu "+folio_E);
-    console.log("si hace click añadir entrada");
     if(document.getElementById("previewEntradas").style.display === "block"){
-
-      let folio_S = document.getElementById("folio_S").value = folio_EG;
-      const EmpleadoR = document.getElementById("empleado_R").value;
-      const EmpleadoE = document.getElementById("empleado_E").value;
-      //const proveedorId = document.getElementById('nombreCompleto').value;
-      //const inputP = document.getElementById('nombreCompleto');
-      //const proveedor = inputP.options[inputP.selectedIndex].text;
-      const fecha = document.getElementById("fecha").value;
-      const inputPr = document.getElementById('claveProducto');
-      const productoId = document.getElementById('claveProducto').value;
-      const Producto = inputPr.options[inputPr.selectedIndex].text;
-      const areaIn = document.getElementById("area");
-      const areaId = document.getElementById("area").value;
-      const area = areaIn.options[areaIn.selectedIndex].text;
-      const cantidad = document.getElementById("cantidad_S").value;
-      const umIn = document.getElementById("unidadMedida");
-      const umId = document.getElementById("unidadMedida").value;
-      /*const unidadMedida = umIn.options[umIn.selectedIndex].text;*/
-      const unidadMedida = document.getElementById("unidadMedida").value;
-      const precioU = document.getElementById("precioU").value;
-      /*
-      const inputA = document.getElementById("nombreCompletoAlmacenista");
-      const almacenista = inputA.options[inputA.selectedIndex].text;
-      const unidadMedidaId =  document.getElementById("unit").value;
-      const inputUM =  document.getElementById("unit");
-      //const unidadMedida = inputUM.options[inputUM.selectedIndex].text;
-      const precioUnitario = document.getElementById("unit-price").value;
-      const numeroFaturacion = document.getElementById("billing-number").value;
-
-      const productoId = document.getElementById('product').value;
-
-
-      const total = document.getElementById("total-price").value;
-      */
-      console.log()
-      const input = [
-        document.getElementById("folio-E"),
-        document.getElementById('nombreCompleto'),
-        document.getElementById("nombreCompletoAlmacenista"),
-        document.getElementById("unit"),
-        document.getElementById("unit-price"),
-        document.getElementById("billing-number"),
-        document.getElementById("entry-date"),
-        document.getElementById('product'),
-        document.getElementById("quantity"),
-        document.getElementById("total-price")
-      ]
-
-      const valoresInput = [
-        folio_S,
-        EmpleadoR,
-        EmpleadoE,
-        fecha,
-        Producto,
-        area,
-        cantidad,
-        unidadMedida,
-        precioU
-      ]
-      let totaLRegistro = 0;
-      const valoresInputParaBD = [
-        folio_S,
-        EmpleadoR,
-        EmpleadoE,
-        fecha,
-        productoId,
-        umId,
-        precioU,
-        areaId,
-        cantidad /*talves debas agregar un espacio blanco ""*/
-      ]
-
-      console.log("------------------------------------------------------------------------------------------------")
-      console.log("ECHALEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-      valoresInputParaBD.forEach(col =>{
-        console.log(col)
-      })
-      let stop = false;
-      stop = valoresInput.some(val => {
-
-        //console.log("El valor del valor es: "+val)
-        if(val == null || val === '' || val === ""){
-          // alert("DEBES TERMINAR DE RESGISTRAR ESTA ENTRADA")
-
-          $('#customAlertModal2').modal('show');
-          return true; // Detiene la iteración cuando se cumple la condición
-        }
-        return false;
+        let totaLRegistro = 0;
+        dataParaBD().forEach(col =>{
+          console.log(col)
+        })
+        let stop = false;
+        stop = dataInput().some(val => {
+          //console.log("El valor del valor es: "+val)
+          if(val == null || val === '' || val === ""){
+            // alert("DEBES TERMINAR DE RESGISTRAR ESTA ENTRADA")
+            $('#customAlertModal2').modal('show');
+            return true; // Detiene la iteración cuando se cumple la condición
+          }
+          return false;
       });
       //console.log("Se detuvo: "+stop);
       if(stop === false){
@@ -793,18 +673,12 @@
         }
         tbody.appendChild(tr);
 
-        valoresInputParaBD.forEach((element)=>{
+        dataParaBD().forEach((element)=>{
           registro.push(element) ;
         });
         conjuntoRegistros.push(registro);
+        registro = [];
 
-
-
-        /*
-        input.forEach((elemento) =>{
-            elemento.value = "llene este campo...";
-        })
-        */
       }
     }else{
       document.getElementById("previewEntradas").style.display = "block";
@@ -823,24 +697,10 @@
       tbody.appendChild(tr);
     }
 
-    //console.log("Conteo de filas:"+contadorFilas);
-    console.log("AHORAAAAAA SIIIIIIIIIIII")
-    for(let i = 0; i < conjuntoRegistros.length; i++){
-      for(j = 0; j<registro.length;j++){
-        console.log("REGISTRO "+i+" Valor: "+registro[j]);
-      }
-    }
 
-    //return folio_EG;
-    console.log("FOLIO ANTES DE ENVIARLO A UPDATE TABLE "+folio_EG)
     updateTable(contadorFilas,folio_EG);
   })
   function updateTable(cont,folio) {
-    console.log("-------------------------------------------------------------------------------------------------------------------")
-    console.log("SI HACE CLICK A SALIDAS UPDATE TABLE")
-    console.log("-------------------------------------------------------------------------------------------------------------------")
-    console.log("LO QUE CUANTA LOS REGISTROS ES"+cont);
-    console.log("Folio recibido: "+folio)
     let columns = [];
     //let contadorr = 1;
     let datoImprimir;
@@ -870,15 +730,12 @@
     const precioU = document.getElementById("precioU").value;
 
     if(cont > 0){
-      //console.log("YA SE ANDA CON LOS DE 11-20");
-      console.log("colums antes de limpiar: "+columns);
       columns = [];
-      console.log("colums despues de limpiar: "+columns)
       for (let i = 1; i <= 9; i++) {
         console.log("col" + (contador * 9 + i))
         columns.push(document.getElementById("col" + (cont * 9 + i)));
       }
-      console.log("columns ahora: "+columns)
+
     }else{
       //console.log("ANDAN CON LOS DE 1-10");
       for (let i = 1; i <= 9; i++) {
@@ -930,7 +787,6 @@
 
           break;
         default:
-          console.log("Nadie recibio pibito");
           break;
       }
       column.innerText = datoImprimir;
@@ -938,6 +794,70 @@
     //console.log("EL CONTADOR DE UPDATE TABLE: "+contadorr)
     //contadorr++;
   }
+
+  function dataInput(){
+    let folio_S = document.getElementById("folio_S").value = folio_EG;
+    const EmpleadoR = document.getElementById("empleado_R").value;
+    const EmpleadoE = document.getElementById("empleado_E").value;
+    const fecha = document.getElementById("fecha").value;
+    const inputPr = document.getElementById('claveProducto');
+    const productoId = document.getElementById('claveProducto').value;
+    const Producto = inputPr.options[inputPr.selectedIndex].text;
+    const areaIn = document.getElementById("area");
+    const areaId = document.getElementById("area").value;
+    const area = areaIn.options[areaIn.selectedIndex].text;
+    const cantidad = document.getElementById("cantidad_S").value;
+    const umIn = document.getElementById("unidadMedida");
+    const umId = document.getElementById("unidadMedida").value;
+    const unidadMedida = document.getElementById("unidadMedida").value;
+    const precioU = document.getElementById("precioU").value;
+
+    const valoresInput = [
+      folio_S,
+      EmpleadoR,
+      EmpleadoE,
+      fecha,
+      Producto,
+      area,
+      cantidad,
+      unidadMedida,
+      precioU];
+    return valoresInput;
+  }
+
+  function dataParaBD(){
+    let folio_S = document.getElementById("folio_S").value = folio_EG;
+    const EmpleadoR = document.getElementById("empleado_R").value;
+    const EmpleadoE = document.getElementById("empleado_E").value;
+    const fecha = document.getElementById("fecha").value;
+    const inputPr = document.getElementById('claveProducto');
+    const productoId = document.getElementById('claveProducto').value;
+    const Producto = inputPr.options[inputPr.selectedIndex].text;
+    const areaIn = document.getElementById("area");
+    const areaId = document.getElementById("area").value;
+    const area = areaIn.options[areaIn.selectedIndex].text;
+    const cantidad = document.getElementById("cantidad_S").value;
+    const umIn = document.getElementById("unidadMedida");
+    const umId = document.getElementById("unidadMedida").value;
+    const unidadMedida = document.getElementById("unidadMedida").value;
+    const precioU = document.getElementById("precioU").value;
+
+    const valoresInputParaBD = [
+      folio_S,
+      EmpleadoR,
+      EmpleadoE,
+      fecha,
+      productoId,
+      umId,
+      precioU,
+      areaId,
+      cantidad
+    ]
+
+    return valoresInputParaBD;
+  }
+
+
 
 
   elemento.addEventListener("click", function () {
@@ -1077,8 +997,14 @@
       });
       //alert("NO PUEDES REGISTRAR UNA ENTRADA INCOMPLETA");
     }else{
-      add_entradas.click();
+      dataParaBD().forEach((element)=>{
+        registro.push(element) ;
+      });
+      conjuntoRegistros.push(registro);
+      registro = [];
+      //add_entradas.click();
       let arrayOfArrays = conjuntoRegistros;
+
 
       console.log("DATOS FICTICIOS")
       for(let i = 0; i<arrayOfArrays.length;i++){
@@ -1086,16 +1012,16 @@
           console.log("Registro "+i+" Dato "+arrayOfArrays[i][j]);
         }
       }
-
-      // Convertir el arreglo de arreglos a JSON
+      console.log(conjuntoRegistros);
       document.getElementById('data').value = JSON.stringify(arrayOfArrays);
 
       // Enviar el formulario
-      document.getElementById('form-reg-entrada').submit();
+      //document.getElementById('form-reg-entrada').submit();
     }
 
 
   }
+  /*
   function submitForm() {
     console.log("SI SE LLAMA A LA FUNCIÓN DE SALIDA ENVIAR")
     if(checarDataLista()){
@@ -1122,7 +1048,7 @@
     }
 
 
-  }
+  }*/
   document.addEventListener('DOMContentLoaded', function() {
     // Cerrar el popup al hacer clic en el ícono de cierre
     document.getElementById('close-br').addEventListener('click', function() {
@@ -1143,7 +1069,7 @@
     }
 
     // Asignar la función de cancelar al botón correspondiente
-    document.getElementById('btn-backl').addEventListener('click', submitForm);
+    //document.getElementById('btn-backl').addEventListener('click', submitForm);
   });
   document.getElementById('close-br').addEventListener('click', function() {
     var popup = document.getElementById('popup-container');

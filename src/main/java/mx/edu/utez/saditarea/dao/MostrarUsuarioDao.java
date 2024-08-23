@@ -14,7 +14,7 @@ public class MostrarUsuarioDao {
 
     public List<Usuario> getAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        String query = "SELECT idUsuario, correo, nombre1_U FROM usuarios";
+        String query = "SELECT id_empleado, correo, nombre1_U FROM Usuarios";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
@@ -22,7 +22,7 @@ public class MostrarUsuarioDao {
 
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setId(rs.getInt("idUsuario"));
+                usuario.setId(rs.getInt("id_empleado"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setNombre1_U(rs.getString("nombre1_U"));
 

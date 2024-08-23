@@ -808,77 +808,20 @@
 
     let contadorGenerarCodigoNone = 0;
     let contadorGenerarCodigoBlock = 0;
+    let multiplo = -1;
+    let stop = false;
     add_entradas.addEventListener("click",function (){
+        multiplo++;
         if(contadorGenerarCodigoNone < 1){
             folio_EG = generarCodigo();
         }
+
         contadorGenerarCodigoNone++;
-
         // console.log("Codigo generado en la compu "+folio_E);
-        console.log("si hace click añadir entrada");
+        //console.log("si hace click añadir entrada");
         if(document.getElementById("previewEntradas").style.display === "block"){
-
-            let folio_E = document.getElementById("folio-E").value = folio_EG;
-            const proveedorId = document.getElementById('nombreCompleto').value;
-            const inputP = document.getElementById('nombreCompleto');
-            const proveedor = inputP.options[inputP.selectedIndex].text;
-            const almacenistaId = document.getElementById("nombreCompletoAlmacenista").value;
-            const inputA = document.getElementById("nombreCompletoAlmacenista");
-            const almacenista = inputA.options[inputA.selectedIndex].text;
-            const unidadMedidaId =  document.getElementById("unit").value;
-            const unidadMedida =  document.getElementById("unit").value;
-            /*const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
-            const precioUnitario = document.getElementById("unit-price").value;
-            const numeroFaturacion = document.getElementById("billing-number").value;
-            const fecha = document.getElementById("entry-date").value;
-            const productoId = document.getElementById('product').value;
-            const inputPr = document.getElementById('product');
-            const Producto = inputPr.options[inputPr.selectedIndex].text;
-            const cantidad = document.getElementById("quantity").value;
-            const total = document.getElementById("total-price").value;
-            console.log()
-            const input = [
-                document.getElementById("folio-E"),
-                document.getElementById('nombreCompleto'),
-                document.getElementById("nombreCompletoAlmacenista"),
-                document.getElementById("unit"),
-                document.getElementById("unit-price"),
-                document.getElementById("billing-number"),
-                document.getElementById("entry-date"),
-                document.getElementById('product'),
-                document.getElementById("quantity"),
-                document.getElementById("total-price")
-            ]
-
-            const valoresInput = [
-                folio_E,
-                proveedor,
-                almacenista,
-                unidadMedida,
-                precioUnitario,
-                numeroFaturacion,
-                fecha,
-                Producto,
-                cantidad,
-                total
-            ]
-            let totaLRegistro = 0;
-            const valoresInputParaBD = [
-                folio_E,
-                proveedorId,
-                almacenistaId,
-                unidadMedidaId,
-                precioUnitario,
-                numeroFaturacion,
-                fecha,
-                productoId,
-                cantidad,
-                (precioUnitario * cantidad)
-            ]
-
-            let stop = false;
-            stop = valoresInput.some(val => {
-                //console.log("El valor del valor es: "+val)
+            const valores = dataInput();
+            stop = valores.some(val => {
                 if(val == null || val === '' || val === ""){
                     // alert("DEBES TERMINAR DE RESGISTRAR ESTA ENTRADA")
                     $('#customAlertModal2').modal('show');
@@ -888,61 +831,48 @@
             });
             //console.log("Se detuvo: "+stop);
             if(stop === false){
+                console.log("----------------despues de segunda vez----------------")
                 contadorFilas++;
+                hacerFila(multiplo);
 
-                const tbody = document.getElementById("tbody-table-preview");
-                let tr = document.createElement("tr");
-                console.log("Ya debieron emezar a crearce mas de 10");
-                for(let i = (contadorFilas * 10); i<(contadorFilas*10+10);i++){
-                    const td = document.createElement("td");
-                    td.id = "col" + (i + 1);
-                    tr.appendChild(td);
-                }
-                tbody.appendChild(tr);
-
-                valoresInputParaBD.forEach((element)=>{
-                    registro.push(element) ;
+                dataBD().forEach((element)=>{
+                    console.log(element);
+                    registro.push(element);
                 });
+
                 conjuntoRegistros.push(registro);
+                console.log(conjuntoRegistros);
+                registro = [];
+                /*for(let z=0;z<=(conjuntoRegistros.length);z++){
+                    for(let t = 0; t<(conjuntoRegistros[z]);t++){
+                        console.log("Registro "+(z+1)+" Dato "+conjuntoRegistros[z].value);
+                    }
+                }*/
 
-
-
-                /*
-                input.forEach((elemento) =>{
-                    elemento.value = "llene este campo...";
-                })
-                */
             }
         }else{
+            console.log("Es la primera vez que agregas una entrada")
             document.getElementById("previewEntradas").style.display = "block";
-            const tbody = document.getElementById("tbody-table-preview");
-            let tr = document.createElement("tr");
-            for(let i = 0; i<10;i++){
-                const td = document.createElement("td");
-                td.id = "col" + (i + 1);
-                if(((i+1)>=4 && (i+1)<= 5) || (i+1) == 7 || (i+1) ==9){
-                    td.className = "todisable";
-                }else if((i+1)==3 || (i+1)==6){
-                    td.className = "todisable2";
-                }
-                tr.appendChild(td);
-            }
-            tbody.appendChild(tr);
+            //console.log("Valor del multiplo: "+multiplo);
+            hacerFila(multiplo);
+            //console.log("SE ESTA CREANDO LA FILA CON L AFUNCIÓN")
+            updateTable(contadorFilas,folio_EG)
         }
 
         //console.log("Conteo de filas:"+contadorFilas);
-        console.log("AHORAAAAAA SIIIIIIIIIIII")
-        for(let i = 0; i < conjuntoRegistros.length; i++){
+        //console.log("AHORAAAAAA SIIIIIIIIIIII")
+        /*for(let i = 0; i < conjuntoRegistros.length; i++){
             for(j = 0; j<registro.length;j++){
                 console.log("REGISTRO "+i+" Valor: "+registro[j]);
             }
-        }
+        }*/
 
         //return folio_EG;
         updateTable(contadorFilas,folio_EG);
     })
+
     function updateTable(cont,folio) {
-        console.log("LO QUE CUANTA LOS REGISTROS ES"+cont);
+        //console.log("LO QUE CUANTA LOS REGISTROS ES"+cont);
         let columns = [];
         //let contadorr = 1;
         let datoImprimir;
@@ -968,9 +898,9 @@
 
         if(cont > 0){
             //console.log("YA SE ANDA CON LOS DE 11-20");
-            console.log("colums antes de limpiar: "+columns);
+            //console.log("colums antes de limpiar: "+columns);
             columns = [];
-            console.log("colums despues de limpiar: "+columns)
+            //console.log("colums despues de limpiar: "+columns)
             for (let i = 1; i <= 10; i++) {
                 console.log("col" + (contador * 10 + i))
                 columns.push(document.getElementById("col" + (cont * 10 + i)));
@@ -1024,13 +954,13 @@
                     break;
                 case columns[9].id:
                     datoImprimir = cantidad*precioUnitario;
-                    console.log("Cantidad:"+cantidad);
-                    console.log("Precio: "+precioUnitario)
-                    console.log("Total: "+datoImprimir);
+                    //console.log("Cantidad:"+cantidad);
+                    //console.log("Precio: "+precioUnitario)
+                    //console.log("Total: "+datoImprimir);
                     //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
                     break;
                 default:
-                    console.log("Nadie recibio pibito");
+                    //console.log("Nadie recibio pibito");
                     break;
             }
             column.innerText = datoImprimir;
@@ -1039,11 +969,97 @@
         //contadorr++;
     }
 
-    function hacerFila(){
+    /*function hacerFila(){
         let tr = document.createElement("tr");
         for(let i = 0; i<10;i++){
             const td = document.createElement("td");
             td.id = "col" + (i + 1);
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }*/
+
+    function dataInput(){
+        let folio_E = document.getElementById("folio-E").value = folio_EG;
+        const proveedorId = document.getElementById('nombreCompleto').value;
+        const inputP = document.getElementById('nombreCompleto');
+        const proveedor = inputP.options[inputP.selectedIndex].text;
+        const almacenistaId = document.getElementById("nombreCompletoAlmacenista").value;
+        const inputA = document.getElementById("nombreCompletoAlmacenista");
+        const almacenista = inputA.options[inputA.selectedIndex].text;
+        const unidadMedidaId =  document.getElementById("unit").value;
+        const unidadMedida =  document.getElementById("unit").value;
+        /*const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
+        const precioUnitario = document.getElementById("unit-price").value;
+        const numeroFaturacion = document.getElementById("billing-number").value;
+        const fecha = document.getElementById("entry-date").value;
+        const productoId = document.getElementById('product').value;
+        const inputPr = document.getElementById('product');
+        const Producto = inputPr.options[inputPr.selectedIndex].text;
+        const cantidad = document.getElementById("quantity").value;
+        const total = document.getElementById("total-price").value;
+
+        const valoresInput = [
+            folio_E,
+            proveedor,
+            almacenista,
+            unidadMedida,
+            precioUnitario,
+            numeroFaturacion,
+            fecha,
+            Producto,
+            cantidad,
+            total
+        ]
+        return valoresInput;
+    }
+
+    function dataBD(){
+        let folio_E = document.getElementById("folio-E").value = folio_EG;
+        const proveedorId = document.getElementById('nombreCompleto').value;
+        const inputP = document.getElementById('nombreCompleto');
+        const proveedor = inputP.options[inputP.selectedIndex].text;
+        const almacenistaId = document.getElementById("nombreCompletoAlmacenista").value;
+        const inputA = document.getElementById("nombreCompletoAlmacenista");
+        const almacenista = inputA.options[inputA.selectedIndex].text;
+        const unidadMedidaId =  document.getElementById("unit").value;
+        const unidadMedida =  document.getElementById("unit").value;
+        /*const unidadMedida = inputUM.options[inputUM.selectedIndex].text;*/
+        const precioUnitario = document.getElementById("unit-price").value;
+        const numeroFaturacion = document.getElementById("billing-number").value;
+        const fecha = document.getElementById("entry-date").value;
+        const productoId = document.getElementById('product').value;
+        const inputPr = document.getElementById('product');
+        const Producto = inputPr.options[inputPr.selectedIndex].text;
+        const cantidad = document.getElementById("quantity").value;
+        const total = document.getElementById("total-price").value;
+
+        const valoresInputParaBD = [
+            folio_E,
+            proveedorId,
+            almacenistaId,
+            unidadMedidaId,
+            precioUnitario,
+            numeroFaturacion,
+            fecha,
+            productoId,
+            cantidad,
+            (precioUnitario * cantidad)
+        ]
+        return valoresInputParaBD;
+    }
+
+    function hacerFila(multiplo){
+        const tbody = document.getElementById("tbody-table-preview");
+        let tr = document.createElement("tr");
+        for(let i = (multiplo*10); i<((multiplo+1)*10);i++){
+            const td = document.createElement("td");
+            td.id = "col" + (i + 1);
+            if(((i+1)>=4 && (i+1)<= 5) || (i+1) == 7 || (i+1) ==9){
+                td.className = "todisable";
+            }else if((i+1)==3 || (i+1)==6){
+                td.className = "todisable2";
+            }
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
@@ -1233,25 +1249,29 @@
 
 
     function submitForm() {
-        console.log("SI SE LLAMA A LA FUNCIÓN DE SALIDA ENVIAR")
+        //console.log("SI SE LLAMA A LA FUNCIÓN DE SALIDA ENVIAR")
         if(checarDataLista()){
             $(document).ready(function() {
                 $('#customAlertModal').modal('show');
             });
             //alert("NO PUEDES REGISTRAR UNA ENTRADA INCOMPLETA");
         }else{
-            add_entradas.click();
-            let arrayOfArrays = conjuntoRegistros;
-
-            console.log("DATOS FICTICIOS")
-            for(let i = 0; i<arrayOfArrays.length;i++){
-                for (j=0;j<2;j++){
-                    console.log("Registro "+i+" Dato "+j);
+            //add_entradas.click();
+            dataBD().forEach((element)=>{
+                registro.push(element) ;
+            });
+            conjuntoRegistros.push(registro);/*
+            console.log("------------------------------DATOS A ENVIARSE-------------------------------")
+            for(let z=0;z<=(conjuntoRegistros.length);z++){
+                for(let t = 0; t<(conjuntoRegistros[z]);t++){
+                    console.log("Registro "+(z+1)+" Dato "+conjuntoRegistros[z].value);
                 }
-            }
+            }*/
+            let arrayOfArrays = conjuntoRegistros;
 
             // Convertir el arreglo de arreglos a JSON
             document.getElementById('data').value = JSON.stringify(arrayOfArrays);
+            console.log(arrayOfArrays)
 
             // Enviar el formulario
             document.getElementById('form-reg-entrada').submit();
@@ -1279,7 +1299,7 @@
         }
 
         // Asignar la función de cancelar al botón correspondiente
-        document.getElementById('btn-backl').addEventListener('click', submitForm);
+        //document.getElementById('btn-backl').addEventListener('click', submitForm);
     });
     document.getElementById('close-br').addEventListener('click', function() {
         var popup = document.getElementById('popup-container');

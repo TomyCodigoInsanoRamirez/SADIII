@@ -34,7 +34,7 @@ public class UserDao {
 
     public Usuario getUsuarioById(int id_empleado) {
         Usuario usuario = null;
-        String query = "SELECT id_empleado, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena FROM Usuarios WHERE idUsuario = ?";
+        String query = "SELECT id_empleado, correo, nombre1_U, apellido1_U, nombre2_U, apellido2_U, telefono, contrasena FROM Usuarios WHERE id_empleado = ?";
 
         try (Connection conn = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -65,7 +65,7 @@ public class UserDao {
 
     public Usuario getOne(String correo, String contrasena) {
         Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
+        String sql = "SELECT * FROM Usuarios WHERE correo = ? AND contrasena = ?";
         try {
             // Conexión y consulta a la base de datos
             Connection con = DatabaseConnectionManager.getConnection();// obtener conexión
@@ -101,13 +101,13 @@ public class UserDao {
     // Obtener todos los usuarios
     public ArrayList<Usuario> getAll() {
         ArrayList<Usuario> lista = new ArrayList<>();
-        String query = "SELECT * FROM usuarios";
+        String query = "SELECT * FROM Usuarios";
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setId(rs.getInt("id_Empleado"));
+                u.setId(rs.getInt("id_empleado"));
                 u.setNombre1_U(rs.getString("nombre1_U"));
                 u.setNombre2_U(rs.getString("nombre2_U"));
                 u.setApellido1_U(rs.getString("apellido1_U"));
@@ -130,7 +130,7 @@ public class UserDao {
 
     public ArrayList<Usuario> getAll2() {
         ArrayList<Usuario> lista = new ArrayList<>();
-        String query = "SELECT * FROM usuarios WHERE rol = 'almacenista' AND estado = '1'";
+        String query = "SELECT * FROM Usuarios WHERE rol = 'almacenista' AND estado = '1'";
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
@@ -159,7 +159,7 @@ public class UserDao {
     // Obtener un usuario por ID
     public Usuario getById(String id) {
         Usuario u = null;
-        String query = "SELECT * FROM usuarios WHERE id_empleado = ?";
+        String query = "SELECT * FROM Usuarios WHERE id_empleado = ?";
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, id);
@@ -213,7 +213,7 @@ public class UserDao {
 
     public ArrayList<Usuario> buscarUsuariosPorNombre(String nombre) {
         ArrayList<Usuario> lista = new ArrayList<>();
-        String query = "SELECT * FROM usuarios WHERE nombre1_U LIKE ? OR nombre2_U LIKE ?";
+        String query = "SELECT * FROM Usuarios WHERE nombre1_U LIKE ? OR nombre2_U LIKE ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -249,7 +249,7 @@ public class UserDao {
 
     // Actualizar la contraseña del usuario
     public void updatePassword(String id, String nuevaContrasena) {
-        String query = "UPDATE usuarios SET contrasena = ? WHERE id_empleado = ?";
+        String query = "UPDATE Usuarios SET contrasena = ? WHERE id_empleado = ?";
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, nuevaContrasena);
@@ -261,7 +261,7 @@ public class UserDao {
     }
     public boolean updateOn(String id){
         boolean flag = false;
-        String query = "update usuarios set estado = 1 where id_empleado=?";
+        String query = "update Usuarios set estado = 1 where id_empleado=?";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -277,7 +277,7 @@ public class UserDao {
     }
     public boolean updateOf(String id){
         boolean flag = false;
-        String query = "update usuarios set estado = 0 where id_empleado=?";
+        String query = "update Usuarios set estado = 0 where id_empleado=?";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -294,7 +294,7 @@ public class UserDao {
 
     public boolean insert(Usuario usuario){
         boolean flag = false;
-        String query = "insert into usuarios (correo,nombre1_U,nombre2_U,apellido1_U,apellido2_U,telefono_U,contrasena,rol,estado) values (?,?,?,?,?,?,?,?,1)";
+        String query = "insert into Usuarios (correo,nombre1_U,nombre2_U,apellido1_U,apellido2_U,telefono_U,contrasena,rol,estado) values (?,?,?,?,?,?,?,?,1)";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -320,7 +320,7 @@ public class UserDao {
 
     public String getName(int id ) {
         Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM usuarios WHERE id_empleado = ?";
+        String sql = "SELECT * FROM Usuarios WHERE id_empleado = ?";
         try {
             // Conexión y consulta a la base de datos
             Connection con = DatabaseConnectionManager.getConnection();// obtener conexión

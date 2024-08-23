@@ -35,7 +35,7 @@ public class UnidadMedidaDao {
     // Método para actualizar una unidad de medida
     public boolean update(UnidadMedida unidadMedida) {
         boolean rowUpdated = false;
-        String query = "UPDATE Unidad_Medida SET nombreUnidadMedida = ? WHERE abreviacionUnidadMedida = ?";
+        String query = "UPDATE Unidad_Medida SET nombreUnidadMeidida = ? WHERE abreviacionUnidadMedida = ?";
 
 
         try (Connection con = DatabaseConnectionManager.getConnection();

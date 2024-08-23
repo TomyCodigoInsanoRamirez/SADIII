@@ -148,7 +148,7 @@ public class SalidasDao {
                 String folio_E = rs.getString("folio_Entrada");
                 String numero_Factura = rs.getString("numero_factura_e");
 
-                java.util.Date fechaaa = rs.getDate("Fechas_entrada");
+                java.util.Date fechaaa = rs.getDate("fechas_entrada");
                 /*
                 String fecha = fechaaa.toString();
                 float precioUnitario = rs.getFloat("precio_unitario");
