@@ -283,7 +283,7 @@
                               </button>
                             </form>
                             -->
-                            <form class="d-flex" action="salidas.jsp" method="post">
+                            <form class="d-flex" action="salidas.jsp" method="post" onsubmit="return validarFechas();">
                                 <div class="form-group">
                                     <%--@declare id="desde"--%><label for="Desde">Desde el dia:</label>
                                     <input type="date" class="form-control" id="fechaInicio" name="desde">
@@ -327,7 +327,6 @@
                                     <th>Precio</th>
                                     <th> Unidad Medida</th>
                                     <th>Cantidad</th>
-                                    <th id="columnaAcciones">Acciones</th>
                                     <!--
                                     <th id="columnaAcciones">Acciones        <button id="agregar-fila" type="button" class="btn add-button">
                                         <i class="bi bi-plus-circle-fill custom-color"></i>
@@ -357,9 +356,6 @@
                                     <td><%=u.getPrecioUnitario()%></td>
                                     <td><%=u.getFk_unidadMedidaP()%></td>
                                     <td><%=u.getCantidad()%></td>
-                                    <td>  <a href="#" class="acc" data-toggle="modal" data-target="#viewModal<%= u.getClaveProducto() %>">
-                                        <img class="act" src="img/visibility_24dp.png">
-                                    </a></td>
                                     <!--<td><a><a href="visualizar.jsp" style="margin:10px"><i class="bi bi-eye-fill" style="font-size: 2rem; color: rgb(77, 53, 42);"></i></a>-Eleminar></a></td>
                                     <td id="acc" class="acc"><a href="visualizar.jsp"class="acc"><img class="act" src="img/visibility_24dp.png" ></a></td>-->
 
@@ -1122,6 +1118,31 @@
         </div>
     </div>
 </div>
+<script>
+    function validarFechas() {
+        const fechaInicio = document.getElementById('fechaInicio').value;
+        const fechaFin = document.getElementById('fechaFin').value;
+        const hoy = new Date().toISOString().split('T')[0];
+        if (fechaInicio === '' || fechaFin === '') {
+            Swal.fire("Por favor, seleccione ambas fechas.");
+            return false;
+        }
+
+        if (fechaInicio > fechaFin) {
+            Swal.fire("La fecha de inicio no puede ser mayor que la fecha de fin.");
+            return false;
+        }
+
+        if (fechaInicio < fechaActual || fechaFin < fechaActual) {
+            Swal.fire("No se pueden seleccionar fechas anteriores al día actual.");
+            return false;
+        }
+
+        return true;
+    }
+
+
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -1137,6 +1158,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>
