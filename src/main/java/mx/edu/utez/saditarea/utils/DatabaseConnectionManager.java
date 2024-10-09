@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DatabaseConnectionManager {
-    private static final String JDBC_URL = "jdbc:mysql://sadii.c20khejvib11.us-east-1.rds.amazonaws.com:3306/SADI";
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "estudi4nteut3z";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/SADI";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
 
     private static final HikariConfig config = new HikariConfig();
     private static final HikariDataSource dataSource;
